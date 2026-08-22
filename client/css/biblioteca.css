@@ -1,0 +1,625 @@
+/* =====================================
+   COMICVERSE AI
+   BIBLIOTECA
+   ===================================== */
+
+
+/* =====================================
+   CONTENEDOR PRINCIPAL
+   ===================================== */
+
+.biblioteca {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 50px 30px 80px;
+    box-sizing: border-box;
+}
+
+
+/* =====================================
+   ENCABEZADO
+   ===================================== */
+
+.biblioteca-header {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+
+.biblioteca-header h1 {
+    margin: 0 0 12px;
+    font-size: 42px;
+    font-weight: 800;
+}
+
+
+.biblioteca-header p {
+    margin: 0 0 30px;
+    color: #cbd5e1;
+    font-size: 17px;
+}
+
+
+/* =====================================
+   BUSCADOR
+   ===================================== */
+
+.buscador {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto 25px;
+
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+
+.buscador input {
+    flex: 1;
+
+    min-width: 0;
+
+    height: 52px;
+
+    padding: 0 20px;
+
+    border: 1px solid #334155;
+    border-radius: 14px;
+
+    background: #0f172a;
+    color: white;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+
+    outline: none;
+}
+
+
+.buscador input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, .15);
+}
+
+
+.buscador input::placeholder {
+    color: #94a3b8;
+}
+
+
+/* =====================================
+   BOTÓN BUSCAR
+   ===================================== */
+
+.btn-buscar {
+    height: 52px;
+
+    padding: 0 25px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: linear-gradient(
+        90deg,
+        #3b82f6,
+        #8b5cf6
+    );
+
+    color: white;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+
+.btn-buscar:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(99, 102, 241, .3);
+}
+
+
+/* =====================================
+   FILTROS
+   ===================================== */
+
+.filtros {
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+}
+
+
+.filtro {
+    border: 1px solid #334155;
+
+    background: #1e293b;
+
+    color: #e2e8f0;
+
+    padding: 10px 20px;
+
+    border-radius: 30px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+
+.filtro:hover {
+    transform: translateY(-2px);
+
+    background: #334155;
+}
+
+
+.filtro.activo {
+    background: linear-gradient(
+        90deg,
+        #3b82f6,
+        #8b5cf6
+    );
+
+    border-color: transparent;
+
+    color: white;
+}
+
+
+/* =====================================
+   ESTADO
+   ===================================== */
+
+.estado-busqueda {
+    text-align: center;
+
+    margin: 20px auto;
+
+    color: #cbd5e1;
+
+    min-height: 30px;
+}
+
+
+.estado-busqueda strong {
+    color: white;
+}
+
+
+/* =====================================
+   CONTADOR
+   ===================================== */
+
+.contador-resultados {
+    max-width: 1400px;
+
+    margin: 0 auto 25px;
+
+    padding: 0 10px;
+
+    color: #cbd5e1;
+
+    text-align: left;
+}
+
+
+.contador-resultados p {
+    margin: 0;
+}
+
+
+.contador-resultados strong {
+    color: white;
+}
+
+
+/* =====================================
+   RESULTADOS
+   ===================================== */
+
+.resultados-biblioteca {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(240px, 1fr));
+
+    gap: 28px;
+
+    align-items: stretch;
+}
+
+
+/* =====================================
+   TARJETA DE LIBRO
+   ===================================== */
+
+.libro-card {
+
+    width: 100%;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    background: #111827;
+
+    border: 1px solid #334155;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    display: flex;
+
+    flex-direction: column;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
+}
+
+
+.libro-card:hover {
+
+    transform: translateY(-7px);
+
+    border-color: #6366f1;
+
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, .35);
+}
+
+
+/* =====================================
+   CONTENEDOR DE PORTADA
+   ===================================== */
+
+.libro-portada {
+
+    width: 100%;
+
+    height: 320px;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #0f172a;
+}
+
+
+/* =====================================
+   IMAGEN DE PORTADA
+   ===================================== */
+
+.libro-portada img {
+
+    display: block;
+
+    width: 190px;
+
+    height: 270px;
+
+    max-width: 100%;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, .4);
+
+    transition: transform .3s ease;
+}
+
+
+.libro-card:hover .libro-portada img {
+
+    transform: scale(1.03);
+}
+
+
+/* =====================================
+   INFORMACIÓN
+   ===================================== */
+
+.libro-info {
+
+    padding: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    flex: 1;
+
+    box-sizing: border-box;
+}
+
+
+/* =====================================
+   FUENTE
+   ===================================== */
+
+.libro-info .fuente {
+
+    display: inline-block;
+
+    align-self: flex-start;
+
+    margin-bottom: 10px;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    background: #312e81;
+
+    color: #ddd6fe;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* =====================================
+   TÍTULO
+   ===================================== */
+
+.libro-info h2 {
+
+    margin: 0 0 12px;
+
+    color: white;
+
+    font-size: 20px;
+
+    line-height: 1.35;
+
+    font-weight: 700;
+}
+
+
+/* =====================================
+   INFORMACIÓN DEL LIBRO
+   ===================================== */
+
+.libro-info p {
+
+    margin: 5px 0;
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================
+   BOTÓN LEER
+   ===================================== */
+
+.btn-leer {
+
+    width: 100%;
+
+    margin-top: auto;
+
+    padding: 11px 15px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        90deg,
+        #3b82f6,
+        #8b5cf6
+    );
+
+    color: white;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+
+.btn-leer:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(99, 102, 241, .3);
+}
+
+
+/* =====================================
+   SIN RESULTADOS
+   ===================================== */
+
+.sin-resultados {
+
+    grid-column: 1 / -1;
+
+    text-align: center;
+
+    padding: 60px 20px;
+
+    background: #111827;
+
+    border: 1px solid #334155;
+
+    border-radius: 18px;
+}
+
+
+.sin-resultados h2 {
+
+    margin-bottom: 10px;
+
+    color: white;
+}
+
+
+.sin-resultados p {
+
+    color: #94a3b8;
+}
+
+
+/* =====================================
+   RESPONSIVE
+   ===================================== */
+
+@media (max-width: 900px) {
+
+    .resultados-biblioteca {
+
+        grid-template-columns:
+            repeat(
+                auto-fill,
+                minmax(210px, 1fr)
+            );
+
+        gap: 20px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .biblioteca {
+
+        padding:
+            30px 15px 60px;
+    }
+
+
+    .biblioteca-header h1 {
+
+        font-size: 30px;
+    }
+
+
+    .buscador {
+
+        flex-direction: column;
+    }
+
+
+    .buscador input {
+
+        width: 100%;
+    }
+
+
+    .btn-buscar {
+
+        width: 100%;
+    }
+
+
+    .resultados-biblioteca {
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 15px;
+    }
+
+
+    .libro-portada {
+
+        height: 260px;
+
+        padding: 12px;
+    }
+
+
+    .libro-portada img {
+
+        width: 140px;
+
+        height: 210px;
+    }
+
+
+    .libro-info {
+
+        padding: 14px;
+    }
+
+
+    .libro-info h2 {
+
+        font-size: 16px;
+    }
+
+
+    .libro-info p {
+
+        font-size: 12px;
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .resultados-biblioteca {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .libro-portada {
+
+        height: 330px;
+    }
+
+
+    .libro-portada img {
+
+        width: 190px;
+
+        height: 270px;
+    }
+
+}

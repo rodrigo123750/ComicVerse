@@ -1,0 +1,92 @@
+/* =====================================
+   COMICVERSE AI
+   LOGIN / REGISTRO
+===================================== */
+
+body{
+    margin:0;
+    font-family:"Poppins",sans-serif;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    color:white;
+}
+
+.auth-container{
+    min-height:calc(100vh - 140px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+}
+
+.auth-card{
+    width:100%;
+    max-width:430px;
+    background:#1e293b;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 15px 35px rgba(0,0,0,.4);
+}
+
+.auth-card h1{
+    text-align:center;
+    margin-bottom:10px;
+    font-size:32px;
+}
+
+.auth-card p{
+    text-align:center;
+    color:#cbd5e1;
+    margin-bottom:25px;
+}
+
+.auth-card form{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.auth-card input{
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#334155;
+    color:white;
+    font-size:16px;
+    outline:none;
+}
+
+.auth-card input::placeholder{
+    color:#cbd5e1;
+}
+
+.auth-card .btn{
+    margin-top:10px;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.auth-card .btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+.login-link{
+    margin-top:25px;
+}
+
+.login-link a{
+    color:#60a5fa;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.login-link a:hover{
+    text-decoration:underline;
+}

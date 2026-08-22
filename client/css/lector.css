@@ -1,0 +1,121 @@
+/* =================================
+   COMICVERSE AI
+   DISEÑO DEL LECTOR
+================================= */
+
+
+.lector-container{
+
+    margin-top:120px;
+
+    text-align:center;
+
+    padding:30px;
+
+}
+
+
+
+.lector-container h1{
+
+    font-size:40px;
+
+    margin-bottom:40px;
+
+}
+
+
+
+
+
+#paginasComic{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:25px;
+
+}
+
+
+
+
+
+
+/* Imagen del cómic */
+
+.pagina-comic{
+
+    width:500px;
+
+    max-width:90%;
+
+    height:auto;
+
+    display:block;
+
+    margin:auto;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+
+}
+
+.lector-container{
+
+margin-top:120px;
+
+text-align:center;
+
+padding:30px;
+
+}
+
+
+.visor{
+
+display:flex;
+
+justify-content:center;
+
+margin:30px;
+
+}
+
+
+
+.pagina-comic{
+
+max-width:800px;
+
+width:90%;
+
+border-radius:15px;
+
+}
+
+
+
+.contador{
+
+font-size:20px;
+
+margin:20px;
+
+}
+
+
+
+.controles{
+
+display:flex;
+
+justify-content:center;
+
+gap:20px;
+
+}

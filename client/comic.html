@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ComicVerse AI - Detalle del cómic</title>
+
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/navbar.css">
+<link rel="stylesheet" href="css/cards.css">
+<link rel="stylesheet" href="css/comic.css">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">
+📚 ComicVerse AI
+</div>
+
+<nav>
+
+<a href="index.html">
+🏠 Inicio
+</a>
+
+<a href="comics.html">
+📖 Cómics
+</a>
+
+<a href="favoritos.html">
+❤️ Favoritos
+</a>
+
+<a href="perfil.html">
+👤 Perfil
+</a>
+
+<a class="login-btn" href="login.html">
+Ingresar
+</a>
+
+</nav>
+
+</header>
+
+
+
+
+
+<section class="comic-detail">
+
+<div class="comic-cover">
+
+<img
+id="comicImagen"
+src=""
+alt="Portada del cómic">
+
+</div>
+
+
+
+
+
+<div class="comic-info">
+
+<h1 id="comicTitulo">
+
+Cargando...
+
+</h1>
+
+<p id="comicGenero"></p>
+
+<p id="comicDescripcion"></p>
+
+<p id="comicRating"></p>
+
+
+
+
+
+<div class="comic-buttons">
+
+<button
+class="btn"
+id="btnFavorito">
+
+❤️ Agregar a favoritos
+
+</button>
+
+
+
+<button
+class="btn"
+onclick="leerCapitulo()">
+
+📖 Leer capítulo
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+
+
+
+<section class="gemini">
+
+<div class="ai-box">
+
+<h2>
+
+🤖 ComicVerse AI
+
+</h2>
+
+<p>
+
+Pregunta cualquier cosa sobre este cómic y la IA responderá.
+
+</p>
+
+<div class="ai-input">
+
+<input
+id="pregunta"
+type="text"
+placeholder="Ejemplo: ¿Quién es el protagonista?">
+
+<button
+class="btn"
+id="btnGemini">
+
+🤖 Preguntar
+
+</button>
+
+</div>
+
+<br>
+
+<div
+id="respuestaAI"
+class="respuesta-ai">
+
+La respuesta aparecerá aquí...
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+
+
+<footer>
+
+© 2026 ComicVerse AI | Historias digitales
+
+</footer>
+
+
+
+
+
+
+<script
+type="module"
+src="js/comic.js">
+</script>
+
+<script
+type="module"
+src="js/favoritos/favoritos.js">
+</script>
+
+<script
+type="module"
+src="js/ai/gemini.js">
+</script>
+
+</body>
+
+</html>

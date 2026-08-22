@@ -1,0 +1,170 @@
+/* =================================
+        NAVBAR COMICVERSE AI
+================================= */
+
+
+.navbar{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:80px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 60px;
+
+    background:rgba(15,23,42,.85);
+
+    backdrop-filter:blur(15px);
+
+    z-index:1000;
+
+    border-bottom:1px solid rgba(255,255,255,.1);
+
+}
+
+
+
+/* LOGO */
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:28px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+
+
+/* MENU */
+
+.navbar nav{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+
+}
+
+
+.navbar nav a{
+
+    color:#CBD5E1;
+
+    font-size:16px;
+
+    font-weight:500;
+
+    transition:.3s;
+
+}
+
+
+
+.navbar nav a:hover{
+
+    color:white;
+
+}
+
+
+
+/* BOTON LOGIN */
+
+.login-btn{
+
+    padding:10px 22px;
+
+    border-radius:10px;
+
+    background:linear-gradient(
+        90deg,
+        #3B82F6,
+        #8B5CF6
+    );
+
+    color:white!important;
+
+}
+
+
+
+/* BUSCADOR */
+
+.search-box{
+
+    display:flex;
+
+    align-items:center;
+
+    background:#1E293B;
+
+    padding:8px 15px;
+
+    border-radius:10px;
+
+}
+
+
+
+.search-box input{
+
+    background:none;
+
+    border:none;
+
+    outline:none;
+
+    color:white;
+
+    width:180px;
+
+}
+
+
+
+.search-box input::placeholder{
+
+    color:#94A3B8;
+
+}
+
+
+
+/* ICONOS */
+
+.nav-icon{
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+.nav-icon:hover{
+
+    transform:scale(1.2);
+
+}

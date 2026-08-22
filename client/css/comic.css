@@ -1,0 +1,237 @@
+/* =================================
+   COMICVERSE AI
+   DISEÑO PAGINA DETALLE COMIC
+================================= */
+
+
+
+/* CONTENEDOR PRINCIPAL */
+
+.comic-detail{
+
+    margin-top:120px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:50px;
+
+    padding:40px;
+
+}
+
+
+
+/* ================================
+      PORTADA DEL COMIC
+================================ */
+
+
+.comic-cover{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+
+.comic-cover img{
+
+    width:280px;
+
+    height:400px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.3);
+
+}
+
+
+
+
+
+
+/* ================================
+        INFORMACIÓN DEL COMIC
+================================ */
+
+
+.comic-info{
+
+    max-width:600px;
+
+}
+
+
+
+.comic-info h1{
+
+    font-size:45px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.comic-info p{
+
+    font-size:18px;
+
+    margin:15px 0;
+
+}
+
+
+
+
+
+
+
+/* ================================
+        BOTONES
+================================ */
+
+
+.comic-buttons{
+
+    display:flex;
+
+    gap:20px;
+
+    margin-top:30px;
+
+}
+
+
+
+
+
+
+/* ================================
+          GEMINI AI
+================================ */
+
+
+.gemini{
+
+    padding:20px;
+
+}
+
+
+
+.ai-box{
+
+    margin:50px auto;
+
+    padding:40px;
+
+    max-width:800px;
+
+    text-align:center;
+
+    border-radius:20px;
+
+}
+
+
+
+
+
+.ai-input{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:25px;
+
+}
+
+
+
+
+
+.ai-input input{
+
+    flex:1;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    border:none;
+
+}
+
+
+
+
+
+
+/* ================================
+          FOOTER
+================================ */
+
+
+footer{
+
+    text-align:center;
+
+    padding:30px;
+
+}
+
+
+
+
+
+
+
+/* ================================
+        CELULARES
+================================ */
+
+
+@media(max-width:800px){
+
+
+    .comic-detail{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+
+
+    .comic-cover img{
+
+        width:240px;
+
+        height:350px;
+
+    }
+
+
+
+    .comic-buttons{
+
+        justify-content:center;
+
+    }
+
+
+}

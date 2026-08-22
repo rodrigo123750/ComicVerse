@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ComicVerse AI - Lector</title>
+
+
+    <!-- =====================================
+            FUENTES
+    ====================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================
+            CSS
+    ====================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/navbar.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/lector.css"
+    >
+
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+        NAVBAR
+===================================== -->
+
+<header class="navbar">
+
+
+    <div class="logo">
+
+        📚 ComicVerse AI
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            🏠 Inicio
+        </a>
+
+
+        <a href="comics.html">
+            📖 Cómics
+        </a>
+
+
+        <a
+            href="biblioteca.html"
+            class="activo"
+        >
+            📚 Biblioteca
+        </a>
+
+
+        <a href="favoritos.html">
+            ❤️ Favoritos
+        </a>
+
+
+        <a href="perfil.html">
+            👤 Perfil
+        </a>
+
+    </nav>
+
+
+</header>
+
+
+
+<!-- =====================================
+        LECTOR
+===================================== -->
+
+<main class="lector-libro">
+
+
+    <!-- =================================
+            BOTÓN VOLVER
+    ================================== -->
+
+    <div class="lector-superior">
+
+        <button
+            id="volverBiblioteca"
+            class="btn-volver"
+        >
+
+            ⬅ Volver a la biblioteca
+
+        </button>
+
+    </div>
+
+
+
+    <!-- =================================
+            INFORMACIÓN DEL LIBRO
+    ================================== -->
+
+    <section class="libro-cabecera">
+
+
+        <div class="libro-portada-lector">
+
+            <img
+                id="portadaLibro"
+                src=""
+                alt="Portada del libro"
+            >
+
+        </div>
+
+
+        <div class="libro-datos">
+
+
+            <span
+                id="fuenteLibro"
+                class="fuente"
+            >
+
+                Biblioteca
+
+            </span>
+
+
+            <h1 id="tituloLibro">
+
+                Cargando libro...
+
+            </h1>
+
+
+            <p id="autorLibro">
+
+                👤 Cargando autor...
+
+            </p>
+
+
+            <p id="fechaLibro">
+
+                📅
+
+            </p>
+
+
+            <p id="generoLibro">
+
+                📚
+
+            </p>
+
+
+            <p
+                id="descripcionLibro"
+                class="descripcion-libro"
+            >
+
+                Cargando información...
+
+            </p>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================
+            ESTADO DEL LECTOR
+    ================================== -->
+
+    <section
+        id="estadoLector"
+        class="estado-lector"
+    >
+
+        <p>
+
+            🔄 Preparando el lector...
+
+        </p>
+
+    </section>
+
+
+
+    <!-- =================================
+            CONTENIDO
+    ================================== -->
+
+    <section
+        id="contenidoLibro"
+        class="contenido-libro"
+    >
+
+
+        <article
+            id="textoLibro"
+            class="texto-libro"
+        >
+
+        </article>
+
+
+    </section>
+
+
+
+    <!-- =================================
+            VISTA PREVIA
+    ================================== -->
+
+    <section
+        id="previewLibro"
+        class="preview-libro"
+    >
+
+    </section>
+
+
+
+    <!-- =================================
+            FUENTE ORIGINAL
+    ================================== -->
+
+    <section class="fuente-original">
+
+
+        <p>
+
+            ¿Quieres consultar la información
+            original de este libro?
+
+        </p>
+
+
+        <a
+            id="enlaceFuente"
+            class="btn-fuente"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            🔗 Ver fuente original
+
+        </a>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================
+        FOOTER
+===================================== -->
+
+<footer>
+
+    © 2026 ComicVerse AI |
+    Biblioteca digital
+
+</footer>
+
+
+
+<!-- =====================================
+        JAVASCRIPT
+===================================== -->
+
+<script
+    src="js/lector-libro.js"
+></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>ComicVerse AI - Biblioteca</title>
+
+<!-- CSS PRINCIPAL -->
+<link
+    rel="stylesheet"
+    href="css/main.css"
+>
+
+<!-- CSS NAVBAR -->
+<link
+    rel="stylesheet"
+    href="css/navbar.css"
+>
+
+<!-- CSS BIBLIOTECA -->
+<link
+    rel="stylesheet"
+    href="css/biblioteca.css"
+>
+
+
+</head>
+
+<body>
+
+<!-- =====================================
+        NAVBAR
+===================================== -->
+
+<header class="navbar">
+
+
+<div class="logo">
+     ComicVerse
+</div>
+
+
+<nav>
+
+    <a href="index.html">
+        🏠 Inicio
+    </a>
+
+    <a href="comics.html">
+        📖 Cómics
+    </a>
+
+    <a
+        href="biblioteca.html"
+        class="activo"
+    >
+        📚 Biblioteca
+    </a>
+
+    <a href="favoritos.html">
+        ❤️ Favoritos
+    </a>
+
+    <a href="perfil.html">
+        👤 Perfil
+    </a>
+
+    <a
+        class="login-btn"
+        href="login.html"
+    >
+        Ingresar
+    </a>
+
+</nav>
+
+
+</header>
+
+<!-- =====================================
+        ENCABEZADO
+===================================== -->
+
+<main class="biblioteca">
+
+
+<section class="biblioteca-header">
+
+    <h1>
+        📚 Biblioteca ComicVerse
+    </h1>
+
+    <p>
+        Busca libros, cómics, novelas y personajes.
+    </p>
+
+
+    <!-- =================================
+            BUSCADOR
+    ================================= -->
+
+    <div class="buscador">
+
+        <input
+            type="text"
+            id="buscadorBiblioteca"
+            placeholder="Busca un cómic, libro o personaje..."
+            autocomplete="off"
+        >
+
+
+        <button
+            id="btnBuscar"
+            class="btn-buscar"
+        >
+            🔍 Buscar
+        </button>
+
+    </div>
+
+
+    <!-- =================================
+            FILTROS
+    ================================= -->
+
+    <div class="filtros">
+
+        <button
+            class="filtro activo"
+            data-fuente="todos"
+        >
+            🌐 Todos
+        </button>
+
+
+        <button
+            class="filtro"
+            data-fuente="Google Books"
+        >
+            📚 Google Books
+        </button>
+
+
+        <button
+            class="filtro"
+            data-fuente="Open Library"
+        >
+            📖 Open Library
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+        ESTADO DE BÚSQUEDA
+===================================== -->
+
+<section
+    id="estadoBusqueda"
+    class="estado-busqueda"
+>
+
+    <p>
+        🔎 Escribe algo para comenzar una búsqueda.
+    </p>
+
+</section>
+
+
+
+<!-- =====================================
+        CONTADOR
+===================================== -->
+
+<section
+    id="contadorResultados"
+    class="contador-resultados"
+>
+
+</section>
+
+
+
+<!-- =====================================
+        RESULTADOS
+===================================== -->
+
+<section
+    id="resultadosBiblioteca"
+    class="resultados-biblioteca"
+>
+
+</section>
+
+
+</main>
+
+<!-- =====================================
+        FOOTER
+===================================== -->
+
+<footer>
+
+
+© 2026 ComicVerse AI |
+Biblioteca digital
+
+
+</footer>
+
+<!-- =====================================
+        JAVASCRIPT
+===================================== -->
+
+<script
+    src="js/biblioteca.js"
+></script>
+
+</body>
+
+</html>

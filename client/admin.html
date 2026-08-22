@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ComicVerse AI | Panel de Administración</title>
+
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/navbar.css">
+<link rel="stylesheet" href="css/auth.css">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">
+📚 ComicVerse AI
+</div>
+
+<nav>
+
+<a href="index.html">🏠 Inicio</a>
+
+<a href="comics.html">📖 Cómics</a>
+
+<a href="perfil.html">👤 Perfil</a>
+
+</nav>
+
+</header>
+
+<section class="auth-container">
+
+<div class="auth-card">
+
+<h1>🛠 Panel de Administración</h1>
+
+<form id="comicForm">
+
+<input
+id="titulo"
+type="text"
+placeholder="Título del cómic"
+required>
+
+<input
+id="genero"
+type="text"
+placeholder="Género"
+required>
+
+<textarea
+id="descripcion"
+placeholder="Descripción"
+rows="5"
+required></textarea>
+
+<input
+id="imagen"
+type="text"
+placeholder="Ruta de la portada (ej: img/comics/heroe/heroe.jpg)"
+required>
+
+<input
+id="rating"
+type="number"
+step="0.1"
+min="0"
+max="5"
+placeholder="Calificación"
+required>
+
+<button class="btn" type="submit">
+
+💾 Guardar cómic
+
+</button>
+
+</form>
+
+<p id="mensaje"></p>
+
+</div>
+
+</section>
+
+<footer>
+
+© 2026 ComicVerse AI
+
+</footer>
+
+<script type="module" src="js/admin/admin.js"></script>
+
+</body>
+
+</html>

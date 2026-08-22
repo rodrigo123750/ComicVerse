@@ -1,0 +1,674 @@
+/*====================================
+        COMICVERSE AI
+=====================================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+
+    --fondo:#0F172A;
+    --navbar:#111827;
+    --card:#1E293B;
+    --cardHover:#334155;
+
+    --azul:#3B82F6;
+    --morado:#8B5CF6;
+
+    --texto:#FFFFFF;
+    --texto2:#CBD5E1;
+
+}
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    background:var(--fondo);
+    color:var(--texto);
+    font-family:'Poppins',sans-serif;
+
+}
+
+
+/*======================
+NAVBAR
+=======================*/
+
+.navbar{
+
+    position:fixed;
+
+    top:0;
+
+    width:100%;
+
+    height:80px;
+
+    background:rgba(17,24,39,.95);
+
+    backdrop-filter:blur(15px);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 60px;
+
+    z-index:999;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+
+}
+
+.logo{
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+.navbar nav{
+
+    display:flex;
+
+    gap:30px;
+
+}
+
+.navbar nav a{
+
+    color:white;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+    font-weight:500;
+
+}
+
+.navbar nav a:hover{
+
+    color:#60A5FA;
+
+}
+
+
+/*======================
+HERO
+=======================*/
+
+.hero{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+}
+
+
+
+/*======================
+PORTADA PRINCIPAL
+=======================*/
+
+
+.hero.portada{
+
+    min-height:100vh;
+
+    width:100%;
+
+    position:relative;
+
+    overflow:hidden;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#0F172A;
+
+}
+
+
+
+/* Imagen de portada */
+
+.portada-imagen{
+
+    position:absolute;
+
+    width:100%;
+
+    height:100%;
+
+    top:0;
+
+    left:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+
+.portada-imagen img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:contain;
+
+}
+
+
+
+/* Capa sobre la imagen */
+
+.hero-overlay{
+
+    position:absolute;
+
+    width:100%;
+
+    height:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    background:
+
+    linear-gradient(
+
+        rgba(15,23,42,.25),
+
+        rgba(15,23,42,.85)
+
+    );
+
+}
+
+
+
+/* Texto de portada */
+
+.hero-text{
+
+    color:white;
+
+    max-width:850px;
+
+    padding:20px;
+
+}
+
+
+
+.hero-text h1{
+
+    font-size:70px;
+
+    font-weight:800;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.hero-text h2{
+
+    font-size:38px;
+
+    font-weight:600;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.hero-text p{
+
+    color:#CBD5E1;
+
+    font-size:22px;
+
+    line-height:1.7;
+
+    max-width:750px;
+
+    margin:auto;
+
+}
+
+/*======================
+BOTONES
+=======================*/
+
+.btn{
+
+    margin-top:35px;
+
+    padding:15px 40px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(90deg,#3B82F6,#8B5CF6);
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 15px 35px rgba(59,130,246,.4);
+
+}
+
+
+/*======================
+CONTENEDOR
+=======================*/
+
+.container{
+
+    width:92%;
+
+    max-width:1300px;
+
+    margin:auto;
+
+}
+
+
+/*======================
+TÍTULOS
+=======================*/
+
+.titulo{
+
+    font-size:38px;
+
+    margin:70px 0 40px;
+
+}
+
+
+/*======================
+CARDS
+=======================*/
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:30px;
+
+    margin-bottom:80px;
+
+}
+
+.card{
+
+    background:var(--card);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    transition:.4s;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+
+}
+
+.card:hover{
+
+    transform:translateY(-12px);
+
+    background:var(--cardHover);
+
+}
+
+.card img{
+
+    width:100%;
+
+    height:350px;
+
+    object-fit:cover;
+
+}
+
+.card h3{
+
+    margin:20px;
+
+    font-size:25px;
+
+}
+
+.card p{
+
+    margin:0 20px 20px;
+
+    color:var(--texto2);
+
+}
+
+.card .btn{
+
+    margin:20px;
+
+}
+
+
+/*======================
+GEMINI
+=======================*/
+
+.gemini{
+
+    background:#172554;
+
+    padding:80px 20px;
+
+    text-align:center;
+
+}
+
+.gemini h2{
+
+    font-size:42px;
+
+}
+
+.gemini p{
+
+    margin-top:20px;
+
+    font-size:20px;
+
+    color:#CBD5E1;
+
+}
+
+
+/*======================
+FOOTER
+=======================*/
+
+footer{
+
+    background:#020617;
+
+    text-align:center;
+
+    padding:35px;
+
+    color:#94A3B8;
+
+}
+
+
+.comic-detail{
+
+    margin-top:140px;
+
+    display:flex;
+
+    gap:50px;
+
+    align-items:center;
+
+}
+
+
+
+.comic-cover img{
+
+    width:350px;
+
+    border-radius:20px;
+
+    box-shadow:0 20px 40px rgba(0,0,0,.4);
+
+}
+
+
+
+.comic-info{
+
+    max-width:600px;
+
+}
+
+
+
+.comic-info h1{
+
+    font-size:45px;
+
+}
+
+
+
+.comic-info p{
+
+    margin:20px 0;
+
+    color:#CBD5E1;
+
+}
+
+
+
+#pregunta{
+
+    margin-top:30px;
+
+    padding:15px;
+
+    width:70%;
+
+    border-radius:10px;
+
+    border:none;
+
+}
+
+/*======================
+PORTADA PRINCIPAL
+=======================*/
+
+
+.hero.portada{
+
+    width:100%;
+
+    height:calc(100vh + 80px);
+
+    margin-top:80px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#0F172A;
+
+}
+
+
+
+/* Imagen de portada */
+
+.imagen-portada{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    object-position:center 25%;
+
+}
+
+
+
+
+
+/* Capa oscura encima de la imagen */
+
+.hero-overlay{
+
+    position:absolute;
+
+    width:100%;
+
+    height:100%;
+
+    top:0;
+
+    left:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    background:
+
+    linear-gradient(
+
+        rgba(15,23,42,0.30),
+
+        rgba(15,23,42,0.85)
+
+    );
+
+}
+
+
+
+
+
+/* Texto de portada */
+
+.hero-text{
+
+    color:white;
+
+    max-width:850px;
+
+    padding:20px;
+
+    z-index:2;
+
+}
+
+
+
+
+
+.hero-text h1{
+
+    font-size:70px;
+
+    font-weight:800;
+
+    margin-bottom:20px;
+
+}
+
+
+
+
+
+.hero-text h2{
+
+    font-size:38px;
+
+    font-weight:600;
+
+    margin-bottom:20px;
+
+}
+
+
+
+
+
+.hero-text p{
+
+    font-size:22px;
+
+    color:#CBD5E1;
+
+    line-height:1.6;
+
+    max-width:750px;
+
+    margin:auto;
+
+}

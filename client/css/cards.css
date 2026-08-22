@@ -1,0 +1,578 @@
+/* ==================================
+CARDS COMICVERSE AI
+================================== */
+
+/* ==================================
+CONTENEDOR DE TARJETAS
+================================== */
+
+.cards {
+
+display: grid;
+
+grid-template-columns:
+    repeat(auto-fit, minmax(260px, 1fr));
+
+gap: 30px;
+
+justify-items: center;
+
+align-items: start;
+
+}
+
+/* ==================================
+TARJETA
+================================== */
+
+.card {
+
+background: #1E293B;
+
+width: 260px;
+
+border-radius: 20px;
+
+overflow: hidden;
+
+position: relative;
+
+transition: .4s;
+
+box-shadow:
+    0 15px 35px rgba(0, 0, 0, .35);
+
+text-align: center;
+
+display: flex;
+
+flex-direction: column;
+
+}
+
+/* ==================================
+EFECTO HOVER
+================================== */
+
+.card {
+
+transform: translateY(-12px);
+
+box-shadow:
+    0 20px 45px rgba(59, 130, 246, .35);
+
+}
+
+/* ==================================
+CONTENEDOR DE PORTADA
+================================== */
+
+.card .card-cover {
+
+width: 100%;
+
+height: 300px;
+
+overflow: hidden;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+background: #0F172A;
+
+}
+
+/* ==================================
+PORTADA
+================================== */
+
+.card .card-cover img {
+
+width: 100%;
+
+height: 100%;
+
+margin: 0;
+
+display: block;
+
+object-fit: cover;
+
+object-position: center;
+
+border-radius: 0;
+
+transition: .5s;
+
+}
+
+/* ==================================
+SI LA IMAGEN ESTÁ DIRECTAMENTE
+DENTRO DE LA TARJETA
+================================== */
+
+.card > img {
+
+width: 220px;
+
+height: 300px;
+
+margin: 20px auto 0;
+
+display: block;
+
+object-fit: cover;
+
+object-position: center;
+
+border-radius: 15px;
+
+transition: .5s;
+
+}
+
+/* ==================================
+HOVER DE LA PORTADA
+================================== */
+
+.card .card-cover img {
+
+transform: scale(1.04);
+
+}
+
+.card > img {
+
+transform: scale(1.04);
+
+}
+
+/* ==================================
+INFORMACIÓN
+================================== */
+
+.card h3 {
+
+font-size: 22px;
+
+margin: 20px 15px 10px;
+
+line-height: 1.3;
+
+}
+
+/* ==================================
+DESCRIPCIÓN
+================================== */
+
+.card p {
+
+color: #CBD5E1;
+
+margin: 0 20px 10px;
+
+line-height: 1.5;
+
+}
+
+/* ==================================
+BOTÓN
+================================== */
+
+.card .btn {
+
+margin: 20px;
+
+width: calc(100% - 40px);
+
+box-sizing: border-box;
+
+}
+
+/* ==================================
+CATEGORÍAS
+================================== */
+
+.categories {
+
+display: flex;
+
+flex-wrap: wrap;
+
+gap: 15px;
+
+margin-bottom: 50px;
+
+}
+
+/* ==================================
+BOTONES DE CATEGORÍA
+================================== */
+
+.categories button {
+
+padding: 12px 25px;
+
+border-radius: 30px;
+
+border: none;
+
+background: #1E293B;
+
+color: white;
+
+font-size: 16px;
+
+cursor: pointer;
+
+transition: .3s;
+
+}
+
+/* ==================================
+HOVER CATEGORÍAS
+================================== */
+
+.categories button {
+
+background:
+    linear-gradient(
+        90deg,
+        #3B82F6,
+        #8B5CF6
+    );
+
+transform: translateY(-4px);
+
+}
+
+/* ==================================
+CATEGORÍA ACTIVA
+================================== */
+
+.categories button.activa {
+
+background:
+    linear-gradient(
+        90deg,
+        #3B82F6,
+        #8B5CF6
+    );
+
+}
+
+/* ==================================
+ETIQUETA DE GÉNERO
+================================== */
+
+.genre {
+
+position: absolute;
+
+top: 15px;
+
+left: 15px;
+
+background: #3B82F6;
+
+padding: 7px 15px;
+
+border-radius: 20px;
+
+font-size: 13px;
+
+font-weight: 600;
+
+z-index: 5;
+
+}
+
+/* ==================================
+ESTRELLAS
+================================== */
+
+.rating {
+
+color: #FACC15;
+
+margin-left: 20px;
+
+font-size: 18px;
+
+}
+
+/* ==================================
+INFORMACIÓN EXTRA
+================================== */
+
+.card .comic-info {
+
+padding: 0 15px 15px;
+
+}
+
+/* ==================================
+RESPONSIVE
+================================== */
+
+@media (max-width: 600px) {
+
+.cards {
+
+    grid-template-columns:
+        1fr;
+
+    gap: 25px;
+
+}
+
+
+.card {
+
+    width: 280px;
+
+}
+
+
+.card .card-cover {
+
+    height: 320px;
+
+}
+
+}
+
+/* ==================================
+   SECCIÓN PRINCIPAL DE CÓMICS
+================================== */
+
+.comics-section {
+
+    padding-top: 40px;
+
+}
+/* =====================================
+   TARJETAS DE LIBROS
+===================================== */
+
+.resultados-biblioteca {
+    width: 100%;
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 0 20px;
+
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(260px, 1fr));
+
+    gap: 30px;
+
+    align-items: stretch;
+}
+
+
+/* =====================================
+   CARD
+===================================== */
+
+.libro-card {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+
+    background: #1e293b;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, .30);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+
+.libro-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, .40);
+}
+
+
+/* =====================================
+   CONTENEDOR DE PORTADA
+===================================== */
+
+.libro-portada {
+    width: 100%;
+    height: 360px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    background: #0f172a;
+}
+
+
+/* =====================================
+   IMAGEN DE PORTADA
+===================================== */
+
+.libro-portada img {
+    display: block;
+
+    width: auto;
+    height: 100%;
+
+    max-width: 230px;
+
+    object-fit: contain;
+
+    border-radius: 12px;
+
+    margin: 0 auto;
+}
+
+
+/* =====================================
+   INFORMACIÓN
+===================================== */
+
+.libro-info {
+    width: 100%;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.libro-info .fuente {
+    display: inline-block;
+
+    margin-bottom: 10px;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+}
+
+
+.libro-info h2 {
+    width: 100%;
+
+    margin: 8px 0 12px;
+
+    font-size: 20px;
+
+    line-height: 1.3;
+
+    text-align: center;
+}
+
+
+.libro-info p {
+    width: 100%;
+
+    margin: 5px 0;
+
+    text-align: center;
+
+    color: #cbd5e1;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================
+   BOTÓN LEER
+===================================== */
+
+.btn-leer {
+    width: 100%;
+
+    margin-top: 18px;
+
+    padding: 12px 18px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            90deg,
+            #3b82f6,
+            #8b5cf6
+        );
+
+    transition:
+        transform .2s ease,
+        opacity .2s ease;
+}
+
+
+.btn-leer:hover {
+    transform: translateY(-2px);
+
+    opacity: .9;
+}
+
+
+/* =====================================
+   MÓVIL
+===================================== */
+
+@media (max-width: 600px) {
+
+    .resultados-biblioteca {
+        grid-template-columns: 1fr;
+
+        padding: 0 15px;
+    }
+
+
+    .libro-card {
+        max-width: 340px;
+    }
+
+
+    .libro-portada {
+        height: 380px;
+    }
+
+}

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>ComicVerse AI - Cómics</title>
+
+
+<!-- Google Fonts -->
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
+
+<!-- CSS -->
+
+<link
+    rel="stylesheet"
+    href="css/main.css"
+>
+
+<link
+    rel="stylesheet"
+    href="css/navbar.css"
+>
+
+<link
+    rel="stylesheet"
+    href="css/cards.css"
+>
+```
+
+</head>
+
+<body>
+
+```
+<!-- ======================
+     NAVBAR
+======================= -->
+
+<header class="navbar">
+
+
+    <div class="logo">
+
+        📚 ComicVerse AI
+
+    </div>
+
+
+    <nav>
+
+
+        <a href="index.html">
+
+            🏠 Inicio
+
+        </a>
+
+
+        <a href="comics.html">
+
+            📖 Cómics
+
+        </a>
+
+
+        <a href="biblioteca.html">
+
+            📚 Biblioteca
+
+        </a>
+
+
+        <a href="favoritos.html">
+
+            ❤️ Favoritos
+
+        </a>
+
+
+        <a href="perfil.html">
+
+            👤 Perfil
+
+        </a>
+
+
+        <div class="search-box">
+
+            <input
+                id="buscador"
+                type="text"
+                placeholder="Buscar historias..."
+            >
+
+        </div>
+
+
+        <a
+            href="login.html"
+            class="login-btn"
+        >
+
+            Ingresar
+
+        </a>
+
+
+    </nav>
+
+
+</header>
+
+
+
+<!-- ======================
+     FILTROS
+======================= -->
+
+<section class="container comics-section">
+
+
+    <h2 class="titulo">
+
+        📂 Explorar por género
+
+    </h2>
+
+
+    <div class="categories">
+
+
+        <button
+            class="categoria activa"
+            data-genero="Todos"
+        >
+
+            🌍 Todos
+
+        </button>
+
+
+        <button
+            class="categoria"
+            data-genero="Acción"
+        >
+
+            ⚔ Acción
+
+        </button>
+
+
+        <button
+            class="categoria"
+            data-genero="Fantasía"
+        >
+
+            🧙 Fantasía
+
+        </button>
+
+
+        <button
+            class="categoria"
+            data-genero="Ciencia ficción"
+        >
+
+            🚀 Ciencia ficción
+
+        </button>
+
+
+        <button
+            class="categoria"
+            data-genero="Terror"
+        >
+
+            👻 Terror
+
+        </button>
+
+
+        <button
+            class="categoria"
+            data-genero="Romance"
+        >
+
+            ❤️ Romance
+
+        </button>
+
+
+        <button
+            class="categoria"
+            data-genero="Comedia"
+        >
+
+            😂 Comedia
+
+        </button>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ======================
+     ESTADÍSTICAS
+======================= -->
+
+<section class="container">
+
+
+    <div class="top-comics">
+
+
+        <h3 id="contadorComics">
+
+            📚 0 cómics disponibles
+
+        </h3>
+
+
+        <select id="ordenar">
+
+
+            <option value="recientes">
+
+                🆕 Más recientes
+
+            </option>
+
+
+            <option value="rating">
+
+                ⭐ Mejor calificación
+
+            </option>
+
+
+            <option value="az">
+
+                🔤 A - Z
+
+            </option>
+
+
+            <option value="za">
+
+                🔤 Z - A
+
+            </option>
+
+
+        </select>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ======================
+     LISTA DE CÓMICS
+======================= -->
+
+<section class="container">
+
+
+    <div
+        class="cards"
+        id="listaComics"
+    >
+
+        <!--
+            Firebase cargará aquí
+            todos los cómics.
+        -->
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ======================
+     IA
+======================= -->
+
+<section class="gemini">
+
+
+    <div class="container">
+
+
+        <h2>
+
+            🤖 ComicVerse AI
+
+        </h2>
+
+
+        <p>
+
+            Nuestra inteligencia artificial pronto podrá recomendarte cómics según tus gustos y responder preguntas sobre cada historia.
+
+        </p>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ======================
+     FOOTER
+======================= -->
+
+<footer>
+
+
+    <p>
+
+        © 2026 ComicVerse AI |
+        Plataforma de cómics digitales
+
+    </p>
+
+
+</footer>
+
+
+
+<!-- ======================
+     JAVASCRIPT
+====================== -->
+
+<script
+    type="module"
+    src="js/comics.js"
+></script>
+
+
+</body>
+
+</html>
