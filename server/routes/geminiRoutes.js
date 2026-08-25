@@ -3,36 +3,29 @@
 // RUTAS GEMINI AI
 // =====================================
 
-
 const express = require("express");
-
 
 const router = express.Router();
 
-
-
-
-// Controlador Gemini
+// =====================================
+// CONTROLADOR GEMINI
+// =====================================
 
 const {
-    enviarPregunta
+    chat
 } = require("../controllers/geminiController");
 
-
-
-
-// ================================
+// =====================================
 // POST PREGUNTA GEMINI
-// ================================
-
+// =====================================
 
 router.post(
     "/preguntar",
-    enviarPregunta
+    chat
 );
 
-
-
-
+// =====================================
+// EXPORTAR
+// =====================================
 
 module.exports = router;

@@ -3,16 +3,193 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>ComicVerse AI | Perfil</title>
+    <title>ComicVerse AI | Perfil</title>
 
 
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/navbar.css">
-<link rel="stylesheet" href="css/auth.css">
+    <!-- ======================
+            ESTILOS
+    ======================= -->
+
+    <link
+        rel="stylesheet"
+        href="css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/navbar.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/auth.css"
+    >
+
+
+    <!-- ======================
+            ESTILOS PERFIL
+    ======================= -->
+
+    <style>
+
+        .perfil-container {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            min-height: 70vh;
+
+            padding: 40px 20px;
+
+        }
+
+
+        .perfil-card {
+
+            width: 100%;
+
+            max-width: 500px;
+
+            text-align: center;
+
+            padding: 35px;
+
+        }
+
+
+        /* ======================
+           IMAGEN DE PERFIL
+        ======================= */
+
+        .perfil-imagen-contenedor {
+
+            display: flex;
+
+            justify-content: center;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .perfil-imagen {
+
+            width: 140px;
+
+            height: 140px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            border: 5px solid #ffffff;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.25);
+
+            background: #eeeeee;
+
+        }
+
+
+        /* ======================
+           INPUT IMAGEN
+        ======================= */
+
+        .input-imagen {
+
+            display: none;
+
+        }
+
+
+        .btn-imagen {
+
+            display: inline-block;
+
+            margin-top: 5px;
+
+            margin-bottom: 20px;
+
+            cursor: pointer;
+
+        }
+
+
+        /* ======================
+           INFORMACIÓN
+        ======================= */
+
+        .perfil-info {
+
+            margin-top: 20px;
+
+        }
+
+
+        .perfil-info p {
+
+            margin: 12px 0;
+
+            font-size: 16px;
+
+        }
+
+
+        /* ======================
+           PLAN
+        ======================= */
+
+        .plan-usuario {
+
+            margin: 20px 0;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            background: rgba(255,255,255,0.1);
+
+        }
+
+
+        .plan-usuario h3 {
+
+            margin: 0 0 8px 0;
+
+        }
+
+
+        .plan-nombre {
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* ======================
+           BOTÓN CERRAR SESIÓN
+        ======================= */
+
+        #cerrarSesion {
+
+            margin-top: 20px;
+
+        }
+
+    </style>
 
 </head>
 
@@ -20,60 +197,48 @@
 <body>
 
 
-
 <!-- ======================
         NAVBAR
 ====================== -->
 
-
 <header class="navbar">
 
 
-<div class="logo">
+    <div class="logo">
 
-📚 ComicVerse AI
+        📚 ComicVerse AI
 
-</div>
-
-
+    </div>
 
 
-<nav>
+    <nav>
 
 
-<a href="index.html">
+        <a href="index.html">
 
-🏠 Inicio
+            🏠 Inicio
 
-</a>
-
-
-
-<a href="comics.html">
-
-📖 Cómics
-
-</a>
+        </a>
 
 
+        <a href="comics.html">
 
-<a href="favoritos.html">
+            📖 Cómics
 
-❤️ Favoritos
-
-</a>
-
+        </a>
 
 
-</nav>
+        <a href="favoritos.html">
+
+            ❤️ Favoritos
+
+        </a>
+
+
+    </nav>
 
 
 </header>
-
-
-
-
-
 
 
 
@@ -81,110 +246,183 @@
         PERFIL
 ====================== -->
 
-
-<section class="auth-container">
-
-
-<div class="auth-card">
+<section class="perfil-container">
 
 
-
-<h1>
-
-👤 Mi Perfil
-
-</h1>
+    <div class="auth-card perfil-card">
 
 
+        <!-- ======================
+                TÍTULO
+        ======================= -->
 
+        <h1>
 
+            👤 Mi Perfil
 
-<h2 id="nombreUsuario">
-
-Cargando...
-
-</h2>
+        </h1>
 
 
 
+        <!-- ======================
+             IMAGEN DE PERFIL
+        ======================= -->
+
+        <div class="perfil-imagen-contenedor">
 
 
-<p id="correoUsuario">
-
-Cargando correo...
-
-</p>
-
-
-
+            <img
+                id="imagenPerfil"
+                class="perfil-imagen"
+                src="img/perfil-default.png"
+                alt="Imagen de perfil"
+            >
 
 
-<p id="fechaUsuario">
-
-Cargando fecha...
-
-</p>
-
-
+        </div>
 
 
 
+        <!-- ======================
+             CAMBIAR IMAGEN
+        ======================= -->
+
+        <label
+            for="inputImagen"
+            class="btn btn-imagen"
+        >
+
+            🖼️ Cambiar imagen
+
+        </label>
 
 
-<button
-
-class="btn"
-
-id="cerrarSesion"
-
->
-
-🚪 Cerrar sesión
-
-</button>
+        <input
+            type="file"
+            id="inputImagen"
+            class="input-imagen"
+            accept="image/*"
+        >
 
 
 
+        <!-- ======================
+             NOMBRE
+        ======================= -->
+
+        <h2 id="nombreUsuario">
+
+            Cargando...
+
+        </h2>
 
 
-</div>
+
+        <!-- ======================
+             INFORMACIÓN
+        ======================= -->
+
+        <div class="perfil-info">
+
+
+            <p id="correoUsuario">
+
+                📧 Cargando correo...
+
+            </p>
+
+
+            <p id="fechaUsuario">
+
+                📅 Cargando fecha...
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- ======================
+             PLAN DEL USUARIO
+        ======================= -->
+
+        <div class="plan-usuario">
+
+
+            <h3>
+
+                ⭐ Mi plan
+
+            </h3>
+
+
+            <p
+                id="planUsuario"
+                class="plan-nombre"
+            >
+
+                🆓 Gratuito
+
+            </p>
+
+
+            <p>
+
+                Plan actual de tu cuenta
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- ======================
+             CERRAR SESIÓN
+        ======================= -->
+
+        <button
+            class="btn"
+            id="cerrarSesion"
+        >
+
+            🚪 Cerrar sesión
+
+        </button>
+
+
+    </div>
 
 
 </section>
 
 
 
-
-
-
-
+<!-- ======================
+        FOOTER
+====================== -->
 
 <footer>
 
-
-© 2026 ComicVerse AI | Plataforma de cómics digitales
-
+    © 2026 ComicVerse AI |
+    Plataforma de cómics digitales
 
 </footer>
 
 
 
-
-
-
+<!-- ======================
+        JAVASCRIPT
+====================== -->
 
 <script
-
-type="module"
-
-src="js/auth/perfil.js">
-
+    type="module"
+    src="js/auth/perfil.js"
+>
 </script>
 
 
-
-
 </body>
-
 
 </html>

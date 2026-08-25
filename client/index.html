@@ -1,89 +1,806 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.17.1/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.17.1/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.17.1/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.17.1/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.17.1/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.17.1/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.17.1/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.17.1/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.17.1/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.17.1/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+<html lang="es">
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+<head>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    <meta charset="UTF-8">
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ComicVerse AI</title>
+
+
+    <!-- ======================
+         FUENTE
+    ======================= -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- ======================
+         CSS
+    ======================= -->
+
+    <link
+        rel="stylesheet"
+        href="css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/navbar.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/cards.css"
+    >
+
+
+    <!-- CSS DEL CHAT -->
+
+    <style>
+
+/* =====================================
+   COMICVERSE AI
+   CHAT PRINCIPAL
+===================================== */
+
+.chat-gemini {
+
+    width: 100%;
+    max-width: 850px;
+
+    margin: 30px auto;
+
+    padding: 20px;
+
+    background: #0F1B3D !important;
+
+    border: 1px solid #334A80;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35);
+
+    box-sizing: border-box;
+
+}
+
+
+/* =====================================
+   ZONA DE MENSAJES
+===================================== */
+
+.chat-mensajes {
+
+    height: 400px;
+
+    overflow-y: auto;
+
+    padding: 18px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+
+    background: #111D42 !important;
+
+    border: 1px solid #263B70;
+
+    border-radius: 15px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =====================================
+   SCROLL
+===================================== */
+
+.chat-mensajes::-webkit-scrollbar {
+
+    width: 8px;
+
+}
+
+
+.chat-mensajes::-webkit-scrollbar-track {
+
+    background: #0B1533;
+
+    border-radius: 10px;
+
+}
+
+
+.chat-mensajes::-webkit-scrollbar-thumb {
+
+    background: #3B82F6;
+
+    border-radius: 10px;
+
+}
+
+
+.chat-mensajes::-webkit-scrollbar-thumb:hover {
+
+    background: #6366F1;
+
+}
+
+
+/* =====================================
+   MENSAJES
+===================================== */
+
+.mensaje {
+
+    max-width: 80%;
+
+    padding: 13px 16px;
+
+    border-radius: 16px;
+
+    line-height: 1.5;
+
+    word-wrap: break-word;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =====================================
+   TEXTO DE LOS MENSAJES
+===================================== */
+
+.mensaje strong {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 14px;
+
+}
+
+
+.mensaje p {
+
+    margin: 5px 0 0;
+
+    font-size: 14px;
+
+}
+
+
+/* =====================================
+   MENSAJE DE COMICVERSE AI
+===================================== */
+
+.mensaje.ia {
+
+    align-self: flex-start;
+
+    background: #1E2D52 !important;
+
+    color: #F1F5F9 !important;
+
+    border: 1px solid #344A78;
+
+    border-bottom-left-radius: 5px;
+
+}
+
+
+/* =====================================
+   TEXTO DEL MENSAJE IA
+===================================== */
+
+.mensaje.ia p {
+
+    color: #E2E8F0 !important;
+
+}
+
+
+.mensaje.ia strong {
+
+    color: #FFFFFF !important;
+
+}
+
+
+/* =====================================
+   MENSAJE DEL USUARIO
+===================================== */
+
+.mensaje.usuario {
+
+    align-self: flex-end;
+
+    background: linear-gradient(
+        135deg,
+        #3B82F6,
+        #6366F1
+    ) !important;
+
+    color: #FFFFFF !important;
+
+    border: none;
+
+    border-bottom-right-radius: 5px;
+
+}
+
+
+/* =====================================
+   TEXTO DEL USUARIO
+===================================== */
+
+.mensaje.usuario p {
+
+    color: #FFFFFF !important;
+
+}
+
+
+/* =====================================
+   INPUT
+===================================== */
+
+.chat-input {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 15px;
+
+}
+
+
+/* =====================================
+   CAJA DE TEXTO
+===================================== */
+
+.chat-input input {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 48px;
+
+    padding: 0 16px;
+
+    border: 1px solid #344A78 !important;
+
+    border-radius: 12px;
+
+    outline: none;
+
+    background: #17264A !important;
+
+    color: #FFFFFF !important;
+
+    font-family: "Poppins", Arial, sans-serif;
+
+    font-size: 14px;
+
+    box-sizing: border-box;
+
+    transition: 0.2s;
+
+}
+
+
+.chat-input input::placeholder {
+
+    color: #94A3B8 !important;
+
+}
+
+
+.chat-input input:focus {
+
+    border-color: #6366F1 !important;
+
+    box-shadow:
+        0 0 0 2px rgba(99, 102, 241, 0.2);
+
+}
+
+
+/* =====================================
+   BOTÓN ENVIAR
+===================================== */
+
+.chat-input button {
+
+    min-width: 110px;
+
+    height: 48px;
+
+    padding: 0 18px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        #3B82F6,
+        #8B5CF6
+    ) !important;
+
+    color: #FFFFFF !important;
+
+    cursor: pointer;
+
+    font-family: "Poppins", Arial, sans-serif;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+
+}
+
+
+.chat-input button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(59, 130, 246, 0.3);
+
+}
+
+
+.chat-input button:disabled {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+/* =====================================
+   MENSAJE CARGANDO
+===================================== */
+
+.chat-cargando {
+
+    color: #94A3B8 !important;
+
+    font-style: italic;
+
+    padding: 5px;
+
+}
+
+
+/* =====================================
+   TÍTULO DE LA SECCIÓN GEMINI
+===================================== */
+
+.gemini {
+
+    color: #FFFFFF;
+
+}
+
+
+.gemini h2 {
+
+    color: #FFFFFF !important;
+
+}
+
+
+.gemini > .container > p {
+
+    color: #CBD5E1 !important;
+
+}
+
+
+/* =====================================
+   MÓVIL
+===================================== */
+
+@media (max-width: 600px) {
+
+    .chat-gemini {
+
+        padding: 12px;
+
+        margin: 20px auto;
+
+        border-radius: 16px;
+
+    }
+
+
+    .chat-mensajes {
+
+        height: 350px;
+
+        padding: 12px;
+
+    }
+
+
+    .chat-input {
+
+        flex-direction: column;
+
+    }
+
+
+    .chat-input input {
+
+        width: 100%;
+
+    }
+
+
+    .chat-input button {
+
+        width: 100%;
+
+    }
+
+
+    .mensaje {
+
+        max-width: 90%;
+
+    }
+
+
+    .mensaje p {
+
+        font-size: 13px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ======================
+         NAVBAR
+    ======================= -->
+
+    <header class="navbar">
+
+
+        <div class="logo">
+
+            ComicVerse
+
+        </div>
+
+
+        <nav>
+
+
+            <a href="index.html">
+
+                🏠 Inicio
+
+            </a>
+
+
+            <a href="comics.html">
+
+                📖 Cómics
+
+            </a>
+
+
+            <a href="biblioteca.html">
+
+                📚 Biblioteca
+
+            </a>
+
+
+            <a href="favoritos.html">
+
+                ❤️ Favoritos
+
+            </a>
+
+
+            <a href="perfil.html">
+
+                👤 Perfil
+
+            </a>
+
+
+            <!-- BUSCADOR -->
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    placeholder="Buscar cómics..."
+                >
+
+            </div>
+
+
+            <a
+                class="login-btn"
+                href="login.html"
+            >
+
+                Ingresar
+
+            </a>
+
+
+        </nav>
+
+
+    </header>
+
+
+
+    <!-- ======================
+         PORTADA PRINCIPAL
+    ======================= -->
+
+    <section class="hero portada">
+
+
+        <img
+            class="imagen-portada"
+            src="img/portada/portada.jpg"
+            alt="ComicVerse AI"
+        >
+
+
+        <div class="hero-overlay">
+
+
+            <div class="hero-text">
+
+
+                <h1 id="heroTitulo">
+
+                    ComicVerse AI
+
+                </h1>
+
+
+                <h2 id="heroGenero">
+
+                    Tu universo de cómics e historias digitales
+
+                </h2>
+
+
+                <p id="heroDescripcion">
+
+                    Explora mundos increíbles, descubre héroes
+                    y vive aventuras creadas con Inteligencia Artificial.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ======================
+         HISTORIAS DESTACADAS
+    ======================= -->
+
+    <section class="container">
+
+
+        <h2 class="titulo">
+
+            🔥 Historias destacadas
+
+        </h2>
+
+
+        <div
+            class="cards"
+            id="destacados"
+        >
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ======================
+         GEMINI AI
+    ======================= -->
+
+    <section class="gemini">
+
+
+        <div class="container">
+
+
+            <h2>
+
+                🤖 ComicVerse AI
+
+            </h2>
+
+
+            <p>
+
+                Nuestra inteligencia artificial te ayuda
+                a descubrir historias, personajes y cómics
+                según tus gustos.
+
+            </p>
+
+
+
+            <!-- ======================
+                 CHAT
+            ======================= -->
+
+            <div class="chat-gemini">
+
+
+                <!-- MENSAJES -->
+
+                <div
+                    id="chatMensajes"
+                    class="chat-mensajes"
+                >
+
+
+                    <!-- MENSAJE INICIAL -->
+
+                    <div class="mensaje ia">
+
+                        <strong>
+                            🤖 ComicVerse AI
+                        </strong>
+
+
+                        <p>
+
+                            ¡Hola! 👋 Soy ComicVerse AI.
+                            ¿Qué cómic o historia estás buscando?
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ======================
+                     INPUT
+                ======================= -->
+
+                <div class="chat-input">
+
+
+                    <input
+                        type="text"
+                        id="preguntaGemini"
+                        placeholder="Escribe tu pregunta..."
+                        autocomplete="off"
+                    >
+
+
+                    <button
+                        type="button"
+                        id="btnGemini"
+                    >
+
+                        🚀 Enviar
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ======================
+         FOOTER
+    ======================= -->
+
+    <footer>
+
+
+        <p>
+
+            © 2026 ComicVerse AI |
+            Plataforma de cómics e historias digitales
+
+        </p>
+
+
+    </footer>
+
+
+
+    <!-- ======================
+         FIREBASE / APP
+    ======================= -->
+
+    <script
+        type="module"
+        src="js/index.js"
+    ></script>
+
+
+    <!-- ======================
+         CHAT GEMINI
+    ======================= -->
+
+    <script
+        src="js/gemini-chat.js"
+    ></script>
+
+
+</body>
+
 </html>

@@ -1,0 +1,655 @@
+/* =====================================
+   COMICVERSE AI
+   ESTILOS COMPLETOS DEL CHAT
+===================================== */
+
+#comicverseAI {
+    position: fixed;
+    z-index: 99999;
+    right: 25px;
+    bottom: 25px;
+    font-family: "Poppins", Arial, sans-serif;
+}
+
+/* =====================================
+   COMICVERSE AI
+   CORRECCIÓN FINAL DEL TEMA OSCURO
+   ===================================== */
+
+/* VENTANA COMPLETA */
+#comicverseAI .ai-chat {
+    background: #0F172A !important;
+    border: 1px solid #334155 !important;
+}
+
+/* ZONA DE MENSAJES */
+#comicverseAI .ai-mensajes {
+    background: #111827 !important;
+    color: #E5E7EB !important;
+}
+
+/* SCROLL */
+#comicverseAI .ai-mensajes::-webkit-scrollbar-track {
+    background: #0F172A !important;
+}
+
+#comicverseAI .ai-mensajes::-webkit-scrollbar-thumb {
+    background: #475569 !important;
+}
+
+/* BURBUJAS GENERALES */
+#comicverseAI .ai-burbuja {
+    color: #E5E7EB !important;
+    background: #1E293B !important;
+}
+
+/* BURBUJA DE LA IA */
+#comicverseAI .ai-mensaje.ai .ai-burbuja {
+    background: #1E293B !important;
+    color: #E2E8F0 !important;
+    border: 1px solid #334155 !important;
+    border-bottom-left-radius: 5px;
+}
+
+/* BURBUJA DEL USUARIO */
+#comicverseAI .ai-mensaje.usuario .ai-burbuja {
+    background: linear-gradient(
+        135deg,
+        #3B82F6,
+        #6366F1
+    ) !important;
+
+    color: #FFFFFF !important;
+
+    border: none !important;
+
+    border-bottom-right-radius: 5px;
+}
+
+/* AVATAR */
+#comicverseAI .ai-avatar {
+    background: #1E293B !important;
+    color: #FFFFFF !important;
+}
+
+/* INDICADOR "ESCRIBIENDO..." */
+#comicverseAI .ai-escribiendo {
+    background: #111827 !important;
+    color: #94A3B8 !important;
+    border-top: 1px solid #334155 !important;
+}
+
+/* FORMULARIO */
+#comicverseAI .ai-formulario {
+    background: #0F172A !important;
+    border-top: 1px solid #334155 !important;
+}
+
+/* INPUT */
+#comicverseAI .ai-formulario input {
+    background: #1E293B !important;
+    color: #FFFFFF !important;
+    border: 1px solid #475569 !important;
+}
+
+/* TEXTO DEL INPUT */
+#comicverseAI .ai-formulario input::placeholder {
+    color: #94A3B8 !important;
+}
+
+/* INPUT AL SELECCIONAR */
+#comicverseAI .ai-formulario input:focus {
+    background: #1E293B !important;
+    color: #FFFFFF !important;
+    border-color: #6366F1 !important;
+    box-shadow:
+        0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+}
+
+/* BOTÓN ENVIAR */
+#comicverseAI .ai-formulario button {
+    background: linear-gradient(
+        135deg,
+        #3B82F6,
+        #8B5CF6
+    ) !important;
+
+    color: #FFFFFF !important;
+}
+
+/* ENCABEZADO */
+#comicverseAI .ai-header {
+    background: linear-gradient(
+        135deg,
+        #1E3A8A,
+        #4C1D95
+    ) !important;
+
+    color: #FFFFFF !important;
+}
+
+/* TEXTO DEL ENCABEZADO */
+#comicverseAI .ai-header strong,
+#comicverseAI .ai-header span {
+    color: #FFFFFF !important;
+}
+
+/* BOTÓN CERRAR */
+#comicverseAI .ai-header button {
+    background: rgba(255,255,255,0.12) !important;
+    color: #FFFFFF !important;
+}
+
+
+/* =====================================
+   EVITAR FONDOS BLANCOS HEREDADOS
+   ===================================== */
+
+#comicverseAI,
+#comicverseAI *,
+#comicverseAI input,
+#comicverseAI button {
+    box-sizing: border-box;
+}
+
+
+/* =====================================
+   MÓVIL
+   ===================================== */
+
+@media (max-width: 600px) {
+
+    #comicverseAI .ai-chat {
+        background: #0F172A !important;
+    }
+
+    #comicverseAI .ai-mensajes {
+        background: #111827 !important;
+    }
+
+    #comicverseAI .ai-formulario {
+        background: #0F172A !important;
+    }
+
+}
+
+/* =====================================
+   BOTÓN FLOTANTE
+===================================== */
+
+.ai-toggle {
+    width: 62px;
+    height: 62px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color: #ffffff;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.35);
+
+    transition: transform 0.3s ease;
+}
+
+.ai-toggle:hover {
+    transform: scale(1.08);
+}
+
+
+/* =====================================
+   VENTANA DEL CHAT
+===================================== */
+
+.ai-chat {
+    position: absolute;
+
+    right: 0;
+    bottom: 78px;
+
+    width: 380px;
+    max-width: calc(100vw - 30px);
+
+    height: 550px;
+    max-height: calc(100vh - 110px);
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background: #0b1736 !important;
+
+    border: 1px solid #263f73;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.55);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform:
+        translateY(20px)
+        scale(0.96);
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        visibility 0.25s ease;
+}
+
+
+/* =====================================
+   CHAT ABIERTO
+===================================== */
+
+.ai-chat.abierto {
+    opacity: 1;
+    visibility: visible;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =====================================
+   ENCABEZADO
+===================================== */
+
+.ai-header {
+    min-height: 70px;
+
+    padding: 14px 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: linear-gradient(
+        135deg,
+        #172f6b,
+        #35206f
+    ) !important;
+
+    color: #ffffff;
+}
+
+
+.ai-header div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+
+.ai-header strong {
+    font-size: 16px;
+    color: #ffffff;
+}
+
+
+.ai-header span {
+    font-size: 12px;
+    color: #cbd5e1;
+    opacity: 0.9;
+}
+
+
+.ai-header button {
+    width: 34px;
+    height: 34px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+
+.ai-header button:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+
+/* =====================================
+   ZONA DE MENSAJES
+===================================== */
+
+.ai-mensajes {
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 20px 15px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+
+    background: #0b1736 !important;
+}
+
+
+/* =====================================
+   SCROLL
+===================================== */
+
+.ai-mensajes::-webkit-scrollbar {
+    width: 7px;
+}
+
+.ai-mensajes::-webkit-scrollbar-track {
+    background: #08122c;
+}
+
+.ai-mensajes::-webkit-scrollbar-thumb {
+    background: #29477d;
+    border-radius: 10px;
+}
+
+
+/* =====================================
+   MENSAJE
+===================================== */
+
+.ai-mensaje {
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 8px;
+
+    max-width: 90%;
+}
+
+
+/* =====================================
+   MENSAJE IA
+===================================== */
+
+.ai-mensaje.ai {
+    align-self: flex-start;
+}
+
+
+/* =====================================
+   MENSAJE USUARIO
+===================================== */
+
+.ai-mensaje.usuario {
+    align-self: flex-end;
+
+    flex-direction: row-reverse;
+}
+
+
+/* =====================================
+   AVATAR
+===================================== */
+
+.ai-avatar {
+    width: 32px;
+    height: 32px;
+
+    min-width: 32px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #172b55 !important;
+
+    color: #ffffff;
+
+    font-size: 17px;
+}
+
+
+/* =====================================
+   BURBUJA
+===================================== */
+
+.ai-burbuja {
+    padding: 11px 14px;
+
+    border-radius: 16px;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    white-space: pre-wrap;
+
+    word-break: break-word;
+}
+
+
+/* =====================================
+   BURBUJA IA
+===================================== */
+
+.ai-mensaje.ai .ai-burbuja {
+    background: #172b55 !important;
+
+    color: #f8fafc !important;
+
+    border-bottom-left-radius: 5px;
+}
+
+
+/* =====================================
+   BURBUJA USUARIO
+===================================== */
+
+.ai-mensaje.usuario .ai-burbuja {
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #6366f1
+    ) !important;
+
+    color: #ffffff !important;
+
+    border-bottom-right-radius: 5px;
+}
+
+
+/* =====================================
+   INDICADOR DE ESCRITURA
+===================================== */
+
+.ai-escribiendo {
+    padding: 8px 18px;
+
+    background: #0b1736 !important;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+
+    border-top: 1px solid #1d3767;
+}
+
+
+/* =====================================
+   FORMULARIO
+===================================== */
+
+.ai-formulario {
+    display: flex;
+
+    gap: 8px;
+
+    padding: 12px;
+
+    background: #09152f !important;
+
+    border-top: 1px solid #263f73;
+}
+
+
+/* =====================================
+   INPUT
+===================================== */
+
+.ai-formulario input {
+    flex: 1;
+
+    min-width: 0;
+
+    height: 44px;
+
+    padding: 0 14px;
+
+    border: 1px solid #2c4b83;
+
+    border-radius: 12px;
+
+    outline: none;
+
+    background: #172b55 !important;
+
+    color: #ffffff !important;
+
+    font-family: inherit;
+
+    font-size: 13px;
+}
+
+
+.ai-formulario input::placeholder {
+    color: #94a3b8;
+}
+
+
+.ai-formulario input:focus {
+    border-color: #6366f1;
+
+    box-shadow:
+        0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+
+/* =====================================
+   BOTÓN ENVIAR
+===================================== */
+
+.ai-formulario button {
+    width: 44px;
+    height: 44px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color: #ffffff;
+
+    font-size: 19px;
+
+    cursor: pointer;
+
+    transition: transform 0.2s ease;
+}
+
+
+.ai-formulario button:hover {
+    transform: scale(1.05);
+}
+
+
+.ai-formulario button:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =====================================
+   EVITAR FONDO BLANCO EN ELEMENTOS INTERNOS
+===================================== */
+
+#comicverseAI .ai-chat,
+#comicverseAI .ai-mensajes,
+#comicverseAI .ai-escribiendo,
+#comicverseAI .ai-formulario {
+    box-sizing: border-box;
+}
+
+
+/* =====================================
+   MÓVIL
+===================================== */
+
+@media (max-width: 600px) {
+
+    #comicverseAI {
+        right: 15px;
+        bottom: 15px;
+    }
+
+    .ai-toggle {
+        width: 56px;
+        height: 56px;
+
+        font-size: 25px;
+    }
+
+    .ai-chat {
+        right: -5px;
+        bottom: 68px;
+
+        width: calc(100vw - 20px);
+
+        height: calc(100vh - 100px);
+
+        max-height: 600px;
+
+        border-radius: 18px;
+    }
+
+    .ai-header {
+        min-height: 64px;
+    }
+
+    .ai-mensajes {
+        padding: 15px 10px;
+    }
+
+    .ai-burbuja {
+        font-size: 13px;
+
+        max-width: 260px;
+    }
+}
