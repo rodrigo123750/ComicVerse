@@ -106,12 +106,25 @@ app.get("/", (req, res) => {
 // SERVIDOR
 // =====================================
 
-const PORT = 3000;
+// Render proporciona PORT automáticamente.
+// En local utilizaremos 3000.
 
-app.listen(PORT, () => {
+const PORT =
+    process.env.PORT || 3000;
 
-    console.log(
-        "Servidor ComicVerse activo en puerto 3000 🚀"
-    );
 
-});
+// =====================================
+// INICIAR SERVIDOR
+// =====================================
+
+app.listen(
+    PORT,
+    "0.0.0.0",
+    () => {
+
+        console.log(
+            `Servidor ComicVerse activo en puerto ${PORT} 🚀`
+        );
+
+    }
+);
