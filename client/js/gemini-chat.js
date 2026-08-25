@@ -170,32 +170,36 @@ async function enviarPreguntaGemini() {
                 // CONSULTAR SERVIDOR
                 // =================================
 
-                const respuesta =
-                    await fetch(
-                        "http://localhost:3000/api/gemini/preguntar",
-                        {
+                // =================================
+// CONSULTAR SERVIDOR
+// =================================
 
-                            method: "POST",
+const respuesta =
+    await fetch(
+        "https://comicverse-1vvp.onrender.com/api/gemini/preguntar",
+        {
 
-                            headers: {
+            method: "POST",
 
-                                "Content-Type":
-                                    "application/json; charset=utf-8"
+            headers: {
 
-                            },
+                "Content-Type":
+                    "application/json; charset=utf-8"
 
-                            body: JSON.stringify({
+            },
 
-                                pregunta:
-                                    pregunta,
+            body: JSON.stringify({
 
-                                historial:
-                                    historialChat
+                pregunta:
+                    pregunta,
 
-                            })
+                historial:
+                    historialChat
 
-                        }
-                    );
+            })
+
+        }
+    );
 
 
                 // =================================

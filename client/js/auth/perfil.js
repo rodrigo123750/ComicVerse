@@ -1,10 +1,12 @@
 // =====================================
 // COMICVERSE AI
-// PERFIL CON FIRESTORE
-// FOTO + PLAN
+// PERFIL CON FIREBASE
 // =====================================
 
-import { auth, db } from "../firebase/firebase.js";
+import {
+    auth,
+    db
+} from "../firebase/firebase.js";
 
 import {
     onAuthStateChanged,
@@ -21,41 +23,23 @@ import {
 // ELEMENTOS
 // =====================================
 
-const fotoUsuario =
-    document.getElementById("fotoUsuario");
-
-
 const nombreUsuario =
     document.getElementById("nombreUsuario");
-
 
 const correoUsuario =
     document.getElementById("correoUsuario");
 
-
 const fechaUsuario =
     document.getElementById("fechaUsuario");
 
+const imagenPerfil =
+    document.getElementById("imagenPerfil");
 
 const planUsuario =
     document.getElementById("planUsuario");
 
-
 const cerrarSesion =
     document.getElementById("cerrarSesion");
-
-
-// =====================================
-// COMPROBAR ELEMENTOS
-// =====================================
-
-if (!nombreUsuario) {
-
-    console.warn(
-        "⚠️ No se encontró nombreUsuario."
-    );
-
-}
 
 
 // =====================================
@@ -66,31 +50,21 @@ onAuthStateChanged(
     auth,
     async (usuario) => {
 
-        // =================================
-        // NO HAY SESIÓN
-        // =================================
-
         if (!usuario) {
 
-            window.location.href =
-                "login.html";
-
+            window.location.href = "login.html";
             return;
 
         }
 
+        console.log("=================================");
+        console.log("USUARIO AUTENTICADO");
+        console.log("UID:", usuario.uid);
+        console.log("Correo:", usuario.email);
+        console.log("Nombre Auth:", usuario.displayName);
+        console.log("=================================");
 
         try {
-
-            console.log(
-                "👤 Usuario conectado:",
-                usuario.uid
-            );
-
-
-            // =================================
-            // REFERENCIA FIRESTORE
-            // =================================
 
             const referencia =
                 doc(
@@ -99,41 +73,27 @@ onAuthStateChanged(
                     usuario.uid
                 );
 
-
-            // =================================
-            // OBTENER DATOS
-            // =================================
-
             const documento =
-                await getDoc(
-                    referencia
+                await getDoc(referencia);
+
+            console.log(
+                "¿Existe documento?:",
+                documento.exists()
+            );
+
+            // =================================
+            // SI EXISTE EN FIRESTORE
+            // =================================
+
+            if (documento.exists()) {
+
+                const datos =
+                    documento.data();
+
+                console.log(
+                    "Datos Firestore:",
+                    datos
                 );
-
-
-            // =================================
-            // COMPROBAR DOCUMENTO
-            // =================================
-
-            if (!documento.exists()) {
-
-                console.warn(
-                    "⚠️ No existe el perfil en Firestore."
-                );
-
-                return;
-
-            }
-
-
-            const datos =
-                documento.data();
-
-
-            // =================================
-            // NOMBRE
-            // =================================
-
-            if (nombreUsuario) {
 
                 nombreUsuario.textContent =
                     "👤 " +
@@ -143,130 +103,104 @@ onAuthStateChanged(
                         "Usuario"
                     );
 
-            }
-
-
-            // =================================
-            // CORREO
-            // =================================
-
-            if (correoUsuario) {
-
                 correoUsuario.textContent =
                     "📧 " +
                     (
                         datos.correo ||
-                        usuario.email ||
-                        ""
+                        usuario.email
                     );
 
-            }
+                if (datos.imagenPerfil) {
 
+                    imagenPerfil.src =
+                        datos.imagenPerfil;
 
-            // =================================
-            // FOTO
-            // =================================
+                }
+                else {
 
-            const foto =
-                datos.foto ||
-                usuario.photoURL;
-
-
-            if (
-                fotoUsuario &&
-                foto
-            ) {
-
-                fotoUsuario.src =
-                    foto;
-
-                fotoUsuario.alt =
-                    "Foto de perfil";
-
-
-                // =================================
-                // SI LA FOTO FALLA
-                // =================================
-
-                fotoUsuario.onerror =
-                    () => {
-
-                        fotoUsuario.src =
-                            `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                                datos.nombre || "Usuario"
-                            )}&background=random&color=fff&size=256`;
-
-                    };
-
-            }
-
-
-            // =================================
-            // FECHA DE REGISTRO
-            // =================================
-
-            if (
-                fechaUsuario &&
-                datos.fechaRegistro
-            ) {
-
-                fechaUsuario.textContent =
-                    "📅 Registrado: " +
-                    datos.fechaRegistro
-                        .toDate()
-                        .toLocaleDateString();
-
-            }
-
-
-            // =================================
-            // PLAN
-            // =================================
-
-            if (planUsuario) {
-
-                const plan =
-                    datos.plan ||
-                    "gratuito";
-
-
-                let nombrePlan =
-                    "🆓 Gratuito";
-
-
-                if (
-                    plan === "plus"
-                ) {
-
-                    nombrePlan =
-                        "⭐ Plus";
+                    imagenPerfil.src =
+                        "https://ui-avatars.com/api/?name=" +
+                        encodeURIComponent(
+                            datos.nombre ||
+                            usuario.displayName ||
+                            "Usuario"
+                        ) +
+                        "&background=random&color=fff";
 
                 }
 
-                else if (
-                    plan === "premium"
-                ) {
+                const nombresPlanes = {
 
-                    nombrePlan =
-                        "💎 Premium";
+                    gratuito:
+                        "🆓 Plan Gratuito",
 
-                }
+                    plus:
+                        "⭐ Plan Plus",
 
-                else if (
-                    plan === "ultra"
-                ) {
+                    premium:
+                        "💎 Plan Premium",
 
-                    nombrePlan =
-                        "👑 Ultra Premium Plus";
+                    ultra_premium_plus:
+                        "👑 Ultra Premium Plus"
 
-                }
-
+                };
 
                 planUsuario.textContent =
-                    nombrePlan;
+                    nombresPlanes[
+                        datos.plan
+                    ] ||
+                    "🆓 Plan Gratuito";
+
+                if (datos.fechaRegistro) {
+
+                    fechaUsuario.textContent =
+                        "📅 Registrado: " +
+                        datos.fechaRegistro
+                            .toDate()
+                            .toLocaleDateString(
+                                "es-ES"
+                            );
+
+                }
 
             }
 
+            // =================================
+            // SI NO EXISTE EN FIRESTORE
+            // =================================
+
+            else {
+
+                console.warn(
+                    "⚠️ No existe documento en Firestore."
+                );
+
+                nombreUsuario.textContent =
+                    "👤 " +
+                    (
+                        usuario.displayName ||
+                        "Usuario"
+                    );
+
+                correoUsuario.textContent =
+                    "📧 " +
+                    usuario.email;
+
+                fechaUsuario.textContent =
+                    "📅 Sin información";
+
+                planUsuario.textContent =
+                    "🆓 Plan Gratuito";
+
+                imagenPerfil.src =
+                    "https://ui-avatars.com/api/?name=" +
+                    encodeURIComponent(
+                        usuario.displayName ||
+                        "Usuario"
+                    ) +
+                    "&background=random&color=fff";
+
+            }
 
         }
 
@@ -280,6 +214,7 @@ onAuthStateChanged(
         }
 
     }
+
 );
 
 
@@ -287,41 +222,27 @@ onAuthStateChanged(
 // CERRAR SESIÓN
 // =====================================
 
-if (cerrarSesion) {
+cerrarSesion?.addEventListener(
+    "click",
+    async () => {
 
-    cerrarSesion.addEventListener(
-        "click",
-        async () => {
+        try {
 
-            try {
+            await signOut(auth);
 
-                await signOut(auth);
-
-
-                alert(
-                    "👋 Sesión cerrada correctamente."
-                );
-
-
-                window.location.href =
-                    "index.html";
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    "❌ ERROR CERRANDO SESIÓN:",
-                    error
-                );
-
-                alert(
-                    "❌ No se pudo cerrar la sesión."
-                );
-
-            }
+            window.location.href =
+                "index.html";
 
         }
-    );
 
-}
+        catch (error) {
+
+            console.error(
+                "❌ ERROR CERRANDO SESIÓN:",
+                error
+            );
+
+        }
+
+    }
+);
