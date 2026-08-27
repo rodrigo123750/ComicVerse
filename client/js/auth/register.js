@@ -3,7 +3,10 @@
 // REGISTRO + FIRESTORE
 // =====================================
 
-import { auth, db } from "../firebase/firebase.js";
+import {
+    auth,
+    db
+} from "../firebase/firebase.js";
 
 import {
     createUserWithEmailAndPassword,
@@ -22,7 +25,9 @@ import {
 // =====================================
 
 const formulario =
-    document.getElementById("registerForm");
+    document.getElementById(
+        "registerForm"
+    );
 
 
 // =====================================
@@ -80,22 +85,7 @@ formulario?.addEventListener(
 
 
         // =================================
-        // COMPROBAR CONTRASEÑAS
-        // =================================
-
-        if (password !== confirmar) {
-
-            alert(
-                "❌ Las contraseñas no coinciden."
-            );
-
-            return;
-
-        }
-
-
-        // =================================
-        // COMPROBAR NOMBRE
+        // VALIDAR NOMBRE
         // =================================
 
         if (!nombre) {
@@ -109,13 +99,28 @@ formulario?.addEventListener(
         }
 
 
+        // =================================
+        // VALIDAR CONTRASEÑAS
+        // =================================
+
+        if (password !== confirmar) {
+
+            alert(
+                "❌ Las contraseñas no coinciden."
+            );
+
+            return;
+
+        }
+
+
         try {
 
             // =================================
             // CREAR USUARIO
             // =================================
 
-            const usuario =
+            const credenciales =
                 await createUserWithEmailAndPassword(
                     auth,
                     email,
@@ -123,14 +128,19 @@ formulario?.addEventListener(
                 );
 
 
+            const usuario =
+                credenciales.user;
+
+
             // =================================
-            // GUARDAR NOMBRE EN AUTH
+            // ACTUALIZAR PERFIL AUTH
             // =================================
 
             await updateProfile(
-                usuario.user,
+                usuario,
                 {
-                    displayName: nombre
+                    displayName:
+                        nombre
                 }
             );
 
@@ -141,12 +151,14 @@ formulario?.addEventListener(
 
             const imagenPerfil =
                 "https://ui-avatars.com/api/?name=" +
-                encodeURIComponent(nombre) +
+                encodeURIComponent(
+                    nombre
+                ) +
                 "&background=random&color=fff";
 
 
             // =================================
-            // CREAR PERFIL FIRESTORE
+            // CREAR DOCUMENTO FIRESTORE
             // =================================
 
             await setDoc(
@@ -154,21 +166,75 @@ formulario?.addEventListener(
                 doc(
                     db,
                     "usuarios",
-                    usuario.user.uid
+                    usuario.uid
                 ),
 
                 {
 
-                    nombre: nombre,
+                    // =========================
+                    // DATOS PRINCIPALES
+                    // =========================
 
-                    correo: email,
+                    nombre:
+                        nombre,
+
+                    correo:
+                        email,
 
                     imagenPerfil:
                         imagenPerfil,
 
-                    plan: "gratuito",
+
+                    // =========================
+                    // PERFIL
+                    // =========================
+
+                    pais:
+                        "",
+
+                    biografia:
+                        "",
+
+
+                    // =========================
+                    // PLAN
+                    // =========================
+
+                    plan:
+                        "gratuito",
+
+                    rol:
+                        "usuario",
+
+
+                    // =========================
+                    // ESTADÍSTICAS
+                    // =========================
+
+                    librosFavoritos:
+                        [],
+
+                    comicsFavoritos:
+                        [],
+
+                    librosLeidos:
+                        0,
+
+                    comicsLeidos:
+                        0,
+
+                    comentarios:
+                        0,
+
+
+                    // =========================
+                    // FECHAS
+                    // =========================
 
                     fechaRegistro:
+                        serverTimestamp(),
+
+                    ultimaConexion:
                         serverTimestamp()
 
                 }
@@ -188,7 +254,6 @@ formulario?.addEventListener(
             window.location.href =
                 "login.html";
 
-
         }
 
         catch (error) {
@@ -199,38 +264,46 @@ formulario?.addEventListener(
             );
 
 
-            if (
-                error.code ===
-                "auth/email-already-in-use"
-            ) {
+            switch (error.code) {
 
-                alert(
-                    "⚠️ Este correo ya está registrado."
-                );
+                case "auth/email-already-in-use":
 
-            }
+                    alert(
+                        "⚠️ Este correo ya está registrado."
+                    );
 
-            else if (
-                error.code ===
-                "auth/weak-password"
-            ) {
+                    break;
 
-                alert(
-                    "⚠️ La contraseña es demasiado débil."
-                );
 
-            }
+                case "auth/weak-password":
 
-            else {
+                    alert(
+                        "⚠️ La contraseña es demasiado débil."
+                    );
 
-                alert(
-                    "❌ Error: " +
-                    error.message
-                );
+                    break;
+
+
+                case "auth/invalid-email":
+
+                    alert(
+                        "⚠️ El correo electrónico no es válido."
+                    );
+
+                    break;
+
+
+                default:
+
+                    alert(
+                        "❌ " +
+                        error.message
+                    );
 
             }
 
         }
 
     }
+
 );

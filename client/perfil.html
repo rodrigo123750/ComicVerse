@@ -10,12 +10,12 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>ComicVerse AI | Perfil</title>
+    <title>ComicVerse AI | Mi Perfil</title>
 
 
-    <!-- ======================
-            ESTILOS
-    ======================= -->
+    <!-- =====================================================
+         ESTILOS PRINCIPALES
+    ====================================================== -->
 
     <link
         rel="stylesheet"
@@ -33,43 +33,84 @@
     >
 
 
-    <!-- ======================
-            ESTILOS PERFIL
-    ======================= -->
+    <!-- =====================================================
+         ESTILOS DEL PERFIL
+    ====================================================== -->
 
     <style>
 
+        /* =====================================================
+           CONTENEDOR GENERAL
+        ====================================================== */
+
         .perfil-container {
+
+            width: 100%;
+
+            min-height: 80vh;
+
+            padding: 50px 20px;
+
+            box-sizing: border-box;
 
             display: flex;
 
             justify-content: center;
 
-            align-items: center;
-
-            min-height: 70vh;
-
-            padding: 40px 20px;
+            align-items: flex-start;
 
         }
 
+
+        /* =====================================================
+           TARJETA PRINCIPAL
+        ====================================================== */
 
         .perfil-card {
 
             width: 100%;
 
-            max-width: 500px;
-
-            text-align: center;
+            max-width: 850px;
 
             padding: 35px;
+
+            box-sizing: border-box;
+
+            text-align: center;
 
         }
 
 
-        /* ======================
-           IMAGEN DE PERFIL
-        ======================= */
+        /* =====================================================
+           TITULO
+        ====================================================== */
+
+        .perfil-titulo {
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .perfil-titulo h1 {
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .perfil-titulo p {
+
+            margin: 0;
+
+            opacity: 0.8;
+
+        }
+
+
+        /* =====================================================
+           FOTO DE PERFIL
+        ====================================================== */
 
         .perfil-imagen-contenedor {
 
@@ -77,16 +118,18 @@
 
             justify-content: center;
 
-            margin-bottom: 20px;
+            align-items: center;
+
+            margin-bottom: 15px;
 
         }
 
 
         .perfil-imagen {
 
-            width: 140px;
+            width: 150px;
 
-            height: 140px;
+            height: 150px;
 
             border-radius: 50%;
 
@@ -95,16 +138,16 @@
             border: 5px solid #ffffff;
 
             box-shadow:
-                0 5px 20px rgba(0,0,0,0.25);
+                0 5px 25px rgba(0,0,0,0.30);
 
             background: #eeeeee;
 
         }
 
 
-        /* ======================
-           INPUT IMAGEN
-        ======================= */
+        /* =====================================================
+           INPUT DE IMAGEN
+        ====================================================== */
 
         .input-imagen {
 
@@ -117,22 +160,45 @@
 
             display: inline-block;
 
-            margin-top: 5px;
-
-            margin-bottom: 20px;
+            margin-bottom: 25px;
 
             cursor: pointer;
 
         }
 
 
-        /* ======================
-           INFORMACIÓN
-        ======================= */
+        /* =====================================================
+           NOMBRE
+        ====================================================== */
+
+        #nombreUsuario {
+
+            margin: 10px 0;
+
+            font-size: 27px;
+
+        }
+
+
+        /* =====================================================
+           INFORMACIÓN DEL USUARIO
+        ====================================================== */
 
         .perfil-info {
 
+            width: 100%;
+
             margin-top: 20px;
+
+            padding: 20px;
+
+            box-sizing: border-box;
+
+            border-radius: 15px;
+
+            background: rgba(255,255,255,0.06);
+
+            text-align: left;
 
         }
 
@@ -141,51 +207,399 @@
 
             margin: 12px 0;
 
-            font-size: 16px;
+            font-size: 15px;
 
         }
 
 
-        /* ======================
+        /* =====================================================
+           BIOGRAFÍA Y PAÍS
+        ====================================================== */
+
+        #bioUsuario,
+        #paisUsuario {
+
+            margin-top: 12px;
+
+        }
+
+
+        /* =====================================================
+           SEPARADORES
+        ====================================================== */
+
+        .perfil-seccion {
+
+            margin-top: 30px;
+
+            padding-top: 25px;
+
+            border-top: 1px solid rgba(255,255,255,0.15);
+
+        }
+
+
+        .perfil-seccion h3 {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        /* =====================================================
+           CAMPOS DE EDICIÓN
+        ====================================================== */
+
+        #nombreEditar,
+        #paisEditar,
+        #bioEditar {
+
+            width: 100%;
+
+            padding: 13px;
+
+            margin-top: 10px;
+
+            border-radius: 10px;
+
+            border: none;
+
+            outline: none;
+
+            box-sizing: border-box;
+
+            font-size: 15px;
+
+        }
+
+
+        #bioEditar {
+
+            resize: vertical;
+
+            min-height: 100px;
+
+        }
+
+
+        #guardarPerfil {
+
+            width: 100%;
+
+            margin-top: 15px;
+
+        }
+
+
+        /* =====================================================
            PLAN
-        ======================= */
+        ====================================================== */
 
         .plan-usuario {
 
-            margin: 20px 0;
+            margin-top: 30px;
 
-            padding: 15px;
+            padding: 22px;
 
-            border-radius: 12px;
+            border-radius: 16px;
 
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.08);
+
+            text-align: left;
 
         }
 
 
-        .plan-usuario h3 {
+        .plan-titulo {
 
-            margin: 0 0 8px 0;
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .plan-titulo h3 {
+
+            margin: 0;
 
         }
 
 
         .plan-nombre {
 
-            font-size: 20px;
+            font-size: 22px;
+
+            font-weight: bold;
+
+            margin: 10px 0;
+
+        }
+
+
+        #descripcionPlan {
+
+            opacity: 0.9;
+
+            line-height: 1.5;
+
+        }
+
+
+        .plan-datos {
+
+            margin-top: 18px;
+
+            padding-top: 15px;
+
+            border-top: 1px solid rgba(255,255,255,0.15);
+
+        }
+
+
+        .plan-datos p {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin: 10px 0;
+
+        }
+
+
+        /* =====================================================
+           ESTADÍSTICAS
+        ====================================================== */
+
+        .estadisticas {
+
+            margin-top: 30px;
+
+        }
+
+
+        .estadisticas h3 {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .estadisticas-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+
+        }
+
+
+        .estadistica {
+
+            padding: 18px;
+
+            border-radius: 14px;
+
+            background: rgba(255,255,255,0.07);
+
+            text-align: center;
+
+        }
+
+
+        .estadistica-icono {
+
+            font-size: 25px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .estadistica-nombre {
+
+            display: block;
+
+            font-size: 14px;
+
+            opacity: 0.8;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .estadistica-valor {
+
+            font-size: 22px;
 
             font-weight: bold;
 
         }
 
 
-        /* ======================
-           BOTÓN CERRAR SESIÓN
-        ======================= */
+        /* =====================================================
+           NIVEL Y PUNTOS
+        ====================================================== */
+
+        .progreso-usuario {
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            border-radius: 14px;
+
+            background: rgba(255,255,255,0.07);
+
+            text-align: left;
+
+        }
+
+
+        .progreso-fila {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        /* =====================================================
+           ADMINISTRACIÓN
+        ====================================================== */
+
+        .admin-seccion {
+
+            margin-top: 30px;
+
+        }
+
+
+        .btn-admin {
+
+            display: block;
+
+            width: 100%;
+
+            padding: 13px 20px;
+
+            box-sizing: border-box;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366F1,
+                    #8B5CF6
+                );
+
+            color: #ffffff;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+
+        }
+
+
+        .btn-admin:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(99,102,241,0.30);
+
+        }
+
+
+        /* =====================================================
+           CERRAR SESIÓN
+        ====================================================== */
 
         #cerrarSesion {
 
-            margin-top: 20px;
+            width: 100%;
+
+            margin-top: 15px;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ====================================================== */
+
+        @media (max-width: 600px) {
+
+            .perfil-container {
+
+                padding: 25px 12px;
+
+            }
+
+
+            .perfil-card {
+
+                padding: 22px;
+
+            }
+
+
+            .perfil-imagen {
+
+                width: 125px;
+
+                height: 125px;
+
+            }
+
+
+            #nombreUsuario {
+
+                font-size: 23px;
+
+            }
+
+
+            .estadisticas-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .plan-datos p {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 3px;
+
+            }
 
         }
 
@@ -197,12 +611,11 @@
 <body>
 
 
-<!-- ======================
-        NAVBAR
-====================== -->
+<!-- =====================================================
+     NAVBAR
+====================================================== -->
 
 <header class="navbar">
-
 
     <div class="logo">
 
@@ -212,7 +625,6 @@
 
 
     <nav>
-
 
         <a href="index.html">
 
@@ -234,17 +646,15 @@
 
         </a>
 
-
     </nav>
-
 
 </header>
 
 
 
-<!-- ======================
-        PERFIL
-====================== -->
+<!-- =====================================================
+     PERFIL
+====================================================== -->
 
 <section class="perfil-container">
 
@@ -252,24 +662,33 @@
     <div class="auth-card perfil-card">
 
 
-        <!-- ======================
-                TÍTULO
-        ======================= -->
+        <!-- =================================================
+             ENCABEZADO
+        ================================================== -->
 
-        <h1>
+        <div class="perfil-titulo">
 
-            👤 Mi Perfil
+            <h1>
 
-        </h1>
+                👤 Mi Perfil
+
+            </h1>
+
+            <p>
+
+                Administra tu información de ComicVerse AI
+
+            </p>
+
+        </div>
 
 
 
-        <!-- ======================
-             IMAGEN DE PERFIL
-        ======================= -->
+        <!-- =================================================
+             FOTO
+        ================================================== -->
 
         <div class="perfil-imagen-contenedor">
-
 
             <img
                 id="imagenPerfil"
@@ -278,14 +697,8 @@
                 alt="Imagen de perfil"
             >
 
-
         </div>
 
-
-
-        <!-- ======================
-             CAMBIAR IMAGEN
-        ======================= -->
 
         <label
             for="inputImagen"
@@ -306,9 +719,9 @@
 
 
 
-        <!-- ======================
+        <!-- =================================================
              NOMBRE
-        ======================= -->
+        ================================================== -->
 
         <h2 id="nombreUsuario">
 
@@ -318,9 +731,9 @@
 
 
 
-        <!-- ======================
+        <!-- =================================================
              INFORMACIÓN
-        ======================= -->
+        ================================================== -->
 
         <div class="perfil-info">
 
@@ -339,22 +752,101 @@
             </p>
 
 
+            <p id="rolUsuario">
+
+                🛡️ Rol: Usuario
+
+            </p>
+
+
+            <p id="ultimaConexion">
+
+                🕒 Última conexión: Cargando...
+
+            </p>
+
+
+            <p id="bioUsuario">
+
+                📝 Sin biografía.
+
+            </p>
+
+
+            <p id="paisUsuario">
+
+                🌎 País: No especificado
+
+            </p>
+
+
         </div>
 
 
 
-        <!-- ======================
-             PLAN DEL USUARIO
-        ======================= -->
+        <!-- =================================================
+             EDITAR PERFIL
+        ================================================== -->
+
+        <div class="perfil-seccion">
+
+            <h3>
+
+                ✏️ Editar perfil
+
+            </h3>
+
+
+            <input
+                id="nombreEditar"
+                type="text"
+                placeholder="👤 Nombre"
+            >
+
+
+            <input
+                id="paisEditar"
+                type="text"
+                placeholder="🌎 País"
+            >
+
+
+            <textarea
+                id="bioEditar"
+                placeholder="📝 Escribe una pequeña biografía..."
+                rows="4"
+            ></textarea>
+
+
+            <button
+                id="guardarPerfil"
+                class="btn"
+            >
+
+                💾 Guardar cambios
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             MI PLAN
+        ================================================== -->
 
         <div class="plan-usuario">
 
 
-            <h3>
+            <div class="plan-titulo">
 
-                ⭐ Mi plan
+                <h3>
 
-            </h3>
+                    ⭐ Mi plan
+
+                </h3>
+
+            </div>
 
 
             <p
@@ -362,25 +854,277 @@
                 class="plan-nombre"
             >
 
-                🆓 Gratuito
+                🆓 Plan Gratuito
 
             </p>
 
 
-            <p>
+            <p id="descripcionPlan">
 
-                Plan actual de tu cuenta
+                Disfruta del catálogo gratuito
+                de ComicVerse AI.
 
             </p>
+
+
+            <div class="plan-datos">
+
+
+                <p>
+
+                    <span>
+
+                        🚀 Próxima renovación:
+
+                    </span>
+
+
+                    <strong id="renovacionPlan">
+
+                        No aplica
+
+                    </strong>
+
+                </p>
+
+
+                <p>
+
+                    <span>
+
+                        💳 Estado:
+
+                    </span>
+
+
+                    <strong id="estadoPlan">
+
+                        Activo
+
+                    </strong>
+
+                </p>
+
+
+            </div>
 
 
         </div>
 
 
 
-        <!-- ======================
+        <!-- =================================================
+             ESTADÍSTICAS
+        ================================================== -->
+
+        <div class="estadisticas">
+
+
+            <h3>
+
+                📊 Mis estadísticas
+
+            </h3>
+
+
+            <div class="estadisticas-grid">
+
+
+                <!-- LIBROS -->
+
+                <div class="estadistica">
+
+                    <div class="estadistica-icono">
+
+                        📚
+
+                    </div>
+
+                    <span class="estadistica-nombre">
+
+                        Libros leídos
+
+                    </span>
+
+                    <strong
+                        id="librosLeidos"
+                        class="estadistica-valor"
+                    >
+
+                        0
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- CÓMICS -->
+
+                <div class="estadistica">
+
+                    <div class="estadistica-icono">
+
+                        📖
+
+                    </div>
+
+                    <span class="estadistica-nombre">
+
+                        Cómics leídos
+
+                    </span>
+
+                    <strong
+                        id="comicsLeidos"
+                        class="estadistica-valor"
+                    >
+
+                        0
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- FAVORITOS -->
+
+                <div class="estadistica">
+
+                    <div class="estadistica-icono">
+
+                        ❤️
+
+                    </div>
+
+                    <span class="estadistica-nombre">
+
+                        Favoritos
+
+                    </span>
+
+                    <strong
+                        id="favoritosUsuario"
+                        class="estadistica-valor"
+                    >
+
+                        0
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- COMENTARIOS -->
+
+                <div class="estadistica">
+
+                    <div class="estadistica-icono">
+
+                        💬
+
+                    </div>
+
+                    <span class="estadistica-nombre">
+
+                        Comentarios
+
+                    </span>
+
+                    <strong
+                        id="comentariosUsuario"
+                        class="estadistica-valor"
+                    >
+
+                        0
+
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 NIVEL
+            ================================================== -->
+
+            <div class="progreso-usuario">
+
+
+                <div class="progreso-fila">
+
+                    <span>
+
+                        🏆 Nivel
+
+                    </span>
+
+
+                    <strong id="nivelUsuario">
+
+                        Novato
+
+                    </strong>
+
+                </div>
+
+
+                <div class="progreso-fila">
+
+                    <span>
+
+                        ⭐ Puntos
+
+                    </span>
+
+
+                    <strong id="puntosUsuario">
+
+                        0
+
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             ADMINISTRACIÓN
+        ================================================== -->
+
+        <div
+            class="admin-seccion"
+            id="adminSeccion"
+        >
+
+            <a
+                href="admin.html"
+                id="btnAdmin"
+                class="btn-admin"
+            >
+
+                🛠️ Panel de Administración
+
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
              CERRAR SESIÓN
-        ======================= -->
+        ================================================== -->
 
         <button
             class="btn"
@@ -394,14 +1138,13 @@
 
     </div>
 
-
 </section>
 
 
 
-<!-- ======================
-        FOOTER
-====================== -->
+<!-- =====================================================
+     FOOTER
+====================================================== -->
 
 <footer>
 
@@ -412,15 +1155,14 @@
 
 
 
-<!-- ======================
-        JAVASCRIPT
-====================== -->
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
 
 <script
     type="module"
     src="js/auth/perfil.js"
->
-</script>
+></script>
 
 
 </body>

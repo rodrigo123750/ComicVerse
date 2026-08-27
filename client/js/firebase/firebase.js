@@ -3,26 +3,26 @@
 // CONFIGURACIÓN GENERAL
 // =====================================
 
-
-import { 
-    initializeApp 
+import {
+    initializeApp
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
-
-import { 
-    getAuth 
+import {
+    getAuth
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
-
-import { 
-    getFirestore 
+import {
+    getFirestore
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
+import {
+    getStorage
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-storage.js";
 
 
-
-
-// Configuración del proyecto Firebase
+// =====================================
+// CONFIGURACIÓN DEL PROYECTO FIREBASE
+// =====================================
 
 const firebaseConfig = {
 
@@ -43,39 +43,44 @@ const firebaseConfig = {
 };
 
 
-
-
-
-// Inicializar Firebase
+// =====================================
+// INICIALIZAR FIREBASE
+// =====================================
 
 const app = initializeApp(firebaseConfig);
 
 
-
-
-
-// Authentication
+// =====================================
+// AUTHENTICATION
+// =====================================
 
 const auth = getAuth(app);
 
 
-
-
-
-// Firestore Database
+// =====================================
+// FIRESTORE DATABASE
+// =====================================
 
 const db = getFirestore(app);
 
 
+// =====================================
+// FIREBASE STORAGE
+// =====================================
+
+const storage = getStorage(app);
 
 
+// =====================================
+// EXPORTAR SERVICIOS
+// =====================================
 
-// Exportar servicios para ComicVerse
+export {
 
-export { 
+    auth,
 
-    auth, 
+    db,
 
-    db 
+    storage
 
 };
