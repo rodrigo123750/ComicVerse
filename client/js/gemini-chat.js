@@ -2,6 +2,7 @@
 // COMICVERSE AI
 // CHAT GEMINI
 // CON HISTORIAL DE CONVERSACIÓN
+// LÍMITE DE 20 PREGUNTAS
 // =====================================
 
 
@@ -17,6 +18,22 @@ const preguntaGemini =
 
 const btnGemini =
     document.getElementById("btnGemini");
+
+
+// =====================================
+// CONFIGURACIÓN
+// =====================================
+
+// Máximo de preguntas permitidas
+// en una conversación.
+
+const MAX_PREGUNTAS = 20;
+
+
+// Número de preguntas que realmente
+// fueron respondidas correctamente.
+
+let preguntasRealizadas = 0;
 
 
 // =====================================
@@ -48,6 +65,34 @@ if (
 // =====================================
 
 async function enviarPreguntaGemini() {
+
+
+    // =================================
+    // COMPROBAR LÍMITE DE PREGUNTAS
+    // =================================
+
+    if (
+        preguntasRealizadas >= MAX_PREGUNTAS
+    ) {
+
+        agregarMensaje(
+
+            "⚠️ Has alcanzado el límite de " +
+            MAX_PREGUNTAS +
+            " preguntas en esta conversación.",
+
+            "ia"
+
+        );
+
+        return;
+
+    }
+
+
+    // =================================
+    // OBTENER PREGUNTA
+    // =================================
 
     const pregunta =
         preguntaGemini.value.trim();
@@ -127,6 +172,12 @@ async function enviarPreguntaGemini() {
             ....... 🤔
         </p>
 
+        <small>
+            Pregunta ${
+                preguntasRealizadas + 1
+            } de ${MAX_PREGUNTAS}
+        </small>
+
     `;
 
 
@@ -138,15 +189,16 @@ async function enviarPreguntaGemini() {
     desplazarChat();
 
 
+    // =====================================
+    // VARIABLES DE PETICIÓN
+    // =====================================
+
+    let datos = null;
+
+    let ultimoError = null;
+
+
     try {
-
-        // =================================
-        // VARIABLES
-        // =================================
-
-        let datos = null;
-
-        let ultimoError = null;
 
 
         // =================================
@@ -159,6 +211,7 @@ async function enviarPreguntaGemini() {
             intento++
         ) {
 
+
             try {
 
                 console.log(
@@ -166,40 +219,46 @@ async function enviarPreguntaGemini() {
                 );
 
 
+                console.log(
+                    `💬 Pregunta ${
+                        preguntasRealizadas + 1
+                    }/${MAX_PREGUNTAS}`
+                );
+
+
                 // =================================
                 // CONSULTAR SERVIDOR
                 // =================================
 
-                // =================================
-// CONSULTAR SERVIDOR
-// =================================
+                const respuesta =
+                    await fetch(
 
-const respuesta =
-    await fetch(
-        "https://comicverse-1vvp.onrender.com/api/gemini/preguntar",
-        {
+                        "/api/gemini/preguntar",
 
-            method: "POST",
+                        {
 
-            headers: {
+                            method: "POST",
 
-                "Content-Type":
-                    "application/json; charset=utf-8"
+                            headers: {
 
-            },
+                                "Content-Type":
+                                    "application/json; charset=utf-8"
 
-            body: JSON.stringify({
+                            },
 
-                pregunta:
-                    pregunta,
+                            body: JSON.stringify({
 
-                historial:
-                    historialChat
+                                pregunta:
+                                    pregunta,
 
-            })
+                                historial:
+                                    historialChat
 
-        }
-    );
+                            })
+
+                        }
+
+                    );
 
 
                 // =================================
@@ -241,7 +300,10 @@ const respuesta =
                 catch (errorJSON) {
 
                     throw new Error(
-                        "El servidor no devolvió JSON válido."
+
+                        "El servidor no devolvió " +
+                        "JSON válido."
+
                     );
 
                 }
@@ -251,11 +313,15 @@ const respuesta =
                 // COMPROBAR HTTP
                 // =================================
 
-                if (!respuesta.ok) {
+                if (
+                    !respuesta.ok
+                ) {
 
                     throw new Error(
+
                         json?.error ||
                         `Error HTTP ${respuesta.status}`
+
                     );
 
                 }
@@ -266,14 +332,22 @@ const respuesta =
                 // =================================
 
                 if (
+
                     !json ||
+
                     !json.ok ||
+
                     !json.respuesta
+
                 ) {
 
                     throw new Error(
+
                         json?.error ||
-                        "Gemini no devolvió una respuesta."
+
+                        "Gemini no devolvió " +
+                        "una respuesta."
+
                     );
 
                 }
@@ -291,19 +365,28 @@ const respuesta =
                 );
 
 
+                // =================================
+                // SALIR DEL BUCLE
+                // =================================
+
                 break;
 
             }
 
+
             catch (error) {
+
 
                 ultimoError =
                     error;
 
 
                 console.error(
+
                     `❌ ERROR INTENTO ${intento}:`,
+
                     error
+
                 );
 
 
@@ -321,11 +404,17 @@ const respuesta =
 
 
                     await new Promise(
+
                         resolve =>
+
                             setTimeout(
+
                                 resolve,
+
                                 1200
+
                             )
+
                     );
 
                 }
@@ -342,10 +431,16 @@ const respuesta =
         if (!datos) {
 
             throw (
+
                 ultimoError ||
+
                 new Error(
-                    "No se pudo obtener respuesta de Gemini."
+
+                    "No se pudo obtener " +
+                    "respuesta de Gemini."
+
                 )
+
             );
 
         }
@@ -361,11 +456,31 @@ const respuesta =
             );
 
 
-        if (elementoCargando) {
+        if (
+            elementoCargando
+        ) {
 
             elementoCargando.remove();
 
         }
+
+
+        // =================================
+        // CONTAR PREGUNTA
+        // =================================
+
+        preguntasRealizadas++;
+
+
+        console.log(
+
+            `📊 Preguntas utilizadas: ` +
+
+            `${preguntasRealizadas}/` +
+
+            `${MAX_PREGUNTAS}`
+
+        );
 
 
         // =================================
@@ -387,14 +502,55 @@ const respuesta =
         // =================================
 
         agregarMensaje(
+
             datos.respuesta,
+
             "ia"
+
         );
+
+
+        // =================================
+        // COMPROBAR SI LLEGÓ A 20
+        // =================================
+
+        if (
+            preguntasRealizadas >=
+            MAX_PREGUNTAS
+        ) {
+
+            agregarMensaje(
+
+                "🎉 Has utilizado tus " +
+                MAX_PREGUNTAS +
+                " preguntas disponibles " +
+                "en esta conversación.",
+
+                "ia"
+
+            );
+
+
+            preguntaGemini.disabled = true;
+
+            btnGemini.disabled = true;
+
+
+            preguntaGemini.placeholder =
+                "Límite de 20 preguntas alcanzado";
+
+        }
+
 
     }
 
 
+    // =================================
+    // ERROR GENERAL
+    // =================================
+
     catch (error) {
+
 
         console.error(
             "❌ ERROR CHAT GEMINI:",
@@ -412,7 +568,9 @@ const respuesta =
             );
 
 
-        if (elementoCargando) {
+        if (
+            elementoCargando
+        ) {
 
             elementoCargando.remove();
 
@@ -421,8 +579,11 @@ const respuesta =
 
         // =================================
         // QUITAR PREGUNTA DEL HISTORIAL
-        // SI LA PETICIÓN FALLÓ
         // =================================
+        // Como la pregunta falló después
+        // de los 3 intentos, la eliminamos
+        // para que no quede como una
+        // pregunta respondida.
 
         if (
             historialChat.length > 0
@@ -435,11 +596,66 @@ const respuesta =
 
 
             if (
+
                 ultimo.rol === "user" &&
+
                 ultimo.texto === pregunta
+
             ) {
 
                 historialChat.pop();
+
+            }
+
+        }
+
+
+        // =================================
+        // OBTENER MENSAJE DE ERROR
+        // =================================
+
+        let mensajeError =
+
+            "Lo siento 😔, no pude " +
+            "conectarme con ComicVerse AI.";
+
+
+        // =================================
+        // ERROR DE CONEXIÓN
+        // =================================
+
+        if (
+            error?.message
+        ) {
+
+            const mensaje =
+                error.message.toLowerCase();
+
+
+            if (
+
+                mensaje.includes(
+                    "failed to fetch"
+                ) ||
+
+                mensaje.includes(
+                    "networkerror"
+                ) ||
+
+                mensaje.includes(
+                    "fetch"
+                )
+
+            ) {
+
+                mensajeError =
+
+                    "🌐 No se pudo conectar " +
+                    "con el servidor de " +
+                    "ComicVerse AI. " +
+                    "Comprueba tu conexión " +
+                    "a Internet e inténtalo " +
+                    "nuevamente.";
 
             }
 
@@ -452,8 +668,7 @@ const respuesta =
 
         agregarMensaje(
 
-            "Lo siento 😔, no pude conectarme " +
-            "con ComicVerse AI. TRISTE",
+            mensajeError,
 
             "ia"
 
@@ -462,20 +677,38 @@ const respuesta =
     }
 
 
+    // =================================
+    // FINALMENTE
+    // =================================
+
     finally {
 
-        // =================================
-        // ACTIVAR BOTÓN
-        // =================================
-
-        btnGemini.disabled = false;
-
 
         // =================================
-        // VOLVER AL INPUT
+        // SI NO LLEGÓ A 20
         // =================================
 
-        preguntaGemini.focus();
+        if (
+            preguntasRealizadas <
+            MAX_PREGUNTAS
+        ) {
+
+            btnGemini.disabled =
+                false;
+
+            preguntaGemini.disabled =
+                false;
+
+            preguntaGemini.focus();
+
+        }
+
+
+        // =================================
+        // DESPLAZAR CHAT
+        // =================================
+
+        desplazarChat();
 
     }
 
@@ -490,6 +723,7 @@ function agregarMensaje(
     texto,
     tipo
 ) {
+
 
     const mensaje =
         document.createElement("div");
@@ -567,6 +801,10 @@ function agregarMensaje(
     );
 
 
+    // =================================
+    // DESPLAZAR CHAT
+    // =================================
+
     desplazarChat();
 
 }
@@ -592,6 +830,7 @@ function escaparHTML(
     texto
 ) {
 
+
     const elemento =
         document.createElement("div");
 
@@ -614,8 +853,11 @@ if (
 ) {
 
     btnGemini.addEventListener(
+
         "click",
+
         enviarPreguntaGemini
+
     );
 
 }
@@ -630,21 +872,42 @@ if (
 ) {
 
     preguntaGemini.addEventListener(
+
         "keydown",
+
         event => {
 
+
             if (
+
                 event.key === "Enter" &&
+
                 !event.shiftKey
+
             ) {
 
                 event.preventDefault();
+
 
                 enviarPreguntaGemini();
 
             }
 
         }
+
     );
 
 }
+
+
+// =====================================
+// MOSTRAR CONTADOR EN CONSOLA
+// =====================================
+
+console.log(
+
+    `🤖 ComicVerse AI listo. ` +
+    `Máximo ${MAX_PREGUNTAS} preguntas ` +
+    `por conversación.`
+
+);

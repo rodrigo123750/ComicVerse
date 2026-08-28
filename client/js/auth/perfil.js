@@ -25,7 +25,6 @@ import {
 import {
     doc,
     getDoc,
-    updateDoc,
     setDoc,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
@@ -38,98 +37,74 @@ import {
 const nombreUsuario =
     document.getElementById("nombreUsuario");
 
-
 const correoUsuario =
     document.getElementById("correoUsuario");
-
 
 const fechaUsuario =
     document.getElementById("fechaUsuario");
 
-
 const rolUsuario =
     document.getElementById("rolUsuario");
-
 
 const ultimaConexion =
     document.getElementById("ultimaConexion");
 
-
 const bioUsuario =
     document.getElementById("bioUsuario");
-
 
 const paisUsuario =
     document.getElementById("paisUsuario");
 
-
 const imagenPerfil =
     document.getElementById("imagenPerfil");
-
 
 const inputImagen =
     document.getElementById("inputImagen");
 
-
 const nombreEditar =
     document.getElementById("nombreEditar");
-
 
 const paisEditar =
     document.getElementById("paisEditar");
 
-
 const bioEditar =
     document.getElementById("bioEditar");
-
 
 const guardarPerfil =
     document.getElementById("guardarPerfil");
 
-
 const cerrarSesion =
     document.getElementById("cerrarSesion");
-
 
 const btnAdmin =
     document.getElementById("btnAdmin");
 
-
 const planUsuario =
     document.getElementById("planUsuario");
-
 
 const descripcionPlan =
     document.getElementById("descripcionPlan");
 
-
 const renovacionPlan =
     document.getElementById("renovacionPlan");
-
 
 const estadoPlan =
     document.getElementById("estadoPlan");
 
-
 const librosLeidos =
     document.getElementById("librosLeidos");
-
 
 const comicsLeidos =
     document.getElementById("comicsLeidos");
 
-
 const favoritosUsuario =
     document.getElementById("favoritosUsuario");
-
 
 const comentariosUsuario =
     document.getElementById("comentariosUsuario");
 
-
 const nivelUsuario =
     document.getElementById("nivelUsuario");
-
 
 const puntosUsuario =
     document.getElementById("puntosUsuario");
@@ -140,6 +115,8 @@ const puntosUsuario =
 // =====================================================
 
 let usuarioActual = null;
+
+let imagenSeleccionada = null;
 
 
 // =====================================================
@@ -166,7 +143,6 @@ function formatearFecha(fecha) {
         return "No disponible";
 
     }
-
 
     try {
 
@@ -206,10 +182,11 @@ function formatearFecha(fecha) {
         return String(fecha);
 
     }
+
     catch (error) {
 
         console.error(
-            "Error formateando fecha:",
+            "❌ Error formateando fecha:",
             error
         );
 
@@ -248,7 +225,8 @@ function cargarEstadistica(
     }
 
 
-    elemento.textContent = valor;
+    elemento.textContent =
+        valor;
 
 }
 
@@ -265,9 +243,8 @@ async function cargarPerfil(usuario) {
             "🔥 Cargando perfil de Firebase..."
         );
 
-
         console.log(
-            "UID:",
+            "🆔 UID:",
             usuario.uid
         );
 
@@ -295,19 +272,15 @@ async function cargarPerfil(usuario) {
 
 
         // =================================================
-        // SI NO EXISTE EL DOCUMENTO
+        // SI NO EXISTE
         // =================================================
 
         if (!documento.exists()) {
 
             console.warn(
-                "⚠️ El documento del usuario no existe en Firestore."
+                "⚠️ El documento no existe. Creándolo..."
             );
 
-
-            // -------------------------------------------------
-            // CREAR DOCUMENTO AUTOMÁTICAMENTE
-            // -------------------------------------------------
 
             const datosIniciales = {
 
@@ -341,6 +314,7 @@ async function cargarPerfil(usuario) {
                     "",
 
                 imagenPerfil:
+                    usuario.photoURL ||
                     "",
 
                 librosLeidos:
@@ -359,7 +333,10 @@ async function cargarPerfil(usuario) {
                     "Novato",
 
                 puntos:
-                    0
+                    0,
+
+                ultimaConexion:
+                    serverTimestamp()
 
             };
 
@@ -371,28 +348,14 @@ async function cargarPerfil(usuario) {
 
 
             console.log(
-                "✅ Perfil creado automáticamente en Firestore."
+                "✅ Perfil creado correctamente."
             );
 
 
-            // Volver a cargar
-
-            const nuevoDocumento =
-                await getDoc(
-                    referenciaUsuario
-                );
-
-
-            if (
-                nuevoDocumento.exists()
-            ) {
-
-                mostrarDatosPerfil(
-                    nuevoDocumento.data(),
-                    usuario
-                );
-
-            }
+            mostrarDatosPerfil(
+                datosIniciales,
+                usuario
+            );
 
 
             return;
@@ -419,8 +382,8 @@ async function cargarPerfil(usuario) {
             usuario
         );
 
-
     }
+
     catch (error) {
 
         console.error(
@@ -429,8 +392,21 @@ async function cargarPerfil(usuario) {
         );
 
 
+        console.error(
+            "Código:",
+            error?.code
+        );
+
+
+        console.error(
+            "Mensaje:",
+            error?.message
+        );
+
+
         alert(
-            "❌ No se pudieron cargar los datos del perfil."
+            "❌ No se pudieron cargar los datos del perfil.\n\n" +
+            (error?.message || "")
         );
 
     }
@@ -646,6 +622,19 @@ function mostrarDatosPerfil(
         imagenPerfil.src =
             imagen;
 
+
+        imagenPerfil.onerror =
+            () => {
+
+                console.warn(
+                    "⚠️ No se pudo cargar la imagen de perfil."
+                );
+
+                imagenPerfil.src =
+                    IMAGEN_DEFAULT;
+
+            };
+
     }
 
 
@@ -738,7 +727,7 @@ function mostrarDatosPerfil(
 
 
     // =================================================
-    // ESTADO
+    // ESTADO PLAN
     // =================================================
 
     if (estadoPlan) {
@@ -818,6 +807,136 @@ function mostrarDatosPerfil(
 
 
 // =====================================================
+// CAMBIO DE IMAGEN
+// =====================================================
+
+if (inputImagen) {
+
+    inputImagen.addEventListener(
+        "change",
+        (event) => {
+
+            const archivo =
+                event.target.files[0];
+
+
+            if (!archivo) {
+
+                return;
+
+            }
+
+
+            // =================================================
+            // VALIDAR TIPO
+            // =================================================
+
+            if (
+                !archivo.type.startsWith(
+                    "image/"
+                )
+            ) {
+
+                alert(
+                    "❌ El archivo seleccionado no es una imagen."
+                );
+
+                inputImagen.value =
+                    "";
+
+                return;
+
+            }
+
+
+            // =================================================
+            // VALIDAR TAMAÑO
+            // =================================================
+
+            // Máximo 700 KB para evitar
+            // documentos Firestore demasiado grandes.
+
+            const maximo =
+                700 * 1024;
+
+
+            if (
+                archivo.size > maximo
+            ) {
+
+                alert(
+                    "❌ La imagen es demasiado grande.\n\n" +
+                    "Selecciona una imagen de menos de 700 KB."
+                );
+
+                inputImagen.value =
+                    "";
+
+                return;
+
+            }
+
+
+            // =================================================
+            // LEER IMAGEN
+            // =================================================
+
+            const lector =
+                new FileReader();
+
+
+            lector.onload =
+                function () {
+
+                    imagenSeleccionada =
+                        lector.result;
+
+
+                    if (imagenPerfil) {
+
+                        imagenPerfil.src =
+                            imagenSeleccionada;
+
+                    }
+
+
+                    console.log(
+                        "🖼️ Imagen preparada para guardar."
+                    );
+
+                };
+
+
+            lector.onerror =
+                function () {
+
+                    console.error(
+                        "❌ Error leyendo la imagen."
+                    );
+
+
+                    imagenSeleccionada =
+                        null;
+
+
+                    alert(
+                        "❌ No se pudo leer la imagen."
+                    );
+
+                };
+
+
+            lector.readAsDataURL(
+                archivo
+            );
+
+        }
+    );
+
+}
+
+
+// =====================================================
 // GUARDAR CAMBIOS DEL PERFIL
 // =====================================================
 
@@ -871,11 +990,13 @@ async function guardarCambiosPerfil() {
             "⚠️ El nombre no puede estar vacío."
         );
 
+
         if (nombreEditar) {
 
             nombreEditar.focus();
 
         }
+
 
         return;
 
@@ -899,27 +1020,14 @@ async function guardarCambiosPerfil() {
 
     try {
 
-
         console.log(
-            "💾 Guardando cambios..."
+            "💾 GUARDANDO PERFIL..."
         );
 
 
         console.log(
-            "Nombre:",
-            nombre
-        );
-
-
-        console.log(
-            "País:",
-            pais
-        );
-
-
-        console.log(
-            "Bio:",
-            bio
+            "🆔 UID:",
+            usuarioActual.uid
         );
 
 
@@ -936,34 +1044,214 @@ async function guardarCambiosPerfil() {
 
 
         // =================================================
+        // OBTENER DOCUMENTO ACTUAL
+        // =================================================
+
+        const documentoActual =
+            await getDoc(
+                referenciaUsuario
+            );
+
+
+        let datosActuales = {};
+
+
+        if (
+            documentoActual.exists()
+        ) {
+
+            datosActuales =
+                documentoActual.data();
+
+        }
+
+
+        // =================================================
+        // DETERMINAR IMAGEN
+        // =================================================
+
+        let imagenFinal =
+            datosActuales.imagenPerfil ||
+            usuarioActual.photoURL ||
+            "";
+
+
+        if (
+            imagenSeleccionada
+        ) {
+
+            imagenFinal =
+                imagenSeleccionada;
+
+        }
+
+
+        // =================================================
+        // DATOS A GUARDAR
+        // =================================================
+
+        const datosPerfil = {
+
+            nombre:
+                nombre,
+
+            correo:
+                usuarioActual.email ||
+                datosActuales.correo ||
+                "",
+
+            pais:
+                pais,
+
+            bio:
+                bio,
+
+            imagenPerfil:
+                imagenFinal,
+
+            ultimaActualizacion:
+                serverTimestamp(),
+
+            ultimaConexion:
+                serverTimestamp()
+
+        };
+
+
+        // =================================================
+        // MANTENER DATOS EXISTENTES
+        // =================================================
+
+        if (
+            !datosActuales.fechaRegistro
+        ) {
+
+            datosPerfil.fechaRegistro =
+                serverTimestamp();
+
+        }
+
+
+        if (
+            !datosActuales.rol
+        ) {
+
+            datosPerfil.rol =
+                "usuario";
+
+        }
+
+
+        if (
+            !datosActuales.plan
+        ) {
+
+            datosPerfil.plan =
+                "gratuito";
+
+        }
+
+
+        if (
+            !datosActuales.descripcionPlan
+        ) {
+
+            datosPerfil.descripcionPlan =
+                "Disfruta del catálogo gratuito de ComicVerse AI.";
+
+        }
+
+
+        if (
+            !datosActuales.estadoPlan
+        ) {
+
+            datosPerfil.estadoPlan =
+                "Activo";
+
+        }
+
+
+        if (
+            datosActuales.librosLeidos === undefined
+        ) {
+
+            datosPerfil.librosLeidos =
+                0;
+
+        }
+
+
+        if (
+            datosActuales.comicsLeidos === undefined
+        ) {
+
+            datosPerfil.comicsLeidos =
+                0;
+
+        }
+
+
+        if (
+            datosActuales.favoritos === undefined
+        ) {
+
+            datosPerfil.favoritos =
+                0;
+
+        }
+
+
+        if (
+            datosActuales.comentarios === undefined
+        ) {
+
+            datosPerfil.comentarios =
+                0;
+
+        }
+
+
+        if (
+            !datosActuales.nivel
+        ) {
+
+            datosPerfil.nivel =
+                "Novato";
+
+        }
+
+
+        if (
+            datosActuales.puntos === undefined
+        ) {
+
+            datosPerfil.puntos =
+                0;
+
+        }
+
+
+        // =================================================
         // GUARDAR FIRESTORE
         // =================================================
 
-        await updateDoc(
+        console.log(
+            "☁️ Guardando en Firestore..."
+        );
 
+
+        await setDoc(
             referenciaUsuario,
-
+            datosPerfil,
             {
-
-                nombre:
-                    nombre,
-
-                pais:
-                    pais,
-
-                bio:
-                    bio,
-
-                ultimaActualizacion:
-                    serverTimestamp()
-
+                merge: true
             }
-
         );
 
 
         console.log(
-            "✅ Firestore actualizado."
+            "✅ FIRESTORE ACTUALIZADO."
         );
 
 
@@ -971,23 +1259,33 @@ async function guardarCambiosPerfil() {
         // ACTUALIZAR FIREBASE AUTH
         // =================================================
 
-        await updateProfile(
+        try {
 
-            usuarioActual,
+            await updateProfile(
+                usuarioActual,
+                {
 
-            {
+                    displayName:
+                        nombre
 
-                displayName:
-                    nombre
-
-            }
-
-        );
+                }
+            );
 
 
-        console.log(
-            "✅ Firebase Authentication actualizado."
-        );
+            console.log(
+                "✅ Firebase Authentication actualizado."
+            );
+
+        }
+
+        catch (errorAuth) {
+
+            console.warn(
+                "⚠️ No se pudo actualizar el nombre en Authentication:",
+                errorAuth
+            );
+
+        }
 
 
         // =================================================
@@ -1038,14 +1336,41 @@ async function guardarCambiosPerfil() {
         }
 
 
+        if (imagenPerfil) {
+
+            imagenPerfil.src =
+                imagenFinal;
+
+        }
+
+
+        // =================================================
+        // LIMPIAR IMAGEN SELECCIONADA
+        // =================================================
+
+        imagenSeleccionada =
+            null;
+
+
+        if (inputImagen) {
+
+            inputImagen.value =
+                "";
+
+        }
+
+
+        // =================================================
+        // MENSAJE ÉXITO
+        // =================================================
+
         alert(
             "✅ Perfil actualizado correctamente."
         );
 
-
     }
-    catch (error) {
 
+    catch (error) {
 
         console.error(
             "❌ ERROR GUARDANDO PERFIL:",
@@ -1055,25 +1380,55 @@ async function guardarCambiosPerfil() {
 
         console.error(
             "Código:",
-            error.code
+            error?.code
         );
 
 
         console.error(
             "Mensaje:",
-            error.message
+            error?.message
         );
+
+
+        let mensaje =
+            error?.message ||
+            "Error desconocido.";
+
+
+        // =================================================
+        // ERRORES FIRESTORE
+        // =================================================
+
+        if (
+            error?.code ===
+            "permission-denied"
+        ) {
+
+            mensaje =
+                "Firebase rechazó la operación por las reglas de seguridad de Firestore.";
+
+        }
+
+
+        if (
+            error?.code ===
+            "failed-precondition"
+        ) {
+
+            mensaje =
+                "Firestore no pudo completar la operación.";
+
+        }
 
 
         alert(
             "❌ No se pudieron guardar los cambios.\n\n" +
-            error.message
+            mensaje
         );
 
-
     }
-    finally {
 
+    finally {
 
         // =================================================
         // RESTAURAR BOTÓN
@@ -1095,14 +1450,39 @@ async function guardarCambiosPerfil() {
 
 
 // =====================================================
+// EVENTO GUARDAR PERFIL
+// =====================================================
+
+if (guardarPerfil) {
+
+    guardarPerfil.addEventListener(
+        "click",
+        async (event) => {
+
+            event.preventDefault();
+
+            await guardarCambiosPerfil();
+
+        }
+    );
+
+}
+else {
+
+    console.error(
+        "❌ No se encontró #guardarPerfil en el HTML."
+    );
+
+}
+
+
+// =====================================================
 // CERRAR SESIÓN
 // =====================================================
 
 async function cerrarSesionUsuario() {
 
-
     try {
-
 
         console.log(
             "🚪 Cerrando sesión..."
@@ -1120,7 +1500,9 @@ async function cerrarSesionUsuario() {
         }
 
 
-        await signOut(auth);
+        await signOut(
+            auth
+        );
 
 
         console.log(
@@ -1131,10 +1513,9 @@ async function cerrarSesionUsuario() {
         window.location.href =
             "index.html";
 
-
     }
-    catch (error) {
 
+    catch (error) {
 
         console.error(
             "❌ ERROR CERRANDO SESIÓN:",
@@ -1144,7 +1525,7 @@ async function cerrarSesionUsuario() {
 
         alert(
             "❌ No se pudo cerrar la sesión.\n\n" +
-            error.message
+            (error?.message || "")
         );
 
 
@@ -1164,155 +1545,16 @@ async function cerrarSesionUsuario() {
 
 
 // =====================================================
-// CAMBIO DE IMAGEN
-// =====================================================
-//
-// POR AHORA:
-// Solo detectamos el archivo.
-//
-// La subida real la conectaremos con CLOUDINARY.
-// No se subirá a Firebase Storage.
-// =====================================================
-
-if (inputImagen) {
-
-
-    inputImagen.addEventListener(
-        "change",
-        (event) => {
-
-
-            const archivo =
-                event.target.files[0];
-
-
-            if (!archivo) {
-
-                return;
-
-            }
-
-
-            // ---------------------------------------------
-            // VALIDAR IMAGEN
-            // ---------------------------------------------
-
-            if (
-                !archivo.type.startsWith(
-                    "image/"
-                )
-            ) {
-
-                alert(
-                    "❌ El archivo seleccionado no es una imagen."
-                );
-
-                inputImagen.value =
-                    "";
-
-                return;
-
-            }
-
-
-            // ---------------------------------------------
-            // PREVISUALIZACIÓN
-            // ---------------------------------------------
-
-            const lector =
-                new FileReader();
-
-
-            lector.onload =
-                function () {
-
-                    if (imagenPerfil) {
-
-                        imagenPerfil.src =
-                            lector.result;
-
-                    }
-
-                };
-
-
-            lector.readAsDataURL(
-                archivo
-            );
-
-
-            console.log(
-                "🖼️ Imagen seleccionada:",
-                archivo.name
-            );
-
-
-            // ---------------------------------------------
-            // IMPORTANTE
-            // ---------------------------------------------
-            //
-            // Aquí posteriormente conectaremos:
-            //
-            // INPUT
-            // ↓
-            // CLOUDINARY
-            // ↓
-            // URL DE IMAGEN
-            // ↓
-            // FIRESTORE
-            //
-            // ---------------------------------------------
-
-        }
-    );
-
-}
-
-
-// =====================================================
-// EVENTO GUARDAR PERFIL
-// =====================================================
-
-if (guardarPerfil) {
-
-
-    guardarPerfil.addEventListener(
-        "click",
-        async (event) => {
-
-
-            event.preventDefault();
-
-
-            await guardarCambiosPerfil();
-
-        }
-    );
-
-}
-else {
-
-    console.error(
-        "❌ No se encontró #guardarPerfil en el HTML."
-    );
-
-}
-
-
-// =====================================================
 // EVENTO CERRAR SESIÓN
 // =====================================================
 
 if (cerrarSesion) {
 
-
     cerrarSesion.addEventListener(
         "click",
         async (event) => {
 
-
             event.preventDefault();
-
 
             await cerrarSesionUsuario();
 
@@ -1340,7 +1582,6 @@ onAuthStateChanged(
 
     async (usuario) => {
 
-
         console.log(
             "🔥 Firebase Auth:",
             usuario
@@ -1352,7 +1593,6 @@ onAuthStateChanged(
         // =================================================
 
         if (!usuario) {
-
 
             console.warn(
                 "⚠️ No hay usuario autenticado."

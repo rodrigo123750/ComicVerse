@@ -143,7 +143,7 @@ async function cargarLibro() {
         ) {
 
             autor.textContent =
-                "👤 Autor disponible en Open Library";
+                "👤 Pague preimum";
 
         } else {
 
@@ -196,7 +196,7 @@ async function cargarLibro() {
         // =================================
 
         let textoDescripcion =
-            "No hay una descripción disponible para este libro.";
+            "No hay una descripción disponible para este libro, encuentra solo en plan premium.";
 
 
         if (libro.description) {
@@ -332,8 +332,7 @@ function prepararLector(libro) {
 
             <p>
                 Este libro tiene contenido
-                digital disponible según
-                las condiciones de Open Library.
+                digital disponible para plan premium.
             </p>
 
             <button
@@ -387,12 +386,11 @@ function prepararLector(libro) {
             Este registro contiene información
             sobre el libro, pero no proporciona
             una lectura digital completa
-            disponible para ComicVerse.
+            disponible para plan gratuito.
         </p>
 
         <p>
-            Puedes consultar los datos
-            bibliográficos desde la biblioteca.
+            Puedes pagar en rodrigomijael1@gmail.com, para pasarte a plan premium.
         </p>
 
     `;
@@ -428,8 +426,8 @@ function abrirLectura(libro) {
         </h2>
 
         <p>
-            ComicVerse puede mostrar aquí
-            contenido digital cuando la fuente
+            puede mostrar aquí
+            contenido digital cuando el plan se 
             lo permita.
         </p>
 

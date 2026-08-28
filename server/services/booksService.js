@@ -11,15 +11,58 @@
 
 async function buscarGoogleBooks(busqueda) {
 
-    const url =
+    // =================================
+    // URL BASE
+    // =================================
+
+    let url =
         "https://www.googleapis.com/books/v1/volumes" +
         "?q=" +
         encodeURIComponent(busqueda) +
         "&maxResults=20";
 
 
-    const respuesta = await fetch(url);
+    // =================================
+    // API KEY OPCIONAL
+    // =================================
+    //
+    // La clave permanece en el servidor.
+    //
+    // .env:
+    //
+    // GOOGLE_BOOKS_API_KEY=TU_CLAVE
+    //
+    // =================================
 
+    if (
+        process.env.GOOGLE_BOOKS_API_KEY
+    ) {
+
+        url +=
+            "&key=" +
+            encodeURIComponent(
+                process.env.GOOGLE_BOOKS_API_KEY
+            );
+
+    }
+
+
+    console.log(
+        "📚 Consultando Google Books..."
+    );
+
+
+    // =================================
+    // CONSULTAR GOOGLE BOOKS
+    // =================================
+
+    const respuesta =
+        await fetch(url);
+
+
+    // =================================
+    // COMPROBAR RESPUESTA HTTP
+    // =================================
 
     if (!respuesta.ok) {
 
@@ -31,99 +74,207 @@ async function buscarGoogleBooks(busqueda) {
     }
 
 
-    const datos = await respuesta.json();
+    // =================================
+    // CONVERTIR JSON
+    // =================================
+
+    const datos =
+        await respuesta.json();
 
 
-    if (!datos.items) {
+    // =================================
+    // SIN RESULTADOS
+    // =================================
+
+    if (
+        !datos.items ||
+        !Array.isArray(datos.items)
+    ) {
 
         return [];
 
     }
 
 
-    return datos.items.map(libro => {
+    // =================================
+    // TRANSFORMAR RESULTADOS
+    // =================================
 
-        const info =
-            libro.volumeInfo || {};
+    return datos.items.map(
+        libro => {
 
-
-        const identificadores =
-            info.industryIdentifiers || [];
-
-
-        const isbn13 =
-            identificadores.find(
-                item => item.type === "ISBN_13"
-            );
+            const info =
+                libro.volumeInfo || {};
 
 
-        const isbn10 =
-            identificadores.find(
-                item => item.type === "ISBN_10"
-            );
+            // =================================
+            // IDENTIFICADORES
+            // =================================
+
+            const identificadores =
+                Array.isArray(
+                    info.industryIdentifiers
+                )
+                    ? info.industryIdentifiers
+                    : [];
 
 
-        let portada = "";
-
-
-        if (info.imageLinks) {
-
-            portada =
-                info.imageLinks.thumbnail ||
-                info.imageLinks.smallThumbnail ||
-                "";
-
-            portada =
-                portada.replace(
-                    "http://",
-                    "https://"
+            const isbn13 =
+                identificadores.find(
+                    item =>
+                        item.type ===
+                        "ISBN_13"
                 );
 
+
+            const isbn10 =
+                identificadores.find(
+                    item =>
+                        item.type ===
+                        "ISBN_10"
+                );
+
+
+            // =================================
+            // PORTADA
+            // =================================
+
+            let portada = "";
+
+
+            if (
+                info.imageLinks
+            ) {
+
+                portada =
+                    info.imageLinks.thumbnail ||
+                    info.imageLinks.smallThumbnail ||
+                    "";
+
+                portada =
+                    portada.replace(
+                        "http://",
+                        "https://"
+                    );
+
+            }
+
+
+            // =================================
+            // ENLACE
+            // =================================
+
+            const enlace =
+                info.infoLink ||
+                info.previewLink ||
+                "";
+
+
+            // =================================
+            // RESULTADO
+            // =================================
+
+            return {
+
+                id:
+                    libro.id || "",
+
+                fuente:
+                    "Google Books",
+
+                titulo:
+                    info.title ||
+                    "Sin título",
+
+                subtitulo:
+                    info.subtitle ||
+                    "",
+
+                autores:
+                    Array.isArray(
+                        info.authors
+                    )
+                        ? info.authors
+                        : [],
+
+                descripcion:
+                    info.description ||
+                    "Sin descripción",
+
+                genero:
+                    info.categories?.[0] ||
+                    "Sin género",
+
+                categorias:
+                    Array.isArray(
+                        info.categories
+                    )
+                        ? info.categories
+                        : [],
+
+                fecha:
+                    info.publishedDate ||
+                    "",
+
+                editorial:
+                    info.publisher ||
+                    "",
+
+                isbn:
+                    isbn13?.identifier ||
+                    isbn10?.identifier ||
+                    "",
+
+                isbn13:
+                    isbn13?.identifier ||
+                    "",
+
+                isbn10:
+                    isbn10?.identifier ||
+                    "",
+
+                paginas:
+                    info.pageCount ||
+                    0,
+
+                idioma:
+                    info.language ||
+                    "",
+
+                portada:
+                    portada,
+
+                enlace:
+                    enlace,
+
+                preview:
+                    info.previewLink ||
+                    "",
+
+                lectura:
+                    info.accessInfo?.webReaderLink ||
+                    "",
+
+                textoDisponible:
+                    info.accessInfo?.textToSpeechPermission ||
+                    "",
+
+                tipo:
+                    info.printType ||
+                    "BOOK",
+
+                promedioValoracion:
+                    info.averageRating ||
+                    0,
+
+                cantidadValoraciones:
+                    info.ratingsCount ||
+                    0
+
+            };
+
         }
-
-
-        return {
-
-            id:
-                libro.id || "",
-
-            fuente:
-                "Google Books",
-
-            titulo:
-                info.title || "Sin título",
-
-            autores:
-                info.authors || [],
-
-            descripcion:
-                info.description ||
-                "Sin descripción",
-
-            genero:
-                info.categories?.[0] ||
-                "Sin género",
-
-            fecha:
-                info.publishedDate || "",
-
-            editorial:
-                info.publisher || "",
-
-            isbn:
-                isbn13?.identifier ||
-                isbn10?.identifier ||
-                "",
-
-            portada:
-                portada,
-
-            enlace:
-                info.infoLink || ""
-
-        };
-
-    });
+    );
 
 }
 
@@ -134,6 +285,10 @@ async function buscarGoogleBooks(busqueda) {
 
 async function buscarOpenLibrary(busqueda) {
 
+    // =================================
+    // URL
+    // =================================
+
     const url =
         "https://openlibrary.org/search.json" +
         "?q=" +
@@ -141,16 +296,34 @@ async function buscarOpenLibrary(busqueda) {
         "&limit=20";
 
 
-    const respuesta = await fetch(
-        url,
-        {
-            headers: {
-                "User-Agent":
-                    "ComicVerseAI/1.0"
-            }
-        }
+    console.log(
+        "📖 Consultando Open Library..."
     );
 
+
+    // =================================
+    // CONSULTAR OPEN LIBRARY
+    // =================================
+
+    const respuesta =
+        await fetch(
+            url,
+            {
+
+                headers: {
+
+                    "User-Agent":
+                        "ComicVerseAI/1.0"
+
+                }
+
+            }
+        );
+
+
+    // =================================
+    // COMPROBAR HTTP
+    // =================================
 
     if (!respuesta.ok) {
 
@@ -162,77 +335,272 @@ async function buscarOpenLibrary(busqueda) {
     }
 
 
+    // =================================
+    // JSON
+    // =================================
+
     const datos =
         await respuesta.json();
 
 
-    if (!datos.docs) {
+    // =================================
+    // SIN RESULTADOS
+    // =================================
+
+    if (
+        !datos.docs ||
+        !Array.isArray(
+            datos.docs
+        )
+    ) {
 
         return [];
 
     }
 
 
-    return datos.docs.map(libro => {
+    // =================================
+    // TRANSFORMAR RESULTADOS
+    // =================================
 
-        let portada = "";
+    return datos.docs.map(
+        libro => {
+
+            // =================================
+            // PORTADA
+            // =================================
+
+            let portada = "";
 
 
-        if (libro.cover_i) {
+            if (
+                libro.cover_i
+            ) {
 
-            portada =
-                "https://covers.openlibrary.org/b/id/" +
-                libro.cover_i +
-                "-L.jpg";
+                portada =
+                    "https://covers.openlibrary.org/b/id/" +
+                    libro.cover_i +
+                    "-L.jpg";
+
+            }
+
+
+            // =================================
+            // AUTORES
+            // =================================
+
+            const autores =
+                Array.isArray(
+                    libro.author_name
+                )
+                    ? libro.author_name
+                    : [];
+
+
+            // =================================
+            // CATEGORÍAS
+            // =================================
+
+            const categorias =
+                Array.isArray(
+                    libro.subject
+                )
+                    ? libro.subject.slice(
+                        0,
+                        10
+                    )
+                    : [];
+
+
+            // =================================
+            // ENLACE
+            // =================================
+
+            const enlace =
+                libro.key
+                    ? "https://openlibrary.org" +
+                      libro.key
+                    : "";
+
+
+            // =================================
+            // RESULTADO
+            // =================================
+
+            return {
+
+                id:
+                    libro.key ||
+                    "",
+
+                fuente:
+                    "Open Library",
+
+                titulo:
+                    libro.title ||
+                    "Sin título",
+
+                subtitulo:
+                    "",
+
+                autores:
+                    autores,
+
+                descripcion:
+                    "Libro encontrado en Open Library.",
+
+                genero:
+                    categorias[0] ||
+                    "Sin género",
+
+                categorias:
+                    categorias,
+
+                fecha:
+                    libro.first_publish_year ||
+                    "",
+
+                editorial:
+                    Array.isArray(
+                        libro.publisher
+                    )
+                        ? libro.publisher[0] ||
+                          ""
+                        : "",
+
+                isbn:
+                    Array.isArray(
+                        libro.isbn
+                    )
+                        ? libro.isbn[0] ||
+                          ""
+                        : "",
+
+                isbn13:
+                    "",
+
+                isbn10:
+                    "",
+
+                paginas:
+                    libro.number_of_pages_median ||
+                    0,
+
+                idioma:
+                    Array.isArray(
+                        libro.language
+                    )
+                        ? libro.language[0] ||
+                          ""
+                        : "",
+
+                portada:
+                    portada,
+
+                enlace:
+                    enlace,
+
+                preview:
+                    enlace,
+
+                lectura:
+                    enlace,
+
+                textoDisponible:
+                    "",
+
+                tipo:
+                    "BOOK",
+
+                promedioValoracion:
+                    0,
+
+                cantidadValoraciones:
+                    0
+
+            };
+
+        }
+    );
+
+}
+
+
+// =====================================
+// ELIMINAR DUPLICADOS
+// =====================================
+
+function eliminarDuplicados(
+    resultados
+) {
+
+    const vistos =
+        new Set();
+
+
+    const resultadoFinal =
+        [];
+
+
+    for (
+        const libro of resultados
+    ) {
+
+        // =================================
+        // CREAR CLAVE
+        // =================================
+
+        const titulo =
+            String(
+                libro.titulo || ""
+            )
+                .trim()
+                .toLowerCase();
+
+
+        const isbn =
+            String(
+                libro.isbn || ""
+            )
+                .trim()
+                .toLowerCase();
+
+
+        const clave =
+            isbn
+                ? "isbn:" + isbn
+                : "titulo:" + titulo;
+
+
+        // =================================
+        // COMPROBAR
+        // =================================
+
+        if (
+            !clave ||
+            vistos.has(
+                clave
+            )
+        ) {
+
+            continue;
 
         }
 
 
-        return {
+        vistos.add(
+            clave
+        );
 
-            id:
-                libro.key || "",
 
-            fuente:
-                "Open Library",
+        resultadoFinal.push(
+            libro
+        );
 
-            titulo:
-                libro.title || "Sin título",
+    }
 
-            autores:
-                libro.author_name || [],
 
-            descripcion:
-                "Libro encontrado en Open Library.",
-
-            genero:
-                libro.subject?.[0] ||
-                "Sin género",
-
-            fecha:
-                libro.first_publish_year ||
-                "",
-
-            editorial:
-                libro.publisher?.[0] ||
-                "",
-
-            isbn:
-                libro.isbn?.[0] ||
-                "",
-
-            portada:
-                portada,
-
-            enlace:
-                libro.key
-                    ? "https://openlibrary.org" +
-                      libro.key
-                    : ""
-
-        };
-
-    });
+    return resultadoFinal;
 
 }
 
@@ -241,7 +609,9 @@ async function buscarOpenLibrary(busqueda) {
 // BUSCAR EN LAS DOS APIs
 // =====================================
 
-async function buscarLibros(busqueda) {
+async function buscarLibros(
+    busqueda
+) {
 
     console.log(
         "🔎 BUSCANDO EN APIs:",
@@ -249,7 +619,8 @@ async function buscarLibros(busqueda) {
     );
 
 
-    let resultados = [];
+    let resultados =
+        [];
 
 
     // =================================
@@ -278,7 +649,7 @@ async function buscarLibros(busqueda) {
 
     }
 
-    catch(error) {
+    catch (error) {
 
         console.error(
             "❌ ERROR GOOGLE BOOKS:",
@@ -314,7 +685,7 @@ async function buscarLibros(busqueda) {
 
     }
 
-    catch(error) {
+    catch (error) {
 
         console.error(
             "❌ ERROR OPEN LIBRARY:",
@@ -324,7 +695,146 @@ async function buscarLibros(busqueda) {
     }
 
 
+    // =================================
+    // ELIMINAR DUPLICADOS
+    // =================================
+
+    resultados =
+        eliminarDuplicados(
+            resultados
+        );
+
+
+    console.log(
+        "📚 TOTAL RESULTADOS:",
+        resultados.length
+    );
+
+
+    // =================================
+    // DEVOLVER RESULTADOS
+    // =================================
+
     return resultados;
+
+}
+
+
+// =====================================
+// LIBROS FAMOSOS / POPULARES
+// =====================================
+//
+// Esta función nos servirá después
+// para la página index.html.
+//
+// Ejemplo:
+// buscarLibrosPopulares()
+//
+// =====================================
+
+async function buscarLibrosPopulares() {
+
+    const busquedas = [
+
+        "bestsellers",
+
+        "best selling books",
+
+        "popular books"
+
+    ];
+
+
+    let resultados =
+        [];
+
+
+    // =================================
+    // HACER VARIAS BÚSQUEDAS
+    // =================================
+
+    for (
+        const busqueda of busquedas
+    ) {
+
+        try {
+
+            const libros =
+                await buscarGoogleBooks(
+                    busqueda
+                );
+
+
+            resultados =
+                resultados.concat(
+                    libros
+                );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "❌ ERROR LIBROS POPULARES:",
+                error.message
+            );
+
+        }
+
+    }
+
+
+    // =================================
+    // ELIMINAR DUPLICADOS
+    // =================================
+
+    resultados =
+        eliminarDuplicados(
+            resultados
+        );
+
+
+    // =================================
+    // ORDENAR POR VALORACIÓN
+    // =================================
+
+    resultados.sort(
+        (
+            a,
+            b
+        ) => {
+
+            const ratingA =
+                Number(
+                    a.promedioValoracion ||
+                    0
+                );
+
+
+            const ratingB =
+                Number(
+                    b.promedioValoracion ||
+                    0
+                );
+
+
+            return (
+                ratingB -
+                ratingA
+            );
+
+        }
+    );
+
+
+    // =================================
+    // LIMITAR RESULTADOS
+    // =================================
+
+    return resultados.slice(
+        0,
+        20
+    );
 
 }
 
@@ -335,6 +845,8 @@ async function buscarLibros(busqueda) {
 
 module.exports = {
 
-    buscarLibros
+    buscarLibros,
+
+    buscarLibrosPopulares
 
 };
