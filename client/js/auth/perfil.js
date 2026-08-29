@@ -499,7 +499,7 @@ function mostrarDatosPerfil(
 
     const rol =
         datos.rol ||
-        "usuario";
+        "admin";
 
 
     if (rolUsuario) {
