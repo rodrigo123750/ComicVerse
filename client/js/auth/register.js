@@ -204,7 +204,7 @@ formulario?.addEventListener(
                         "gratuito",
 
                     rol:
-                        "usuario",
+                        "admin",
 
 
                     // =========================
