@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ComicVerse AI | Chat</title>
+
+    <!-- ESTILOS GENERALES -->
+    <link
+        rel="stylesheet"
+        href="css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/navbar.css"
+    >
+
+    <!-- ESTILOS DEL CHAT -->
+    <link
+        rel="stylesheet"
+        href="css/chat.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+====================================================== -->
+
+<header class="navbar">
+
+    <div class="logo">
+        📚 ComicVerse AI
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            🏠 Inicio
+        </a>
+
+        <a href="comics.html">
+            📖 Cómics
+        </a>
+
+        <a href="perfil.html">
+            👤 Perfil
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =====================================================
+     CHAT
+====================================================== -->
+
+<main class="chat-container">
+
+
+    <!-- =================================================
+         TITULO
+    ================================================== -->
+
+    <div class="chat-titulo">
+
+        <h1>
+            💬 Mensajería ComicVerse
+        </h1>
+
+        <p>
+            Conecta con otros lectores, autores y amigos.
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         PANEL PRINCIPAL
+    ================================================== -->
+
+    <div class="chat-panel">
+
+
+        <!-- =============================================
+             SIDEBAR
+        ============================================== -->
+
+        <aside class="chat-sidebar">
+
+
+            <div class="chat-sidebar-header">
+
+                <h2>
+                    👥 Chats
+                </h2>
+
+
+                <input
+                    type="text"
+                    id="buscadorUsuarios"
+                    class="chat-buscador"
+                    placeholder="🔎 Buscar usuarios..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+
+            <!-- LISTA DE USUARIOS -->
+
+            <div
+                id="chatLista"
+                class="chat-lista"
+            >
+
+                <div class="chat-cargando">
+                    Cargando usuarios...
+                </div>
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- =============================================
+             CHAT PRINCIPAL
+        ============================================== -->
+
+        <section class="chat-main">
+
+
+            <!-- =========================================
+                 CABECERA DEL CONTACTO
+            ========================================== -->
+
+            <header class="chat-header">
+
+
+                <div class="chat-header-avatar">
+
+                    <img
+                        id="chatAvatar"
+                        src="img/perfil-default.png"
+                        alt="Avatar"
+                    >
+
+                </div>
+
+
+                <div class="chat-header-info">
+
+                    <span
+                        id="chatNombre"
+                        class="chat-header-nombre"
+                    >
+                        Selecciona un usuario
+                    </span>
+
+
+                    <span
+                        id="chatEstado"
+                        class="chat-header-estado"
+                    >
+                        Elige una conversación para comenzar
+                    </span>
+
+                </div>
+
+
+                <div
+                    id="chatContacto"
+                    class="chat-contacto"
+                >
+
+                    <!--
+                        Aquí aparecerá posteriormente
+                        el botón Seguir / Siguiendo.
+                    -->
+
+                </div>
+
+
+            </header>
+
+
+
+            <!-- =========================================
+                 MENSAJES
+            ========================================== -->
+
+            <div
+                id="chatMensajes"
+                class="chat-mensajes"
+            >
+
+
+                <div class="chat-vacio">
+
+                    <div class="chat-vacio-contenido">
+
+                        <div class="chat-vacio-icono">
+                            💬
+                        </div>
+
+                        <h3>
+                            Bienvenido al chat
+                        </h3>
+
+                        <p>
+                            Selecciona un usuario de la lista
+                            para comenzar una conversación.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================================
+                 INPUT DEL CHAT
+            ========================================== -->
+
+            <div class="chat-input-area">
+
+
+                <form
+                    id="chatInputForm"
+                    class="chat-input-form"
+                >
+
+
+                    <input
+                        type="text"
+                        id="mensajeInput"
+                        class="chat-input-mensaje"
+                        placeholder="Escribe un mensaje..."
+                        autocomplete="off"
+                        maxlength="1000"
+                    >
+
+
+                    <button
+                        type="submit"
+                        id="btnEnviar"
+                        class="chat-btn-enviar"
+                    >
+                        🚀 Enviar
+                    </button>
+
+
+                </form>
+
+
+            </div>
+
+
+        </section>
+
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script
+    type="module"
+    src="js/chat.js"
+></script>
+
+
+</body>
+
+</html>
