@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Leer cómic | ComicVerse AI</title>
+
+    <link rel="stylesheet" href="css/leer-comic.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            📚 <strong>ComicVerse AI</strong>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">🏠 Inicio</a>
+            <a href="index.html#comics">📖 Cómics</a>
+            <a href="chat.html">💬 Chat</a>
+            <a href="perfil.html">👤 Perfil</a>
+        </div>
+
+    </nav>
+
+
+    <!-- CONTENIDO -->
+
+    <main class="lector-container">
+
+        <div class="lector-top">
+
+            <a href="index.html" class="btn-volver">
+                ← Volver
+            </a>
+
+            <div class="lector-acciones">
+
+                <button
+                    id="btnAnterior"
+                    type="button"
+                >
+                    ◀ Anterior
+                </button>
+
+                <span id="contadorPagina">
+                    Página 1
+                </span>
+
+                <button
+                    id="btnSiguiente"
+                    type="button"
+                >
+                    Siguiente ▶
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- INFORMACIÓN -->
+
+        <section class="comic-info">
+
+            <div class="comic-portada">
+
+                <img
+                    id="comicPortada"
+                    src="img/perfil-default.png"
+                    alt="Portada del cómic"
+                >
+
+            </div>
+
+            <div class="comic-datos">
+
+                <h1 id="comicTitulo">
+                    Cargando cómic...
+                </h1>
+
+                <p id="comicDescripcion">
+                    Cargando información...
+                </p>
+
+                <div
+                    id="comicAutor"
+                    class="comic-meta"
+                >
+                    ✍️ Autor
+                </div>
+
+                <div
+                    id="comicGenero"
+                    class="comic-meta"
+                >
+                    📚 Género
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LECTOR -->
+
+        <section class="lector">
+
+            <div
+                id="estadoLector"
+                class="estado-lector"
+            >
+                Cargando cómic...
+            </div>
+
+
+            <div
+                id="comicViewer"
+                class="comic-viewer oculto"
+            >
+
+                <img
+                    id="paginaComic"
+                    src=""
+                    alt="Página del cómic"
+                >
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script type="module" src="js/leer-comic.js"></script>
+
+</body>
+</html>

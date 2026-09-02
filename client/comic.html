@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ComicVerse AI - Detalle del cómic</title>
+<title>OPENPAGINA AI - Detalle del cómic</title>
 
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/navbar.css">
@@ -100,11 +100,13 @@ id="btnFavorito">
 
 <button
 class="btn"
-onclick="leerCapitulo()">
+ onclick="leerCapitulo()">
 
-📖 Leer capítulo
+ 📖 Leer capítulo
 
 </button>
+
+<button> <a href="leer-comic.html"> leSer archivo </a> </button>
 
 </div>
 
@@ -251,6 +253,17 @@ src="js/favoritos/favoritos.js">
 type="module"
 src="js/ai/gemini.js">
 </script>
+
+ <script
+        type="module"
+        src="js/firebase/firebase.js"
+    ></script>
+<script
+        type="module"
+        src="js/lector-libro.js"
+        src="js/libros.js"
+        src="js/lector.js"
+></script>
 
 </body>
 
