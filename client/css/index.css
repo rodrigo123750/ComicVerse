@@ -1,0 +1,2077 @@
+/* =====================================================
+   COMICVERSE AI
+   INDEX.CSS
+   ESTILOS DE LA PÁGINA PRINCIPAL
+   ===================================================== */
+
+
+/* =====================================================
+   CHAT GEMINI / COMICVERSE AI
+   ===================================================== */
+
+.chat-gemini {
+
+    width: 100%;
+    max-width: 900px;
+
+    margin: 30px auto;
+
+    padding: 22px;
+
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0F1B3D,
+            #111F46
+        );
+
+    border:
+        1px solid rgba(99, 102, 241, 0.35);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35),
+        0 0 35px rgba(59, 130, 246, 0.10);
+
+}
+
+
+/* =====================================================
+   TITULO DEL CHAT
+   ===================================================== */
+
+.gemini {
+
+    color: #FFFFFF;
+
+    padding: 50px 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(11, 21, 51, 0.15),
+            rgba(15, 27, 61, 0.40)
+        );
+
+}
+
+
+.gemini h2 {
+
+    color: #FFFFFF !important;
+
+    margin-bottom: 10px;
+
+}
+
+
+.gemini > .container > p {
+
+    color: #CBD5E1 !important;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* =====================================================
+   ZONA DE MENSAJES
+   ===================================================== */
+
+.chat-mensajes {
+
+    width: 100%;
+
+    height: 400px;
+
+    overflow-y: auto;
+
+    padding: 18px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+
+    background:
+        #111D42 !important;
+
+    border:
+        1px solid #263B70;
+
+    border-radius: 16px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =====================================================
+   SCROLL DEL CHAT
+   ===================================================== */
+
+.chat-mensajes::-webkit-scrollbar {
+
+    width: 8px;
+
+}
+
+
+.chat-mensajes::-webkit-scrollbar-track {
+
+    background: #0B1533;
+
+    border-radius: 10px;
+
+}
+
+
+.chat-mensajes::-webkit-scrollbar-thumb {
+
+    background: #3B82F6;
+
+    border-radius: 10px;
+
+}
+
+
+.chat-mensajes::-webkit-scrollbar-thumb:hover {
+
+    background: #6366F1;
+
+}
+
+
+/* =====================================================
+   MENSAJES
+   ===================================================== */
+
+.mensaje {
+
+    max-width: 80%;
+
+    padding: 13px 16px;
+
+    border-radius: 16px;
+
+    line-height: 1.5;
+
+    word-wrap: break-word;
+
+    overflow-wrap: anywhere;
+
+    box-sizing: border-box;
+
+}
+
+
+.mensaje strong {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 14px;
+
+}
+
+
+.mensaje p {
+
+    margin: 5px 0 0;
+
+    font-size: 14px;
+
+}
+
+
+/* =====================================================
+   MENSAJE DE LA IA
+   ===================================================== */
+
+.mensaje.ia {
+
+    align-self: flex-start;
+
+    background:
+        #1E2D52 !important;
+
+    color: #F1F5F9 !important;
+
+    border:
+        1px solid #344A78;
+
+    border-bottom-left-radius: 5px;
+
+}
+
+
+.mensaje.ia p {
+
+    color: #E2E8F0 !important;
+
+}
+
+
+.mensaje.ia strong {
+
+    color: #FFFFFF !important;
+
+}
+
+
+/* =====================================================
+   MENSAJE DEL USUARIO
+   ===================================================== */
+
+.mensaje.usuario {
+
+    align-self: flex-end;
+
+    background:
+        linear-gradient(
+            135deg,
+            #3B82F6,
+            #6366F1
+        ) !important;
+
+    color: #FFFFFF !important;
+
+    border: none;
+
+    border-bottom-right-radius: 5px;
+
+}
+
+
+.mensaje.usuario p {
+
+    color: #FFFFFF !important;
+
+}
+
+
+/* =====================================================
+   INPUT DEL CHAT
+   ===================================================== */
+
+.chat-input {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 15px;
+
+}
+
+
+.chat-input input {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 48px;
+
+    padding: 0 16px;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid #344A78 !important;
+
+    border-radius: 12px;
+
+    outline: none;
+
+    background:
+        #17264A !important;
+
+    color:
+        #FFFFFF !important;
+
+    font-family:
+        "Poppins",
+        Arial,
+        sans-serif;
+
+    font-size: 14px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.chat-input input::placeholder {
+
+    color: #94A3B8 !important;
+
+}
+
+
+.chat-input input:focus {
+
+    border-color:
+        #6366F1 !important;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(99, 102, 241, 0.15);
+
+}
+
+
+/* =====================================================
+   BOTÓN DEL CHAT
+   ===================================================== */
+
+.chat-input button {
+
+    min-width: 110px;
+
+    height: 48px;
+
+    padding: 0 18px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #3B82F6,
+            #8B5CF6
+        ) !important;
+
+    color: #FFFFFF !important;
+
+    cursor: pointer;
+
+    font-family:
+        "Poppins",
+        Arial,
+        sans-serif;
+
+    font-weight: 600;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+
+}
+
+
+.chat-input button:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(59, 130, 246, 0.30);
+
+}
+
+
+.chat-input button:active {
+
+    transform:
+        translateY(0);
+
+}
+
+
+.chat-input button:disabled {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+
+}
+
+
+/* =====================================================
+   CARGANDO CHAT
+   ===================================================== */
+
+.chat-cargando {
+
+    color: #94A3B8 !important;
+
+    font-style: italic;
+
+    padding: 5px;
+
+}
+
+
+/* =====================================================
+   LIBROS POPULARES
+   ===================================================== */
+
+.libros-populares {
+
+    margin-top: 45px;
+
+    margin-bottom: 50px;
+
+}
+
+
+.libros-populares .titulo {
+
+    margin-bottom: 10px;
+
+}
+
+
+.subtitulo-libros {
+
+    margin-top: 0;
+
+    margin-bottom: 25px;
+
+    color: #64748B;
+
+    font-size: 15px;
+
+}
+
+
+/* =====================================================
+   GRID DE LIBROS
+
+   ESCRITORIO:
+   3 LIBROS POR FILA
+   ===================================================== */
+
+.libros-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
+    gap: 24px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =====================================================
+   TARJETA DE LIBRO
+
+   COLOR AZULITO
+   ===================================================== */
+
+.libro-card {
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    position: relative;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #172A55,
+            #1D376B
+        );
+
+    border:
+        1px solid rgba(
+            96,
+            165,
+            250,
+            0.30
+        );
+
+    box-shadow:
+        0 10px 30px
+        rgba(
+            15,
+            23,
+            42,
+            0.25
+        ),
+        0 0 20px
+        rgba(
+            59,
+            130,
+            246,
+            0.06
+        );
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =====================================================
+   BRILLO SUPERIOR DE LA TARJETA
+   ===================================================== */
+
+.libro-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    right: 0;
+
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #3B82F6,
+            #6366F1,
+            #8B5CF6
+        );
+
+    opacity: 0.9;
+
+}
+
+
+/* =====================================================
+   HOVER TARJETA
+   ===================================================== */
+
+.libro-card:hover {
+
+    transform:
+        translateY(-7px);
+
+    border-color:
+        rgba(
+            96,
+            165,
+            250,
+            0.65
+        );
+
+    box-shadow:
+        0 18px 40px
+        rgba(
+            15,
+            23,
+            42,
+            0.35
+        ),
+        0 0 30px
+        rgba(
+            59,
+            130,
+            246,
+            0.15
+        );
+
+}
+
+
+/* =====================================================
+   PORTADA DEL LIBRO
+   ===================================================== */
+
+.libro-portada {
+
+    width: 100%;
+
+    height: 300px;
+
+    object-fit: cover;
+
+    display: block;
+
+    background:
+        #233B70;
+
+    border-bottom:
+        1px solid
+        rgba(
+            148,
+            163,
+            184,
+            0.15
+        );
+
+    transition:
+        transform 0.3s ease;
+
+}
+
+
+/* =====================================================
+   ZOOM SUAVE DE PORTADA
+   ===================================================== */
+
+.libro-card:hover .libro-portada {
+
+    transform:
+        scale(1.02);
+
+}
+
+
+/* =====================================================
+   INFORMACIÓN DEL LIBRO
+   ===================================================== */
+
+.libro-info {
+
+    padding: 17px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =====================================================
+   TÍTULO
+   ===================================================== */
+
+.libro-titulo {
+
+    margin:
+        0 0 8px;
+
+    font-size: 17px;
+
+    line-height: 1.4;
+
+    color:
+        #FFFFFF;
+
+    font-weight: 700;
+
+    display: -webkit-box;
+
+    -webkit-line-clamp: 2;
+
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+
+}
+
+
+/* =====================================================
+   AUTOR
+   ===================================================== */
+
+.libro-autor {
+
+    margin:
+        0 0 9px;
+
+    color:
+        #BFDBFE;
+
+    font-size: 13px;
+
+    display: -webkit-box;
+
+    -webkit-line-clamp: 2;
+
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+
+}
+
+
+/* =====================================================
+   GÉNERO
+   ===================================================== */
+
+.libro-genero {
+
+    margin:
+        0 0 15px;
+
+    color:
+        #93C5FD;
+
+    font-size: 12px;
+
+}
+
+
+/* =====================================================
+   BOTÓN DEL LIBRO
+   ===================================================== */
+
+.libro-boton {
+
+    display: block;
+
+    width: 100%;
+
+    padding: 11px;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #3B82F6,
+            #6366F1
+        );
+
+    color:
+        #FFFFFF;
+
+    text-decoration: none;
+
+    text-align: center;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 6px 15px
+        rgba(
+            59,
+            130,
+            246,
+            0.20
+        );
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.libro-boton:hover {
+
+    transform:
+        translateY(-2px);
+
+    opacity: 0.95;
+
+    box-shadow:
+        0 8px 20px
+        rgba(
+            59,
+            130,
+            246,
+            0.35
+        );
+
+}
+
+
+/* =====================================================
+   CARGANDO LIBROS
+   ===================================================== */
+
+.libros-cargando {
+
+    width: 100%;
+
+    padding: 35px 15px;
+
+    text-align: center;
+
+    color:
+        #93C5FD;
+
+    background:
+        #172A55;
+
+    border:
+        1px solid
+        rgba(
+            96,
+            165,
+            250,
+            0.20
+        );
+
+    border-radius: 15px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =====================================================
+   ERROR LIBROS
+   ===================================================== */
+
+.libros-error {
+
+    width: 100%;
+
+    padding: 25px 15px;
+
+    text-align: center;
+
+    color:
+        #BFDBFE;
+
+    background:
+        #172A55;
+
+    border:
+        1px solid
+        rgba(
+            96,
+            165,
+            250,
+            0.20
+        );
+
+    border-radius: 15px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =====================================================
+   SIN RESULTADOS
+   ===================================================== */
+
+.libros-grid:empty {
+
+    min-height: 100px;
+
+}
+
+
+/* =====================================================
+   TABLET
+   ===================================================== */
+
+@media (max-width: 850px) {
+
+    .chat-gemini {
+
+        max-width: 100%;
+
+    }
+
+
+    .libros-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+        gap: 18px;
+
+    }
+
+
+    .libro-portada {
+
+        height: 270px;
+
+    }
+
+}
+
+
+/* =====================================================
+   MÓVIL
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    /* ================================
+       CHAT
+       ================================ */
+
+    .gemini {
+
+        padding:
+            35px 0;
+
+    }
+
+
+    .chat-gemini {
+
+        padding: 12px;
+
+        margin:
+            20px auto;
+
+        border-radius: 16px;
+
+    }
+
+
+    .chat-mensajes {
+
+        height: 350px;
+
+        padding: 12px;
+
+        border-radius: 13px;
+
+    }
+
+
+    .chat-input {
+
+        flex-direction: column;
+
+    }
+
+
+    .chat-input input {
+
+        width: 100%;
+
+        height: 48px;
+
+    }
+
+
+    .chat-input button {
+
+        width: 100%;
+
+        height: 48px;
+
+    }
+
+
+    .mensaje {
+
+        max-width: 90%;
+
+    }
+
+
+    .mensaje p {
+
+        font-size: 13px;
+
+    }
+
+
+    /* ================================
+       LIBROS
+       ================================ */
+
+    .libros-populares {
+
+        margin-top: 25px;
+
+        margin-bottom: 30px;
+
+    }
+
+
+    .libros-populares .titulo {
+
+        font-size: 21px;
+
+    }
+
+
+    .subtitulo-libros {
+
+        font-size: 13px;
+
+        margin-bottom: 18px;
+
+    }
+
+
+    .libros-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+        gap: 12px;
+
+    }
+
+
+    .libro-card {
+
+        border-radius: 13px;
+
+    }
+
+
+    .libro-portada {
+
+        height: 215px;
+
+    }
+
+
+    .libro-info {
+
+        padding: 11px;
+
+    }
+
+
+    .libro-titulo {
+
+        font-size: 14px;
+
+    }
+
+
+    .libro-autor {
+
+        font-size: 12px;
+
+    }
+
+
+    .libro-genero {
+
+        font-size: 11px;
+
+        margin-bottom: 10px;
+
+    }
+
+
+    .libro-boton {
+
+        padding: 9px 6px;
+
+        font-size: 12px;
+
+    }
+
+}
+
+
+/* =====================================================
+   TELÉFONOS MUY PEQUEÑOS
+   ===================================================== */
+
+@media (max-width: 380px) {
+
+    .libros-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 15px;
+
+    }
+
+
+    .libro-portada {
+
+        height: 280px;
+
+    }
+
+
+    .libro-info {
+
+        padding: 13px;
+
+    }
+
+
+    .libro-titulo {
+
+        font-size: 15px;
+
+    }
+
+
+    .chat-gemini {
+
+        padding: 10px;
+
+    }
+
+
+    .chat-mensajes {
+
+        height: 320px;
+
+    }
+
+} 
+
+/* =====================================================
+   HISTORIAS DESTACADAS
+   ===================================================== */
+
+#destacados {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(260px, 1fr)
+        );
+
+    gap: 24px;
+
+    width: 100%;
+
+    margin-top: 22px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =====================================================
+   TARJETA DE HISTORIA
+   ===================================================== */
+
+.comic-destacado {
+
+    position: relative;
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    display: flex;
+
+    flex-direction: column;
+
+    background:
+        linear-gradient(
+            145deg,
+            #162A59,
+            #0F1F46
+        ) !important;
+
+    border:
+        1px solid rgba(
+            96,
+            165,
+            250,
+            0.25
+        ) !important;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 12px 30px
+        rgba(2, 8, 23, 0.30),
+
+        0 0 25px
+        rgba(59, 130, 246, 0.06);
+
+    box-sizing: border-box;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+
+}
+
+
+/* =====================================================
+   EFECTO HOVER
+   ===================================================== */
+
+.comic-destacado:hover {
+
+    transform:
+        translateY(-7px);
+
+    border-color:
+        rgba(
+            96,
+            165,
+            250,
+            0.55
+        ) !important;
+
+    box-shadow:
+        0 20px 40px
+        rgba(2, 8, 23, 0.40),
+
+        0 0 30px
+        rgba(59, 130, 246, 0.12);
+
+}
+
+
+/* =====================================================
+   IMAGEN DEL CÓMIC
+   ===================================================== */
+
+.comic-imagen {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 310px;
+
+    overflow: hidden;
+
+    background:
+        #0B1735;
+
+}
+
+
+/* =====================================================
+   IMAGEN
+   ===================================================== */
+
+.comic-imagen img {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.35s ease;
+
+}
+
+
+/* =====================================================
+   ZOOM DE PORTADA
+   ===================================================== */
+
+.comic-destacado:hover
+.comic-imagen img {
+
+    transform:
+        scale(1.05);
+
+}
+
+
+/* =====================================================
+   DEGRADADO SOBRE LA IMAGEN
+   ===================================================== */
+
+.comic-imagen::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    height: 90px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(11, 21, 51, 0.85)
+        );
+
+    pointer-events: none;
+
+}
+
+
+/* =====================================================
+   INFORMACIÓN
+   ===================================================== */
+
+.comic-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    flex: 1;
+
+    padding: 18px;
+
+    box-sizing: border-box;
+
+    color: #FFFFFF;
+
+}
+
+
+/* =====================================================
+   TÍTULO
+   ===================================================== */
+
+.comic-info h3 {
+
+    margin:
+        0 0 9px;
+
+    color:
+        #FFFFFF !important;
+
+    font-size: 19px;
+
+    line-height: 1.35;
+
+    font-weight: 700;
+
+    display: -webkit-box;
+
+    -webkit-line-clamp: 2;
+
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+
+}
+
+
+/* =====================================================
+   GÉNERO
+   ===================================================== */
+
+.comic-info > p {
+
+    margin:
+        0 0 10px;
+
+    color:
+        #93C5FD !important;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+}
+
+
+/* =====================================================
+   DESCRIPCIÓN
+   ===================================================== */
+
+.comic-info .comic-descripcion {
+
+    margin:
+        0 0 15px;
+
+    color:
+        #CBD5E1 !important;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    display: -webkit-box;
+
+    -webkit-line-clamp: 3;
+
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+
+}
+
+
+/* =====================================================
+   VALORACIÓN
+   ===================================================== */
+
+.comic-valoracion {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin:
+        5px 0 15px;
+
+    padding:
+        10px 12px;
+
+    background:
+        rgba(
+            15,
+            31,
+            70,
+            0.75
+        );
+
+    border:
+        1px solid
+        rgba(
+            96,
+            165,
+            250,
+            0.15
+        );
+
+    border-radius: 12px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =====================================================
+   ESTRELLAS
+   ===================================================== */
+
+.estrellas-promedio {
+
+    display: flex;
+
+    gap: 2px;
+
+}
+
+
+.estrella {
+
+    font-size: 17px;
+
+    line-height: 1;
+
+}
+
+
+.estrella.llena {
+
+    color:
+        #FBBF24;
+
+}
+
+
+.estrella.vacia {
+
+    color:
+        #64748B;
+
+}
+
+
+/* =====================================================
+   PROMEDIO
+   ===================================================== */
+
+.promedio-texto {
+
+    color:
+        #FFFFFF;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+/* =====================================================
+   CANTIDAD DE VOTOS
+   ===================================================== */
+
+.cantidad-votos {
+
+    color:
+        #94A3B8;
+
+    font-size: 11px;
+
+}
+
+
+/* =====================================================
+   ZONA DE VOTACIÓN
+   ===================================================== */
+
+.zona-votacion {
+
+    margin-bottom: 15px;
+
+    padding:
+        12px;
+
+    background:
+        rgba(
+            30,
+            45,
+            82,
+            0.55
+        );
+
+    border-radius: 12px;
+
+    border:
+        1px solid
+        rgba(
+            96,
+            165,
+            250,
+            0.12
+        );
+
+}
+
+
+/* =====================================================
+   TEXTO DE VOTACIÓN
+   ===================================================== */
+
+.zona-votacion p {
+
+    margin:
+        0 0 9px;
+
+    color:
+        #CBD5E1 !important;
+
+    font-size: 12px;
+
+}
+
+
+/* =====================================================
+   BOTONES DE ESTRELLAS
+   ===================================================== */
+
+.botones-estrellas {
+
+    display: flex;
+
+    gap: 6px;
+
+    flex-wrap: wrap;
+
+}
+
+
+/* =====================================================
+   BOTÓN DE VOTO
+   ===================================================== */
+
+.btn-voto {
+
+    border:
+        1px solid
+        rgba(
+            96,
+            165,
+            250,
+            0.25
+        );
+
+    background:
+        rgba(
+            15,
+            31,
+            70,
+            0.8
+        );
+
+    color:
+        #FBBF24;
+
+    padding:
+        6px 9px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-family:
+        "Poppins",
+        Arial,
+        sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        border-color 0.2s ease;
+
+}
+
+
+.btn-voto:hover {
+
+    transform:
+        translateY(-2px);
+
+    background:
+        #1D4ED8;
+
+    border-color:
+        #60A5FA;
+
+}
+
+
+.btn-voto:disabled {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+/* =====================================================
+   BOTÓN LEER
+   ===================================================== */
+
+.btn-leer-comic {
+
+    width: 100%;
+
+    margin-top: auto;
+
+    padding:
+        12px 16px;
+
+    border:
+        none;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563EB,
+            #6366F1
+        );
+
+    color:
+        #FFFFFF;
+
+    font-family:
+        "Poppins",
+        Arial,
+        sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+
+}
+
+
+.btn-leer-comic:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(
+            59,
+            130,
+            246,
+            0.30
+        );
+
+}
+
+
+.btn-leer-comic:active {
+
+    transform:
+        translateY(0);
+
+}
+
+
+/* =====================================================
+   MENSAJE SIN RESULTADOS
+   ===================================================== */
+
+#destacados .sin-resultados {
+
+    grid-column:
+        1 / -1;
+
+    padding:
+        35px 20px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #162A59,
+            #0F1F46
+        );
+
+    border:
+        1px solid
+        rgba(
+            96,
+            165,
+            250,
+            0.20
+        );
+
+    border-radius: 18px;
+
+    color:
+        #CBD5E1;
+
+    box-sizing: border-box;
+
+}
+
+
+#destacados .sin-resultados h3 {
+
+    margin:
+        0 0 10px;
+
+    color:
+        #FFFFFF;
+
+}
+
+
+#destacados .sin-resultados p {
+
+    margin:
+        0 0 18px;
+
+    color:
+        #94A3B8;
+
+}
+
+
+/* =====================================================
+   MENSAJE DE ERROR
+   ===================================================== */
+
+#destacados .error-detalle {
+
+    margin-top: 10px;
+
+    padding:
+        10px;
+
+    background:
+        rgba(
+            127,
+            29,
+            29,
+            0.25
+        );
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+}
+
+
+/* =====================================================
+   TABLET
+   ===================================================== */
+
+@media (max-width: 850px) {
+
+    #destacados {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+        gap: 18px;
+
+    }
+
+
+    .comic-imagen {
+
+        height: 280px;
+
+    }
+
+
+    .comic-info {
+
+        padding: 15px;
+
+    }
+
+}
+
+
+/* =====================================================
+   MÓVIL
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    #destacados {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+        gap: 12px;
+
+    }
+
+
+    .comic-destacado {
+
+        border-radius: 14px;
+
+    }
+
+
+    .comic-imagen {
+
+        height: 220px;
+
+    }
+
+
+    .comic-info {
+
+        padding: 11px;
+
+    }
+
+
+    .comic-info h3 {
+
+        font-size: 14px;
+
+    }
+
+
+    .comic-info > p {
+
+        font-size: 11px;
+
+    }
+
+
+    .comic-info .comic-descripcion {
+
+        font-size: 11px;
+
+        line-height: 1.45;
+
+        -webkit-line-clamp: 2;
+
+    }
+
+
+    .comic-valoracion {
+
+        padding:
+            8px;
+
+        gap: 5px;
+
+        margin-bottom: 10px;
+
+    }
+
+
+    .estrella {
+
+        font-size: 14px;
+
+    }
+
+
+    .promedio-texto {
+
+        font-size: 10px;
+
+    }
+
+
+    .cantidad-votos {
+
+        font-size: 9px;
+
+    }
+
+
+    .zona-votacion {
+
+        padding: 8px;
+
+        margin-bottom: 10px;
+
+    }
+
+
+    .zona-votacion p {
+
+        font-size: 10px;
+
+    }
+
+
+    .botones-estrellas {
+
+        gap: 4px;
+
+    }
+
+
+    .btn-voto {
+
+        padding:
+            5px 6px;
+
+        font-size: 9px;
+
+    }
+
+
+    .btn-leer-comic {
+
+        padding:
+            10px 8px;
+
+        font-size: 11px;
+
+    }
+
+}
+
+
+/* =====================================================
+   TELÉFONOS MUY PEQUEÑOS
+   ===================================================== */
+
+@media (max-width: 380px) {
+
+    #destacados {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 15px;
+
+    }
+
+
+    .comic-imagen {
+
+        height: 290px;
+
+    }
+
+
+    .comic-info {
+
+        padding: 14px;
+
+    }
+
+
+    .comic-info h3 {
+
+        font-size: 16px;
+
+    }
+
+
+    .comic-info > p {
+
+        font-size: 12px;
+
+    }
+
+
+    .comic-info .comic-descripcion {
+
+        font-size: 12px;
+
+    }
+
+
+    .btn-voto {
+
+        font-size: 10px;
+
+        padding:
+            6px 8px;
+
+    }
+
+}

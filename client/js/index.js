@@ -1,11 +1,16 @@
-// =====================================
+// =====================================================
 // COMICVERSE AI
-// CARGAR COMICS DESTACADOS EN INDEX
+// INDEX.JS
+// HISTORIAS DESTACADAS
+// FIREBASE FIRESTORE
 // SISTEMA DE VOTACIONES
-// =====================================
+// =====================================================
 
 
-import { auth, db } from "./firebase/firebase.js";
+import {
+    auth,
+    db
+} from "./firebase/firebase.js";
 
 
 import {
@@ -22,24 +27,32 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
 
-// =====================================
-// CONTENEDOR
-// =====================================
+// =====================================================
+// CONTENEDOR DE HISTORIAS DESTACADAS
+// =====================================================
 
 const contenedor =
     document.getElementById("destacados");
 
 
-// =====================================
+// =====================================================
 // USUARIO ACTUAL
-// =====================================
+// =====================================================
 
 let usuarioActual = null;
 
 
-// =====================================
+// =====================================================
+// IMAGEN POR DEFECTO
+// =====================================================
+
+const IMAGEN_DEFAULT =
+    "img/portada/default-book.jpg";
+
+
+// =====================================================
 // ESCAPAR HTML
-// =====================================
+// =====================================================
 
 function escaparHTML(texto) {
 
@@ -54,32 +67,40 @@ function escaparHTML(texto) {
 }
 
 
-// =====================================
-// ESPERAR ESTADO DE AUTENTICACIÓN
-// =====================================
+// =====================================================
+// AUTENTICACIÓN
+// =====================================================
 
 onAuthStateChanged(
     auth,
-    (usuario) => {
+    async (usuario) => {
 
-        usuarioActual = usuario || null;
+        usuarioActual =
+            usuario || null;
 
-        cargarComics();
+        console.log(
+            "🔥 Firebase Auth:",
+            usuarioActual
+                ? "Usuario autenticado"
+                : "Usuario no autenticado"
+        );
+
+        await cargarComics();
 
     }
 );
 
 
-// =====================================
-// CARGAR CÓMICS
-// =====================================
+// =====================================================
+// CARGAR CÓMICS DESTACADOS
+// =====================================================
 
 async function cargarComics() {
 
     if (!contenedor) {
 
         console.error(
-            "❌ No se encontró el contenedor #destacados"
+            "❌ No existe el contenedor #destacados"
         );
 
         return;
@@ -87,27 +108,64 @@ async function cargarComics() {
     }
 
 
+    // =================================================
+    // ESTADO DE CARGA
+    // =================================================
+
+    contenedor.innerHTML = `
+
+        <div class="sin-resultados">
+
+            <h3>
+                ⏳ Cargando historias...
+            </h3>
+
+            <p>
+                Estamos preparando los cómics.
+            </p>
+
+        </div>
+
+    `;
+
+
     try {
 
-        // =================================
-        // CONSULTAR CÓMICS
-        // =================================
+        console.log(
+            "📚 Consultando Firestore: /comics"
+        );
 
-        const consulta =
-            await getDocs(
-                collection(
-                    db,
-                    "comics"
-                )
+
+        // =================================================
+        // REFERENCIA A LA COLECCIÓN
+        // =================================================
+
+        const referencia =
+            collection(
+                db,
+                "comics"
             );
 
 
-        contenedor.innerHTML = "";
+        // =================================================
+        // OBTENER DOCUMENTOS
+        // =================================================
+
+        const consulta =
+            await getDocs(
+                referencia
+            );
 
 
-        // =================================
-        // COMPROBAR
-        // =================================
+        console.log(
+            "📚 Documentos encontrados:",
+            consulta.size
+        );
+
+
+        // =================================================
+        // COMPROBAR SI ESTÁ VACÍA
+        // =================================================
 
         if (consulta.empty) {
 
@@ -116,12 +174,125 @@ async function cargarComics() {
                 <div class="sin-resultados">
 
                     <h3>
-                        📚 No hay cómics disponibles
+                        📚 No hay historias todavía
                     </h3>
 
                     <p>
                         Todavía no se han agregado
-                        historias a ComicVerse AI.
+                        cómics a ComicVerse AI.
+                    </p>
+
+                    <a
+                        href="comics.html"
+                        class="btn"
+                    >
+                        📖 Explorar cómics
+                    </a>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        // =================================================
+        // CONVERTIR DOCUMENTOS EN ARRAY
+        // =================================================
+
+        const comics =
+            consulta.docs.map(
+                (documento) => {
+
+                    return {
+
+                        id:
+                            documento.id,
+
+                        ...documento.data()
+
+                    };
+
+                }
+            );
+
+
+        // =================================================
+        // LIMPIAR CONTENEDOR
+        // =================================================
+
+        contenedor.innerHTML = "";
+
+
+        // =================================================
+        // CREAR TARJETAS
+        // =================================================
+
+        for (
+            const comic of comics
+        ) {
+
+            await crearTarjetaComic(
+                comic
+            );
+
+        }
+
+
+        // =================================================
+        // ACTIVAR FUNCIONES
+        // =================================================
+
+        activarBotonesVoto();
+
+        activarBotonesLeer();
+
+
+        console.log(
+            "✅ Historias cargadas correctamente."
+        );
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "❌ ERROR FIRESTORE:",
+            error
+        );
+
+
+        // =================================================
+        // ERROR DE PERMISOS
+        // =================================================
+
+        if (
+            error.code ===
+            "permission-denied"
+        ) {
+
+            contenedor.innerHTML = `
+
+                <div class="sin-resultados">
+
+                    <h3>
+                        🔐 Firestore bloqueó las historias
+                    </h3>
+
+                    <p>
+                        La colección
+                        <strong>comics</strong>
+                        no permite lectura desde esta página.
+                    </p>
+
+                    <p class="error-detalle">
+
+                        Revisa las reglas de seguridad
+                        de Firestore.
+
                     </p>
 
                 </div>
@@ -133,247 +304,28 @@ async function cargarComics() {
         }
 
 
-        // =================================
-        // CARGAR CADA CÓMIC
-        // =================================
-
-        for (
-            const documento of consulta.docs
-        ) {
-
-            const comic =
-                documento.data();
-
-            const id =
-                documento.id;
-
-
-            // =================================
-            // OBTENER INFORMACIÓN DE VOTOS
-            // =================================
-
-            const votacion =
-                await obtenerVotacion(id);
-
-
-            // =================================
-            // CREAR TARJETA
-            // =================================
-
-            const tarjeta =
-                document.createElement("div");
-
-
-            tarjeta.className =
-                "card comic-destacado";
-
-
-            // =================================
-            // DATOS
-            // =================================
-
-            const titulo =
-                comic.titulo ||
-                "Sin título";
-
-
-            const genero =
-                comic.genero ||
-                "Sin género";
-
-
-            const imagen =
-                comic.imagen ||
-                "img/portada/default-book.jpg";
-
-
-            const promedio =
-                votacion.promedio;
-
-
-            const cantidadVotos =
-                votacion.cantidad;
-
-
-            // =================================
-            // ESTRELLAS
-            // =================================
-
-            const estrellas =
-                generarEstrellas(
-                    promedio
-                );
-
-
-            // =================================
-            // BOTONES DE VOTO
-            // =================================
-
-            const botonesEstrellas =
-                generarBotonesVoto(
-                    id
-                );
-
-
-            // =================================
-            // HTML TARJETA
-            // =================================
-
-            tarjeta.innerHTML = `
-
-                <div class="comic-imagen">
-
-                    <img
-                        src="${escaparHTML(imagen)}"
-                        alt="${escaparHTML(titulo)}"
-                        onerror="
-                            this.src='img/portada/default-book.jpg'
-                        "
-                    >
-
-                </div>
-
-
-                <div class="comic-info">
-
-                    <h3>
-
-                        📖
-                        ${escaparHTML(titulo)}
-
-                    </h3>
-
-
-                    <p>
-
-                        🏷️
-                        ${escaparHTML(genero)}
-
-                    </p>
-
-
-                    <!-- =====================
-                         VALORACIÓN
-                    ====================== -->
-
-                    <div class="comic-valoracion">
-
-                        <div class="estrellas-promedio">
-
-                            ${estrellas}
-
-                        </div>
-
-
-                        <span class="promedio-texto">
-
-                            ${promedio.toFixed(1)}
-                            / 5
-
-                        </span>
-
-
-                        <span class="cantidad-votos">
-
-                            👥
-                            ${cantidadVotos}
-                            ${cantidadVotos === 1
-                                ? "voto"
-                                : "votos"}
-
-                        </span>
-
-                    </div>
-
-
-                    <!-- =====================
-                         VOTAR
-                    ====================== -->
-
-                    <div class="zona-votacion">
-
-                        <p>
-
-                            ⭐
-                            ${usuarioActual
-                                ? "¿Qué te parece?"
-                                : "Inicia sesión para votar"}
-
-                        </p>
-
-
-                        <div
-                            class="botones-estrellas"
-                            data-comic-id="${escaparHTML(id)}"
-                        >
-
-                            ${botonesEstrellas}
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- =====================
-                         LEER
-                    ====================== -->
-
-                    <button
-                        class="btn btn-leer-comic"
-                        data-comic-id="${escaparHTML(id)}"
-                    >
-
-                        📖 Leer ahora
-
-                    </button>
-
-                </div>
-
-            `;
-
-
-            // =================================
-            // AÑADIR AL CONTENEDOR
-            // =================================
-
-            contenedor.appendChild(
-                tarjeta
-            );
-
-        }
-
-
-        // =================================
-        // ACTIVAR BOTONES
-        // =================================
-
-        activarBotonesVoto();
-
-
-        activarBotonesLeer();
-
-
-    }
-
-    catch(error) {
-
-        console.error(
-            "❌ Error cargando cómics:",
-            error
-        );
-
+        // =================================================
+        // ERROR GENERAL
+        // =================================================
 
         contenedor.innerHTML = `
 
             <div class="sin-resultados">
 
                 <h3>
-                    ❌ No se pudieron cargar
-                    las historias
+                    ❌ No se pudieron cargar las historias
                 </h3>
 
                 <p>
                     Inténtalo nuevamente.
+                </p>
+
+                <p class="error-detalle">
+
+                    ${escaparHTML(
+                        error.message
+                    )}
+
                 </p>
 
             </div>
@@ -385,107 +337,386 @@ async function cargarComics() {
 }
 
 
-// =====================================
-// OBTENER VOTACIÓN
-// =====================================
+// =====================================================
+// CREAR TARJETA DE CÓMIC
+// =====================================================
+
+async function crearTarjetaComic(
+    comic
+) {
+
+    const id =
+        comic.id;
+
+
+    // =================================================
+    // DATOS DEL CÓMIC
+    // =================================================
+
+    const titulo =
+        comic.titulo ||
+        "Sin título";
+
+
+    const genero =
+        comic.genero ||
+        "Sin género";
+
+
+    const imagen =
+        comic.imagen ||
+        comic.portada ||
+        IMAGEN_DEFAULT;
+
+
+    const descripcion =
+        comic.descripcion ||
+        "Descubre esta historia en ComicVerse AI.";
+
+
+    // =================================================
+    // INFORMACIÓN DE VOTACIÓN
+    // =================================================
+
+    let votacion = {
+
+        promedio: 0,
+
+        cantidad: 0
+
+    };
+
+
+    try {
+
+        votacion =
+            await obtenerVotacion(
+                id
+            );
+
+    }
+
+    catch (error) {
+
+        console.warn(
+            "⚠️ No se pudieron cargar los votos:",
+            error
+        );
+
+    }
+
+
+    // =================================================
+    // CREAR TARJETA
+    // =================================================
+
+    const tarjeta =
+        document.createElement(
+            "article"
+        );
+
+
+    tarjeta.className =
+        "card comic-destacado";
+
+
+    // =================================================
+    // DATOS DE VOTACIÓN
+    // =================================================
+
+    const promedio =
+        votacion.promedio;
+
+
+    const cantidadVotos =
+        votacion.cantidad;
+
+
+    const estrellas =
+        generarEstrellas(
+            promedio
+        );
+
+
+    const botonesEstrellas =
+        generarBotonesVoto(
+            id
+        );
+
+
+    // =================================================
+    // HTML DE LA TARJETA
+    // =================================================
+
+    tarjeta.innerHTML = `
+
+        <div class="comic-imagen">
+
+            <img
+                src="${escaparHTML(imagen)}"
+                alt="${escaparHTML(titulo)}"
+                loading="lazy"
+            >
+
+        </div>
+
+
+        <div class="comic-info">
+
+
+            <h3>
+
+                📖
+                ${escaparHTML(titulo)}
+
+            </h3>
+
+
+            <p>
+
+                🏷️
+                ${escaparHTML(genero)}
+
+            </p>
+
+
+            <p class="comic-descripcion">
+
+                ${escaparHTML(descripcion)}
+
+            </p>
+
+
+            <!-- =====================================
+                 VALORACIÓN
+            ====================================== -->
+
+            <div class="comic-valoracion">
+
+
+                <div class="estrellas-promedio">
+
+                    ${estrellas}
+
+                </div>
+
+
+                <span class="promedio-texto">
+
+                    ${promedio.toFixed(1)}
+                    / 5
+
+                </span>
+
+
+                <span class="cantidad-votos">
+
+                    👥
+                    ${cantidadVotos}
+
+                    ${
+                        cantidadVotos === 1
+                            ? "voto"
+                            : "votos"
+                    }
+
+                </span>
+
+
+            </div>
+
+
+            <!-- =====================================
+                 ZONA DE VOTACIÓN
+            ====================================== -->
+
+            <div class="zona-votacion">
+
+
+                <p>
+
+                    ⭐
+
+                    ${
+                        usuarioActual
+                            ? "¿Qué te parece?"
+                            : "Inicia sesión para votar"
+                    }
+
+                </p>
+
+
+                <div
+                    class="botones-estrellas"
+                    data-comic-id="${escaparHTML(id)}"
+                >
+
+                    ${botonesEstrellas}
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =====================================
+                 BOTÓN LEER
+            ====================================== -->
+
+            <button
+                type="button"
+                class="btn btn-leer-comic"
+                data-comic-id="${escaparHTML(id)}"
+            >
+
+                📖 Leer ahora
+
+            </button>
+
+
+        </div>
+
+    `;
+
+
+    // =================================================
+    // FALLBACK DE IMAGEN
+    // =================================================
+
+    const imagenElemento =
+        tarjeta.querySelector(
+            ".comic-imagen img"
+        );
+
+
+    if (imagenElemento) {
+
+        imagenElemento.addEventListener(
+            "error",
+            () => {
+
+                if (
+                    imagenElemento.src.endsWith(
+                        IMAGEN_DEFAULT
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                imagenElemento.src =
+                    IMAGEN_DEFAULT;
+
+            },
+            {
+                once: true
+            }
+        );
+
+    }
+
+
+    // =================================================
+    // AÑADIR TARJETA
+    // =================================================
+
+    contenedor.appendChild(
+        tarjeta
+    );
+
+}
+
+
+// =====================================================
+// OBTENER VOTACIÓN DE UN CÓMIC
+// =====================================================
 
 async function obtenerVotacion(
     comicId
 ) {
 
-    try {
-
-        const votosRef =
-            collection(
-                db,
-                "comics",
-                comicId,
-                "votos"
-            );
+    const votosRef =
+        collection(
+            db,
+            "comics",
+            comicId,
+            "votos"
+        );
 
 
-        const consulta =
-            await getDocs(
-                votosRef
-            );
+    const consulta =
+        await getDocs(
+            votosRef
+        );
 
 
-        let suma = 0;
+    let suma = 0;
 
-        let cantidad = 0;
-
-
-        consulta.forEach(
-            documento => {
-
-                const datos =
-                    documento.data();
+    let cantidad = 0;
 
 
-                const puntuacion =
-                    Number(
-                        datos.puntuacion
-                    );
+    // =================================================
+    // RECORRER VOTOS
+    // =================================================
+
+    consulta.forEach(
+        (documento) => {
+
+            const datos =
+                documento.data();
 
 
-                if (
-                    Number.isFinite(
-                        puntuacion
-                    ) &&
-                    puntuacion >= 1 &&
-                    puntuacion <= 5
-                ) {
+            const puntuacion =
+                Number(
+                    datos.puntuacion
+                );
 
-                    suma +=
-                        puntuacion;
 
-                    cantidad++;
+            if (
+                Number.isFinite(
+                    puntuacion
+                ) &&
+                puntuacion >= 1 &&
+                puntuacion <= 5
+            ) {
 
-                }
+                suma +=
+                    puntuacion;
+
+                cantidad++;
 
             }
-        );
+
+        }
+    );
 
 
-        const promedio =
-            cantidad > 0
-                ? suma / cantidad
-                : 0;
+    // =================================================
+    // CALCULAR PROMEDIO
+    // =================================================
+
+    const promedio =
+        cantidad > 0
+            ? suma / cantidad
+            : 0;
 
 
-        return {
+    return {
 
-            promedio,
-            cantidad
+        promedio,
 
-        };
+        cantidad
 
-    }
-
-    catch(error) {
-
-        console.error(
-            "❌ Error obteniendo votos:",
-            error
-        );
-
-
-        return {
-
-            promedio: 0,
-
-            cantidad: 0
-
-        };
-
-    }
+    };
 
 }
 
 
-// =====================================
+// =====================================================
 // GENERAR ESTRELLAS DEL PROMEDIO
-// =====================================
+// =====================================================
 
 function generarEstrellas(
     promedio
@@ -500,27 +731,31 @@ function generarEstrellas(
         i++
     ) {
 
-        if (
-            i <= Math.round(promedio)
-        ) {
+        const llena =
+            i <= Math.round(
+                promedio
+            );
 
-            resultado += `
-                <span class="estrella llena">
-                    ★
-                </span>
-            `;
 
-        }
+        resultado += `
 
-        else {
+            <span
+                class="estrella ${
+                    llena
+                        ? "llena"
+                        : "vacia"
+                }"
+            >
 
-            resultado += `
-                <span class="estrella vacia">
-                    ☆
-                </span>
-            `;
+                ${
+                    llena
+                        ? "★"
+                        : "☆"
+                }
 
-        }
+            </span>
+
+        `;
 
     }
 
@@ -530,9 +765,9 @@ function generarEstrellas(
 }
 
 
-// =====================================
+// =====================================================
 // GENERAR BOTONES DE VOTACIÓN
-// =====================================
+// =====================================================
 
 function generarBotonesVoto(
     comicId
@@ -554,11 +789,15 @@ function generarBotonesVoto(
                 class="btn-voto"
                 data-comic-id="${escaparHTML(comicId)}"
                 data-puntuacion="${puntuacion}"
-                title="Dar ${puntuacion} estrella${puntuacion > 1 ? "s" : ""}"
+                title="Dar ${puntuacion} estrella${
+                    puntuacion > 1
+                        ? "s"
+                        : ""
+                }"
             >
 
                 ${puntuacion}★
-                
+
             </button>
 
         `;
@@ -571,9 +810,9 @@ function generarBotonesVoto(
 }
 
 
-// =====================================
+// =====================================================
 // ACTIVAR BOTONES DE VOTO
-// =====================================
+// =====================================================
 
 function activarBotonesVoto() {
 
@@ -584,7 +823,7 @@ function activarBotonesVoto() {
 
 
     botones.forEach(
-        boton => {
+        (boton) => {
 
             boton.addEventListener(
                 "click",
@@ -600,9 +839,9 @@ function activarBotonesVoto() {
                         );
 
 
-                    // =========================
+                    // =================================
                     // COMPROBAR LOGIN
-                    // =========================
+                    // =================================
 
                     if (!usuarioActual) {
 
@@ -620,11 +859,12 @@ function activarBotonesVoto() {
                     }
 
 
-                    // =========================
-                    // COMPROBAR PUNTUACIÓN
-                    // =========================
+                    // =================================
+                    // VALIDAR DATOS
+                    // =================================
 
                     if (
+                        !comicId ||
                         puntuacion < 1 ||
                         puntuacion > 5
                     ) {
@@ -636,9 +876,17 @@ function activarBotonesVoto() {
 
                     try {
 
-                        // =========================
+                        // =================================
+                        // DESACTIVAR BOTÓN
+                        // =================================
+
+                        boton.disabled =
+                            true;
+
+
+                        // =================================
                         // REFERENCIA DEL VOTO
-                        // =========================
+                        // =================================
 
                         const votoRef =
                             doc(
@@ -650,9 +898,9 @@ function activarBotonesVoto() {
                             );
 
 
-                        // =========================
+                        // =================================
                         // COMPROBAR SI YA VOTÓ
-                        // =========================
+                        // =================================
 
                         const votoExistente =
                             await getDoc(
@@ -674,9 +922,9 @@ function activarBotonesVoto() {
                         }
 
 
-                        // =========================
+                        // =================================
                         // GUARDAR VOTO
-                        // =========================
+                        // =================================
 
                         await setDoc(
                             votoRef,
@@ -695,24 +943,29 @@ function activarBotonesVoto() {
                         );
 
 
-                        // =========================
+                        // =================================
                         // CONFIRMACIÓN
-                        // =========================
+                        // =================================
 
                         alert(
-                            `⭐ Has dado ${puntuacion} estrella${puntuacion > 1 ? "s" : ""}. ¡Gracias por votar!`
+                            `⭐ Has dado ${puntuacion} estrella${
+                                puntuacion > 1
+                                    ? "s"
+                                    : ""
+                            }. ¡Gracias por votar!`
                         );
 
 
-                        // =========================
-                        // RECARGAR
-                        // =========================
+                        // =================================
+                        // ACTUALIZAR TARJETAS
+                        // =================================
 
                         await cargarComics();
 
                     }
 
-                    catch(error) {
+
+                    catch (error) {
 
                         console.error(
                             "❌ Error guardando voto:",
@@ -721,8 +974,16 @@ function activarBotonesVoto() {
 
 
                         alert(
-                            "❌ No se pudo guardar tu voto."
+                            "❌ No se pudo guardar el voto."
                         );
+
+                    }
+
+
+                    finally {
+
+                        boton.disabled =
+                            false;
 
                     }
 
@@ -735,9 +996,9 @@ function activarBotonesVoto() {
 }
 
 
-// =====================================
-// ACTIVAR BOTONES LEER
-// =====================================
+// =====================================================
+// ACTIVAR BOTONES "LEER AHORA"
+// =====================================================
 
 function activarBotonesLeer() {
 
@@ -748,7 +1009,7 @@ function activarBotonesLeer() {
 
 
     botones.forEach(
-        boton => {
+        (boton) => {
 
             boton.addEventListener(
                 "click",
@@ -758,17 +1019,24 @@ function activarBotonesLeer() {
                         boton.dataset.comicId;
 
 
+                    // =================================
+                    // VALIDAR ID
+                    // =================================
+
                     if (!id) {
 
                         alert(
                             "❌ Este cómic no tiene identificador."
                         );
 
-
                         return;
 
                     }
 
+
+                    // =================================
+                    // IR A comic.html
+                    // =================================
 
                     window.location.href =
                         `comic.html?id=${encodeURIComponent(id)}`;

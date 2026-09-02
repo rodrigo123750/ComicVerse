@@ -3,99 +3,582 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
-<title>ComicVerse AI | Panel de Administración</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/navbar.css">
-<link rel="stylesheet" href="css/auth.css">
+    <title>
+        ComicVerse AI | Administración
+    </title>
+
+
+    <!-- =========================================
+         CSS GENERAL
+    ========================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/navbar.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/admin.css"
+    >
 
 </head>
 
+
 <body>
+
+
+<!-- =========================================
+     NAVBAR
+========================================== -->
 
 <header class="navbar">
 
-<div class="logo">
-📚 ComicVerse AI
-</div>
+    <div class="logo">
 
-<nav>
+        📚 ComicVerse AI
 
-<a href="index.html">🏠 Inicio</a>
+    </div>
 
-<a href="comics.html">📖 Cómics</a>
 
-<a href="perfil.html">👤 Perfil</a>
+    <nav>
 
-</nav>
+        <a href="index.html">
+
+            🏠 Inicio
+
+        </a>
+
+
+        <a href="comics.html">
+
+            📖 Cómics
+
+        </a>
+
+
+        <a href="perfil.html">
+
+            👤 Perfil
+
+        </a>
+
+    </nav>
 
 </header>
 
-<section class="auth-container">
 
-<div class="auth-card">
 
-<h1>🛠 Panel de Administración</h1>
+<!-- =========================================
+     CONTENIDO
+========================================== -->
 
-<form id="comicForm">
+<main class="admin-page">
 
-<input
-id="titulo"
-type="text"
-placeholder="Título del cómic"
-required>
 
-<input
-id="genero"
-type="text"
-placeholder="Género"
-required>
+    <section class="admin-header">
 
-<textarea
-id="descripcion"
-placeholder="Descripción"
-rows="5"
-required></textarea>
+        <div>
 
-<input
-id="imagen"
-type="text"
-placeholder="Ruta de la portada (ej: img/comics/heroe/heroe.jpg)"
-required>
+            <span class="admin-badge">
 
-<input
-id="rating"
-type="number"
-step="0.1"
-min="0"
-max="5"
-placeholder="Calificación"
-required>
+                🛡️ ADMINISTRACIÓN
 
-<button class="btn" type="submit">
+            </span>
 
-💾 Guardar cómic
 
-</button>
+            <h1>
 
-</form>
+                Publicar una obra
 
-<p id="mensaje"></p>
+            </h1>
 
-</div>
 
-</section>
+            <p>
+
+                Agrega libros, cómics e historias
+                a ComicVerse AI.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         PANEL
+    ========================================== -->
+
+    <section class="admin-panel">
+
+
+        <form id="comicForm">
+
+
+            <!-- =================================
+                 INFORMACIÓN
+            ================================== -->
+
+            <div class="form-section">
+
+                <div class="section-title">
+
+                    <span>📚</span>
+
+                    <div>
+
+                        <h2>
+                            Información de la obra
+                        </h2>
+
+                        <p>
+                            Datos principales del libro.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TÍTULO -->
+
+                <div class="form-group">
+
+                    <label for="titulo">
+
+                        Título
+
+                    </label>
+
+
+                    <input
+                        id="titulo"
+                        type="text"
+                        placeholder="Ej: El héroe perdido"
+                        maxlength="150"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- AUTOR -->
+
+                <div class="form-group">
+
+                    <label for="autor">
+
+                        Autor
+
+                    </label>
+
+
+                    <input
+                        id="autor"
+                        type="text"
+                        placeholder="Nombre del autor"
+                        maxlength="120"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- GÉNERO -->
+
+                <div class="form-group">
+
+                    <label for="genero">
+
+                        Género
+
+                    </label>
+
+
+                    <input
+                        id="genero"
+                        type="text"
+                        placeholder="Ej: Fantasía, aventura..."
+                        maxlength="80"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- DESCRIPCIÓN -->
+
+                <div class="form-group">
+
+                    <label for="descripcion">
+
+                        Descripción
+
+                    </label>
+
+
+                    <textarea
+                        id="descripcion"
+                        rows="6"
+                        maxlength="1000"
+                        placeholder="Describe brevemente la obra..."
+                        required
+                    ></textarea>
+
+
+                    <small>
+
+                        Máximo 1000 caracteres.
+
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================
+                 PORTADA
+            ================================== -->
+
+            <div class="form-section">
+
+                <div class="section-title">
+
+                    <span>🖼️</span>
+
+                    <div>
+
+                        <h2>
+                            Portada
+                        </h2>
+
+                        <p>
+                            Selecciona una imagen desde
+                            tu dispositivo.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="upload-box">
+
+
+                    <input
+                        id="imagenArchivo"
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp,image/gif"
+                        hidden
+                    >
+
+
+                    <label
+                        for="imagenArchivo"
+                        class="upload-button"
+                    >
+
+                        📁 Seleccionar portada
+
+                    </label>
+
+
+                    <p
+                        id="imagenNombre"
+                        class="file-name"
+                    >
+
+                        Ninguna imagen seleccionada.
+
+                    </p>
+
+
+                    <div
+                        id="previewPortada"
+                        class="preview-portada"
+                    >
+
+                        <span>
+                            🖼️
+                        </span>
+
+                        <p>
+                            Vista previa
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- URL OPCIONAL -->
+
+                <div class="or-divider">
+
+                    <span>O utilizar una URL</span>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="imagenUrl">
+
+                        URL de la portada
+
+                    </label>
+
+
+                    <input
+                        id="imagenUrl"
+                        type="url"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================
+                 ARCHIVO
+            ================================== -->
+
+            <div class="form-section">
+
+                <div class="section-title">
+
+                    <span>📎</span>
+
+                    <div>
+
+                        <h2>
+                            Archivo de la obra
+                        </h2>
+
+                        <p>
+                            Sube el archivo desde tu dispositivo.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="upload-box archivo-box">
+
+
+                    <input
+                        id="archivoObra"
+                        type="file"
+                        accept=".pdf,.epub,.doc,.docx,.txt"
+                        hidden
+                    >
+
+
+                    <label
+                        for="archivoObra"
+                        class="upload-button"
+                    >
+
+                        📁 Seleccionar archivo
+
+                    </label>
+
+
+                    <p
+                        id="archivoNombre"
+                        class="file-name"
+                    >
+
+                        Ningún archivo seleccionado.
+
+                    </p>
+
+
+                    <div class="formatos">
+
+                        PDF · EPUB · DOC · DOCX · TXT
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="or-divider">
+
+                    <span>O utilizar una URL</span>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="archivoUrl">
+
+                        URL del archivo
+
+                    </label>
+
+
+                    <input
+                        id="archivoUrl"
+                        type="url"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================
+                 CALIFICACIÓN
+            ================================== -->
+
+            <div class="form-section">
+
+                <div class="section-title">
+
+                    <span>⭐</span>
+
+                    <div>
+
+                        <h2>
+                            Calificación inicial
+                        </h2>
+
+                        <p>
+                            Puedes establecer una calificación
+                            inicial para la obra.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="rating-input">
+
+                    <input
+                        id="rating"
+                        type="number"
+                        min="0"
+                        max="5"
+                        step="0.1"
+                        value="0"
+                    >
+
+
+                    <span>
+                        / 5 ⭐
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================
+                 BOTONES
+            ================================== -->
+
+            <div class="admin-actions">
+
+
+                <button
+                    type="button"
+                    id="btnLimpiar"
+                    class="btn-secondary"
+                >
+
+                    🧹 Limpiar
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    id="btnPublicar"
+                    class="btn-primary"
+                >
+
+                    🚀 Publicar obra
+
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================
+                 MENSAJE
+            ================================== -->
+
+            <div
+                id="mensaje"
+                class="admin-message"
+            ></div>
+
+
+        </form>
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================================
+     FOOTER
+========================================== -->
 
 <footer>
 
-© 2026 ComicVerse AI
+    © 2026 ComicVerse AI
 
 </footer>
 
-<script type="module" src="js/admin/admin.js"></script>
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================== -->
+
+<script
+    type="module"
+    src="js/admin/admin.js"
+></script>
+
 
 </body>
 

@@ -1,0 +1,1098 @@
+/* =====================================================
+   COMICVERSE AI
+   ADMIN.CSS
+   TEMA AZUL + BORDES LUMINOSOS
+   ===================================================== */
+
+
+/* =====================================================
+   FONDO GENERAL
+   ===================================================== */
+
+body {
+
+    background:
+        radial-gradient(
+            circle at 20% 10%,
+            rgba(37, 99, 235, 0.28),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(14, 165, 233, 0.20),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #020617,
+            #071a3d,
+            #06152f
+        );
+
+    color: #E0F2FE;
+
+}
+
+
+/* =====================================================
+   PÁGINA
+   ===================================================== */
+
+.admin-page {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    padding: 45px 20px 70px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+.admin-header {
+
+    margin-bottom: 30px;
+
+}
+
+
+.admin-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 8px 15px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(14, 165, 233, 0.12);
+
+    border:
+        1px solid #38BDF8;
+
+    color:
+        #7DD3FC;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    box-shadow:
+        0 0 12px rgba(56, 189, 248, 0.45);
+
+}
+
+
+.admin-header h1 {
+
+    margin:
+        15px 0 8px;
+
+    color:
+        #F0F9FF;
+
+    font-size:
+        clamp(30px, 5vw, 45px);
+
+    text-shadow:
+        0 0 18px
+        rgba(56, 189, 248, 0.45);
+
+}
+
+
+.admin-header p {
+
+    margin: 0;
+
+    color:
+        #93C5FD;
+
+    font-size: 15px;
+
+}
+
+
+/* =====================================================
+   PANEL PRINCIPAL
+   ===================================================== */
+
+.admin-panel {
+
+    position: relative;
+
+    width: 100%;
+
+    padding: 32px;
+
+    box-sizing: border-box;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(8, 30, 70, 0.96),
+            rgba(3, 18, 43, 0.96)
+        );
+
+    border:
+        1px solid #38BDF8;
+
+    box-shadow:
+
+        0 0 8px
+        rgba(56, 189, 248, 0.65),
+
+        0 0 25px
+        rgba(37, 99, 235, 0.40),
+
+        0 25px 70px
+        rgba(0, 0, 0, 0.55);
+
+}
+
+
+/* =====================================================
+   BRILLO EXTERIOR
+   ===================================================== */
+
+.admin-panel::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -2px;
+
+    border-radius: 27px;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent,
+            rgba(56, 189, 248, 0.25),
+            transparent,
+            rgba(59, 130, 246, 0.25),
+            transparent
+        );
+
+    opacity: 0.7;
+
+    z-index: 0;
+
+}
+
+
+.admin-panel form {
+
+    position: relative;
+
+    z-index: 1;
+
+}
+
+
+/* =====================================================
+   SECCIONES
+   ===================================================== */
+
+.form-section {
+
+    padding:
+        25px 0;
+
+    border-bottom:
+        1px solid
+        rgba(56, 189, 248, 0.22);
+
+}
+
+
+.form-section:first-child {
+
+    padding-top: 0;
+
+}
+
+
+.form-section:last-of-type {
+
+    border-bottom: none;
+
+}
+
+
+/* =====================================================
+   TÍTULO DE SECCIÓN
+   ===================================================== */
+
+.section-title {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 13px;
+
+    margin-bottom: 23px;
+
+}
+
+
+.section-title > span {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 45px;
+
+    height: 45px;
+
+    flex-shrink: 0;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0C4A6E,
+            #075985
+        );
+
+    border:
+        1px solid #38BDF8;
+
+    box-shadow:
+        0 0 14px
+        rgba(56, 189, 248, 0.45);
+
+    font-size: 21px;
+
+}
+
+
+.section-title h2 {
+
+    margin:
+        0 0 5px;
+
+    color:
+        #E0F2FE;
+
+    font-size: 19px;
+
+}
+
+
+.section-title p {
+
+    margin: 0;
+
+    color:
+        #7DD3FC;
+
+    font-size: 13px;
+
+}
+
+
+/* =====================================================
+   FORMULARIOS
+   ===================================================== */
+
+.form-group {
+
+    margin-bottom: 19px;
+
+}
+
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color:
+        #BAE6FD;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+
+.form-group input,
+.form-group textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding:
+        13px 14px;
+
+    border:
+        1px solid
+        #075985;
+
+    border-radius: 12px;
+
+    outline: none;
+
+    background:
+        rgba(2, 18, 42, 0.85);
+
+    color:
+        #E0F2FE;
+
+    font-family:
+        inherit;
+
+    font-size: 14px;
+
+    transition:
+        0.25s ease;
+
+}
+
+
+.form-group input {
+
+    height: 48px;
+
+}
+
+
+.form-group textarea {
+
+    min-height: 130px;
+
+    resize: vertical;
+
+}
+
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+
+    color:
+        #64748B;
+
+}
+
+
+.form-group input:hover,
+.form-group textarea:hover {
+
+    border-color:
+        #0EA5E9;
+
+}
+
+
+.form-group input:focus,
+.form-group textarea:focus {
+
+    border-color:
+        #38BDF8;
+
+    background:
+        rgba(3, 24, 55, 0.95);
+
+    box-shadow:
+        0 0 8px
+        rgba(56, 189, 248, 0.35),
+
+        0 0 20px
+        rgba(37, 99, 235, 0.20);
+
+}
+
+
+.form-group small {
+
+    display: block;
+
+    margin-top: 6px;
+
+    color:
+        #64748B;
+
+    font-size: 12px;
+
+}
+
+
+/* =====================================================
+   ÁREA DE SUBIDA
+   ===================================================== */
+
+.upload-box {
+
+    padding:
+        30px 20px;
+
+    text-align: center;
+
+    border:
+        1px dashed
+        #38BDF8;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(8, 47, 73, 0.55),
+            rgba(3, 25, 58, 0.60)
+        );
+
+    box-shadow:
+        inset 0 0 20px
+        rgba(14, 165, 233, 0.06),
+
+        0 0 12px
+        rgba(56, 189, 248, 0.12);
+
+    transition:
+        0.25s ease;
+
+}
+
+
+.upload-box:hover {
+
+    border-color:
+        #7DD3FC;
+
+    box-shadow:
+        inset 0 0 25px
+        rgba(14, 165, 233, 0.10),
+
+        0 0 18px
+        rgba(56, 189, 248, 0.30);
+
+}
+
+
+/* =====================================================
+   BOTÓN SUBIR
+   ===================================================== */
+
+.upload-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 48px;
+
+    padding:
+        0 22px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0369A1,
+            #2563EB
+        );
+
+    border:
+        1px solid #38BDF8;
+
+    color:
+        #FFFFFF;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 0 10px
+        rgba(56, 189, 248, 0.35),
+
+        0 8px 20px
+        rgba(0, 0, 0, 0.35);
+
+    transition:
+        0.25s ease;
+
+}
+
+
+.upload-button:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 0 16px
+        rgba(56, 189, 248, 0.65),
+
+        0 12px 25px
+        rgba(0, 0, 0, 0.40);
+
+}
+
+
+.file-name {
+
+    margin:
+        13px 0 0;
+
+    color:
+        #7DD3FC;
+
+    font-size: 13px;
+
+    word-break: break-word;
+
+}
+
+
+.formatos {
+
+    margin-top: 12px;
+
+    color:
+        #64748B;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+/* =====================================================
+   PREVISUALIZACIÓN
+   ===================================================== */
+
+.preview-portada {
+
+    width: 170px;
+
+    height: 220px;
+
+    margin:
+        20px auto 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    border:
+        1px solid #38BDF8;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #082F49,
+            #0C4A6E
+        );
+
+    color:
+        #38BDF8;
+
+    box-shadow:
+        0 0 15px
+        rgba(56, 189, 248, 0.22);
+
+}
+
+
+.preview-portada span {
+
+    font-size: 35px;
+
+}
+
+
+.preview-portada p {
+
+    margin:
+        7px 0 0;
+
+    color:
+        #7DD3FC;
+
+    font-size: 12px;
+
+}
+
+
+.preview-portada img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+}
+
+
+/* =====================================================
+   SEPARADOR
+   ===================================================== */
+
+.or-divider {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin:
+        23px 0;
+
+    color:
+        #64748B;
+
+    font-size: 12px;
+
+}
+
+
+.or-divider::before,
+.or-divider::after {
+
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #0EA5E9,
+            transparent
+        );
+
+}
+
+
+/* =====================================================
+   RATING
+   ===================================================== */
+
+.rating-input {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.rating-input input {
+
+    width: 130px;
+
+    height: 48px;
+
+    padding:
+        0 14px;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid #075985;
+
+    border-radius: 12px;
+
+    outline: none;
+
+    background:
+        rgba(2, 18, 42, 0.85);
+
+    color:
+        #E0F2FE;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+}
+
+
+.rating-input input:focus {
+
+    border-color:
+        #38BDF8;
+
+    box-shadow:
+        0 0 12px
+        rgba(56, 189, 248, 0.35);
+
+}
+
+
+.rating-input span {
+
+    color:
+        #7DD3FC;
+
+    font-weight: 700;
+
+}
+
+
+/* =====================================================
+   BOTONES PRINCIPALES
+   ===================================================== */
+
+.admin-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 13px;
+
+    padding-top: 25px;
+
+}
+
+
+.admin-actions button {
+
+    min-height: 50px;
+
+    padding:
+        0 22px;
+
+    border-radius: 13px;
+
+    font-family:
+        inherit;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        0.25s ease;
+
+}
+
+
+/* =====================================================
+   PUBLICAR
+   ===================================================== */
+
+.btn-primary {
+
+    border:
+        1px solid #7DD3FC;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0284C7,
+            #2563EB,
+            #4F46E5
+        );
+
+    color:
+        #FFFFFF;
+
+    box-shadow:
+        0 0 10px
+        rgba(56, 189, 248, 0.45),
+
+        0 8px 25px
+        rgba(37, 99, 235, 0.35);
+
+}
+
+
+.btn-primary:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 0 20px
+        rgba(56, 189, 248, 0.70),
+
+        0 12px 30px
+        rgba(37, 99, 235, 0.45);
+
+}
+
+
+/* =====================================================
+   LIMPIAR
+   ===================================================== */
+
+.btn-secondary {
+
+    border:
+        1px solid #0EA5E9;
+
+    background:
+        rgba(8, 47, 73, 0.65);
+
+    color:
+        #BAE6FD;
+
+    box-shadow:
+        0 0 8px
+        rgba(14, 165, 233, 0.18);
+
+}
+
+
+.btn-secondary:hover {
+
+    background:
+        rgba(14, 116, 144, 0.45);
+
+    border-color:
+        #38BDF8;
+
+    color:
+        #FFFFFF;
+
+    box-shadow:
+        0 0 14px
+        rgba(56, 189, 248, 0.40);
+
+}
+
+
+/* =====================================================
+   BOTONES DESACTIVADOS
+   ===================================================== */
+
+.admin-actions button:disabled {
+
+    opacity:
+        0.45;
+
+    cursor:
+        not-allowed;
+
+    transform:
+        none;
+
+    box-shadow:
+        none;
+
+}
+
+
+/* =====================================================
+   MENSAJES
+   ===================================================== */
+
+.admin-message {
+
+    display: none;
+
+    margin-top: 20px;
+
+    padding:
+        15px 17px;
+
+    border-radius: 13px;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+.admin-message.exito {
+
+    display: block;
+
+    color:
+        #BAE6FD;
+
+    background:
+        rgba(8, 47, 73, 0.75);
+
+    border:
+        1px solid #38BDF8;
+
+    box-shadow:
+        0 0 12px
+        rgba(56, 189, 248, 0.30);
+
+}
+
+
+.admin-message.error {
+
+    display: block;
+
+    color:
+        #FECACA;
+
+    background:
+        rgba(127, 29, 29, 0.35);
+
+    border:
+        1px solid #F87171;
+
+    box-shadow:
+        0 0 12px
+        rgba(248, 113, 113, 0.20);
+
+}
+
+
+.admin-message.info {
+
+    display: block;
+
+    color:
+        #BAE6FD;
+
+    background:
+        rgba(8, 47, 73, 0.65);
+
+    border:
+        1px solid #0EA5E9;
+
+    box-shadow:
+        0 0 12px
+        rgba(14, 165, 233, 0.25);
+
+}
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+footer {
+
+    color:
+        #64748B;
+
+    text-align: center;
+
+    padding:
+        25px;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 700px) {
+
+    .admin-page {
+
+        padding:
+            30px 14px 50px;
+
+    }
+
+
+    .admin-panel {
+
+        padding:
+            22px 18px;
+
+        border-radius:
+            20px;
+
+    }
+
+
+    .admin-actions {
+
+        flex-direction:
+            column-reverse;
+
+    }
+
+
+    .admin-actions button {
+
+        width: 100%;
+
+    }
+
+
+    .upload-box {
+
+        padding:
+            24px 14px;
+
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .admin-header h1 {
+
+        font-size:
+            28px;
+
+    }
+
+
+    .preview-portada {
+
+        width:
+            145px;
+
+        height:
+            190px;
+
+    }
+
+}

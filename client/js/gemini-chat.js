@@ -1,913 +1,696 @@
-// =====================================
-// COMICVERSE AI
-// CHAT GEMINI
-// CON HISTORIAL DE CONVERSACIÓN
-// LÍMITE DE 20 PREGUNTAS
-// =====================================
+// =========================================================
+// COMICVERSE AI - CHAT GEMINI
+// Ventana flotante exclusiva del chat
+// No modifica las demás IAs del proyecto
+// =========================================================
 
 
-// =====================================
-// ELEMENTOS
-// =====================================
+// =========================================================
+// ELEMENTOS EXCLUSIVOS DE ESTA VENTANA
+// =========================================================
 
-const chatMensajes =
-    document.getElementById("chatMensajes");
+const btnAbrirGemini =
+    document.getElementById("btnAbrirGemini");
+
+const geminiVentana =
+    document.getElementById("geminiVentana");
+
+const btnCerrarGemini =
+    document.getElementById("btnCerrarGemini");
+
+const geminiMensajes =
+    document.getElementById("geminiMensajesFlotante");
+
+const geminiForm =
+    document.getElementById("geminiFormFlotante");
 
 const preguntaGemini =
-    document.getElementById("preguntaGemini");
+    document.getElementById("preguntaGeminiFlotante");
 
 const btnGemini =
-    document.getElementById("btnGemini");
+    document.getElementById("btnGeminiFlotante");
 
 
-// =====================================
+// =========================================================
 // CONFIGURACIÓN
-// =====================================
+// =========================================================
 
-// Máximo de preguntas permitidas
-// en una conversación.
+const MAX_PREGUNTAS =
+    20;
 
-const MAX_PREGUNTAS = 20;
+let historialChatGemini = [];
 
+let cantidadPreguntas =
+    0;
 
-// Número de preguntas que realmente
-// fueron respondidas correctamente.
-
-let preguntasRealizadas = 0;
-
-
-// =====================================
-// HISTORIAL DEL CHAT
-// =====================================
-
-const historialChat = [];
+let procesandoPregunta =
+    false;
 
 
-// =====================================
+// =========================================================
 // COMPROBAR ELEMENTOS
-// =====================================
+// =========================================================
+
+// Si por alguna razón este HTML no está presente,
+// el archivo simplemente no hace nada.
+//
+// Esto evita errores si otro archivo utiliza
+// una página diferente.
 
 if (
-    !chatMensajes ||
-    !preguntaGemini ||
-    !btnGemini
+    btnAbrirGemini &&
+    geminiVentana &&
+    btnCerrarGemini &&
+    geminiMensajes &&
+    geminiForm &&
+    preguntaGemini &&
+    btnGemini
 ) {
 
-    console.error(
-        "❌ No se encontraron los elementos del chat Gemini."
+    iniciarGeminiFlotante();
+
+}
+
+
+// =========================================================
+// INICIAR
+// =========================================================
+
+function iniciarGeminiFlotante() {
+
+    // -----------------------------------------------------
+    // ABRIR
+    // -----------------------------------------------------
+
+    btnAbrirGemini.addEventListener(
+        "click",
+        abrirGemini
+    );
+
+
+    // -----------------------------------------------------
+    // CERRAR
+    // -----------------------------------------------------
+
+    btnCerrarGemini.addEventListener(
+        "click",
+        cerrarGemini
+    );
+
+
+    // -----------------------------------------------------
+    // FORMULARIO
+    // -----------------------------------------------------
+
+    geminiForm.addEventListener(
+        "submit",
+        async evento => {
+
+            evento.preventDefault();
+
+            await enviarPreguntaGemini();
+
+        }
+    );
+
+
+    // -----------------------------------------------------
+    // ESCAPE PARA CERRAR
+    // -----------------------------------------------------
+
+    document.addEventListener(
+        "keydown",
+        evento => {
+
+            if (
+                evento.key === "Escape" &&
+                !geminiVentana.classList.contains(
+                    "oculto"
+                )
+            ) {
+
+                cerrarGemini();
+
+            }
+
+        }
     );
 
 }
 
 
-// =====================================
+// =========================================================
+// ABRIR VENTANA
+// =========================================================
+
+function abrirGemini() {
+
+    geminiVentana.classList.remove(
+        "oculto"
+    );
+
+    preguntaGemini.focus();
+
+    desplazarGeminiAlFinal();
+
+}
+
+
+// =========================================================
+// CERRAR VENTANA
+// =========================================================
+
+function cerrarGemini() {
+
+    geminiVentana.classList.add(
+        "oculto"
+    );
+
+}
+
+
+// =========================================================
 // ENVIAR PREGUNTA
-// =====================================
+// =========================================================
 
 async function enviarPreguntaGemini() {
 
-
-    // =================================
-    // COMPROBAR LÍMITE DE PREGUNTAS
-    // =================================
-
-    if (
-        preguntasRealizadas >= MAX_PREGUNTAS
-    ) {
-
-        agregarMensaje(
-
-            "⚠️ Has alcanzado el límite de " +
-            MAX_PREGUNTAS +
-            " preguntas en esta conversación.",
-
-            "ia"
-
-        );
-
+    if (procesandoPregunta) {
         return;
-
     }
 
-
-    // =================================
-    // OBTENER PREGUNTA
-    // =================================
 
     const pregunta =
         preguntaGemini.value.trim();
 
 
-    // =================================
-    // PREGUNTA VACÍA
-    // =================================
+    // -----------------------------------------------------
+    // VALIDAR TEXTO
+    // -----------------------------------------------------
 
     if (!pregunta) {
 
-        return;
+        preguntaGemini.focus();
 
+        return;
     }
 
 
-    // =================================
-    // MOSTRAR MENSAJE DEL USUARIO
-    // =================================
+    // -----------------------------------------------------
+    // LÍMITE
+    // -----------------------------------------------------
 
-    agregarMensaje(
+    if (
+        cantidadPreguntas >=
+        MAX_PREGUNTAS
+    ) {
+
+        mostrarLimiteGemini();
+
+        return;
+    }
+
+
+    procesandoPregunta =
+        true;
+
+    btnGemini.disabled =
+        true;
+
+    preguntaGemini.disabled =
+        true;
+
+
+    // -----------------------------------------------------
+    // MOSTRAR PREGUNTA DEL USUARIO
+    // -----------------------------------------------------
+
+    agregarMensajeGemini(
         pregunta,
         "usuario"
     );
 
 
-    // =================================
-    // GUARDAR PREGUNTA EN HISTORIAL
-    // =================================
-
-    historialChat.push({
-
-        rol: "user",
-
-        texto: pregunta
-
-    });
+    preguntaGemini.value =
+        "";
 
 
-    // =================================
-    // LIMPIAR INPUT
-    // =================================
+    // -----------------------------------------------------
+    // INDICADOR
+    // -----------------------------------------------------
 
-    preguntaGemini.value = "";
-
-
-    // =================================
-    // DESACTIVAR BOTÓN
-    // =================================
-
-    btnGemini.disabled = true;
-
-
-    // =================================
-    // MOSTRAR CARGANDO
-    // =================================
-
-    const cargando =
-        document.createElement("div");
-
-
-    cargando.className =
-        "mensaje ia chat-cargando";
-
-
-    cargando.id =
-        "geminiCargando";
-
-
-    cargando.innerHTML = `
-
-        <strong>
-            🤖 ComicVerse AI
-        </strong>
-
-        <p>
-            ....... 🤔
-        </p>
-
-        <small>
-            Pregunta ${
-                preguntasRealizadas + 1
-            } de ${MAX_PREGUNTAS}
-        </small>
-
-    `;
-
-
-    chatMensajes.appendChild(
-        cargando
-    );
-
-
-    desplazarChat();
-
-
-    // =====================================
-    // VARIABLES DE PETICIÓN
-    // =====================================
-
-    let datos = null;
-
-    let ultimoError = null;
+    const indicador =
+        agregarIndicadorGemini();
 
 
     try {
 
-
-        // =================================
-        // 3 INTENTOS
-        // =================================
-
-        for (
-            let intento = 1;
-            intento <= 3;
-            intento++
-        ) {
-
-
-            try {
-
-                console.log(
-                    `🤖 Intento ${intento}/3`
-                );
-
-
-                console.log(
-                    `💬 Pregunta ${
-                        preguntasRealizadas + 1
-                    }/${MAX_PREGUNTAS}`
-                );
-
-
-                // =================================
-                // CONSULTAR SERVIDOR
-                // =================================
-
-                const respuesta =
-                    await fetch(
-
-                        "/api/gemini/preguntar",
-
-                        {
-
-                            method: "POST",
-
-                            headers: {
-
-                                "Content-Type":
-                                    "application/json; charset=utf-8"
-
-                            },
-
-                            body: JSON.stringify({
-
-                                pregunta:
-                                    pregunta,
-
-                                historial:
-                                    historialChat
-
-                            })
-
-                        }
-
-                    );
-
-
-                // =================================
-                // LEER RESPUESTA
-                // =================================
-
-                const textoRespuesta =
-                    await respuesta.text();
-
-
-                console.log(
-                    "📡 HTTP:",
-                    respuesta.status
-                );
-
-
-                console.log(
-                    "📦 RESPUESTA SERVIDOR:",
-                    textoRespuesta
-                );
-
-
-                // =================================
-                // CONVERTIR JSON
-                // =================================
-
-                let json;
-
-
-                try {
-
-                    json =
-                        JSON.parse(
-                            textoRespuesta
-                        );
-
-                }
-
-                catch (errorJSON) {
-
-                    throw new Error(
-
-                        "El servidor no devolvió " +
-                        "JSON válido."
-
-                    );
-
-                }
-
-
-                // =================================
-                // COMPROBAR HTTP
-                // =================================
-
-                if (
-                    !respuesta.ok
-                ) {
-
-                    throw new Error(
-
-                        json?.error ||
-                        `Error HTTP ${respuesta.status}`
-
-                    );
-
-                }
-
-
-                // =================================
-                // COMPROBAR RESPUESTA
-                // =================================
-
-                if (
-
-                    !json ||
-
-                    !json.ok ||
-
-                    !json.respuesta
-
-                ) {
-
-                    throw new Error(
-
-                        json?.error ||
-
-                        "Gemini no devolvió " +
-                        "una respuesta."
-
-                    );
-
-                }
-
-
-                // =================================
-                // RESPUESTA CORRECTA
-                // =================================
-
-                datos = json;
-
-
-                console.log(
-                    "✅ GEMINI RESPONDIÓ CORRECTAMENTE."
-                );
-
-
-                // =================================
-                // SALIR DEL BUCLE
-                // =================================
-
-                break;
-
-            }
-
-
-            catch (error) {
-
-
-                ultimoError =
-                    error;
-
-
-                console.error(
-
-                    `❌ ERROR INTENTO ${intento}:`,
-
-                    error
-
-                );
-
-
-                // =================================
-                // REINTENTAR
-                // =================================
-
-                if (
-                    intento < 3
-                ) {
-
-                    console.log(
-                        "⏳ Reintentando..."
-                    );
-
-
-                    await new Promise(
-
-                        resolve =>
-
-                            setTimeout(
-
-                                resolve,
-
-                                1200
-
-                            )
-
-                    );
-
-                }
-
-            }
-
-        }
-
-
-        // =================================
-        // COMPROBAR SI FALLARON LOS 3
-        // =================================
-
-        if (!datos) {
-
-            throw (
-
-                ultimoError ||
-
-                new Error(
-
-                    "No se pudo obtener " +
-                    "respuesta de Gemini."
-
-                )
-
-            );
-
-        }
-
-
-        // =================================
-        // QUITAR CARGANDO
-        // =================================
-
-        const elementoCargando =
-            document.getElementById(
-                "geminiCargando"
+        const respuesta =
+            await preguntarAlBackend(
+                pregunta
             );
 
 
-        if (
-            elementoCargando
-        ) {
-
-            elementoCargando.remove();
-
-        }
+        indicador.remove();
 
 
-        // =================================
-        // CONTAR PREGUNTA
-        // =================================
-
-        preguntasRealizadas++;
-
-
-        console.log(
-
-            `📊 Preguntas utilizadas: ` +
-
-            `${preguntasRealizadas}/` +
-
-            `${MAX_PREGUNTAS}`
-
+        agregarMensajeGemini(
+            respuesta,
+            "ia"
         );
 
 
-        // =================================
-        // GUARDAR RESPUESTA EN HISTORIAL
-        // =================================
+        cantidadPreguntas++;
 
-        historialChat.push({
 
-            rol: "model",
+        historialChatGemini.push({
 
-            texto:
-                datos.respuesta
+            rol: "user",
+
+            texto: pregunta
 
         });
 
 
-        // =================================
-        // MOSTRAR RESPUESTA
-        // =================================
+        historialChatGemini.push({
 
-        agregarMensaje(
+            rol: "model",
 
-            datos.respuesta,
+            texto: respuesta
 
-            "ia"
-
-        );
+        });
 
 
-        // =================================
-        // COMPROBAR SI LLEGÓ A 20
-        // =================================
+        // -------------------------------------------------
+        // MOSTRAR CONTADOR
+        // -------------------------------------------------
 
-        if (
-            preguntasRealizadas >=
-            MAX_PREGUNTAS
-        ) {
-
-            agregarMensaje(
-
-                "🎉 Has utilizado tus " +
-                MAX_PREGUNTAS +
-                " preguntas disponibles " +
-                "en esta conversación.",
-
-                "ia"
-
-            );
+        actualizarContadorGemini();
 
 
-            preguntaGemini.disabled = true;
-
-            btnGemini.disabled = true;
-
-
-            preguntaGemini.placeholder =
-                "Límite de 20 preguntas alcanzado";
-
-        }
-
-
-    }
-
-
-    // =================================
-    // ERROR GENERAL
-    // =================================
-
-    catch (error) {
-
+    } catch (error) {
 
         console.error(
-            "❌ ERROR CHAT GEMINI:",
+            "Error con ComicVerse AI:",
             error
         );
 
 
-        // =================================
-        // QUITAR CARGANDO
-        // =================================
+        indicador.remove();
 
-        const elementoCargando =
-            document.getElementById(
-                "geminiCargando"
+
+        agregarMensajeGemini(
+            "⚠️ No pude responder en este momento. Intenta nuevamente.",
+            "ia"
+        );
+
+    } finally {
+
+        procesandoPregunta =
+            false;
+
+        btnGemini.disabled =
+            false;
+
+        preguntaGemini.disabled =
+            false;
+
+        preguntaGemini.focus();
+
+    }
+
+}
+
+
+// =========================================================
+// PETICIÓN AL BACKEND
+// =========================================================
+
+async function preguntarAlBackend(
+    pregunta
+) {
+
+    let ultimoError =
+        null;
+
+
+    // -----------------------------------------------------
+    // HASTA 3 INTENTOS
+    // -----------------------------------------------------
+
+    for (
+        let intento = 1;
+        intento <= 3;
+        intento++
+    ) {
+
+        try {
+
+            const respuesta =
+                await fetch(
+                    "/api/gemini/preguntar",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                pregunta,
+
+                                historial:
+                                    historialChatGemini
+
+                            })
+
+                    }
+                );
+
+
+            // ------------------------------------------------
+            // ERROR HTTP
+            // ------------------------------------------------
+
+            if (!respuesta.ok) {
+
+                let mensajeError =
+                    `Error HTTP ${respuesta.status}`;
+
+                try {
+
+                    const errorData =
+                        await respuesta.json();
+
+                    if (
+                        errorData?.error
+                    ) {
+
+                        mensajeError =
+                            errorData.error;
+
+                    }
+
+                } catch {
+
+                    // No hay JSON de error.
+                }
+
+
+                throw new Error(
+                    mensajeError
+                );
+            }
+
+
+            const datos =
+                await respuesta.json();
+
+
+            // ------------------------------------------------
+            // EXTRAER RESPUESTA
+            // ------------------------------------------------
+
+            const texto =
+                datos.respuesta ||
+                datos.texto ||
+                datos.mensaje ||
+                datos.response;
+
+
+            if (!texto) {
+
+                throw new Error(
+                    "El servidor no devolvió una respuesta válida."
+                );
+            }
+
+
+            return String(
+                texto
             );
 
 
-        if (
-            elementoCargando
-        ) {
+        } catch (error) {
 
-            elementoCargando.remove();
+            ultimoError =
+                error;
 
-        }
+            console.warn(
+                `Intento ${intento}/3 fallido:`,
+                error
+            );
 
 
-        // =================================
-        // QUITAR PREGUNTA DEL HISTORIAL
-        // =================================
-        // Como la pregunta falló después
-        // de los 3 intentos, la eliminamos
-        // para que no quede como una
-        // pregunta respondida.
-
-        if (
-            historialChat.length > 0
-        ) {
-
-            const ultimo =
-                historialChat[
-                    historialChat.length - 1
-                ];
-
+            // ------------------------------------------------
+            // ESPERAR ANTES DE REINTENTAR
+            // ------------------------------------------------
 
             if (
-
-                ultimo.rol === "user" &&
-
-                ultimo.texto === pregunta
-
+                intento <
+                3
             ) {
 
-                historialChat.pop();
+                await esperar(
+                    1200
+                );
 
             }
 
         }
 
-
-        // =================================
-        // OBTENER MENSAJE DE ERROR
-        // =================================
-
-        let mensajeError =
-
-            "Lo siento 😔, no pude " +
-            "conectarme con ComicVerse AI.";
+    }
 
 
-        // =================================
-        // ERROR DE CONEXIÓN
-        // =================================
+    throw (
+        ultimoError ||
+        new Error(
+            "No se pudo conectar con ComicVerse AI."
+        )
+    );
 
-        if (
-            error?.message
-        ) {
-
-            const mensaje =
-                error.message.toLowerCase();
+}
 
 
-            if (
+// =========================================================
+// AGREGAR MENSAJE
+// =========================================================
 
-                mensaje.includes(
-                    "failed to fetch"
-                ) ||
+function agregarMensajeGemini(
+    texto,
+    tipo
+) {
 
-                mensaje.includes(
-                    "networkerror"
-                ) ||
+    const burbuja =
+        document.createElement(
+            "div"
+        );
 
-                mensaje.includes(
-                    "fetch"
-                )
-
-            ) {
-
-                mensajeError =
-
-                    "🌐 No se pudo conectar " +
-                    "con el servidor de " +
-                    "ComicVerse AI. " +
-                    "Comprueba tu conexión " +
-                    "a Internet e inténtalo " +
-                    "nuevamente.";
-
-            }
-
-        }
+    burbuja.className =
+        `gemini-burbuja ${tipo}`;
 
 
-        // =================================
-        // MOSTRAR ERROR
-        // =================================
+    // -----------------------------------------------------
+    // TEXTO SEGURO
+    // -----------------------------------------------------
 
-        agregarMensaje(
+    burbuja.innerHTML =
+        escaparHTMLGemini(
+            texto
+        ).replace(
+            /\n/g,
+            "<br>"
+        );
 
-            mensajeError,
 
-            "ia"
+    geminiMensajes.appendChild(
+        burbuja
+    );
 
+
+    desplazarGeminiAlFinal();
+
+
+    return burbuja;
+}
+
+
+// =========================================================
+// INDICADOR "PENSANDO"
+// =========================================================
+
+function agregarIndicadorGemini() {
+
+    const indicador =
+        document.createElement(
+            "div"
+        );
+
+    indicador.className =
+        "gemini-burbuja ia";
+
+    indicador.innerHTML =
+        "🤖 Pensando...";
+
+
+    geminiMensajes.appendChild(
+        indicador
+    );
+
+
+    desplazarGeminiAlFinal();
+
+
+    return indicador;
+}
+
+
+// =========================================================
+// CONTADOR
+// =========================================================
+
+function actualizarContadorGemini() {
+
+    let contador =
+        document.getElementById(
+            "contadorGeminiFlotante"
+        );
+
+
+    if (!contador) {
+
+        contador =
+            document.createElement(
+                "div"
+            );
+
+        contador.id =
+            "contadorGeminiFlotante";
+
+
+        contador.style.cssText = `
+            text-align: center;
+            padding: 6px 10px;
+            color: #6f9abb;
+            font-size: 0.68rem;
+            border-top: 1px solid rgba(0,157,255,.12);
+            background: rgba(3,14,28,.7);
+        `;
+
+
+        geminiVentana.insertBefore(
+            contador,
+            geminiForm
         );
 
     }
 
 
-    // =================================
-    // FINALMENTE
-    // =================================
-
-    finally {
-
-
-        // =================================
-        // SI NO LLEGÓ A 20
-        // =================================
-
-        if (
-            preguntasRealizadas <
-            MAX_PREGUNTAS
-        ) {
-
-            btnGemini.disabled =
-                false;
-
-            preguntaGemini.disabled =
-                false;
-
-            preguntaGemini.focus();
-
-        }
-
-
-        // =================================
-        // DESPLAZAR CHAT
-        // =================================
-
-        desplazarChat();
-
-    }
-
+    contador.textContent =
+        `${cantidadPreguntas}/${MAX_PREGUNTAS} preguntas utilizadas`;
 }
 
 
-// =====================================
-// AGREGAR MENSAJE
-// =====================================
+// =========================================================
+// MENSAJE DE LÍMITE
+// =========================================================
 
-function agregarMensaje(
-    texto,
-    tipo
-) {
+function mostrarLimiteGemini() {
+
+    const yaExiste =
+        document.getElementById(
+            "limiteGeminiFlotante"
+        );
+
+
+    if (yaExiste) {
+        return;
+    }
 
 
     const mensaje =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
+    mensaje.id =
+        "limiteGeminiFlotante";
 
     mensaje.className =
-        `mensaje ${tipo}`;
+        "gemini-burbuja ia";
+
+    mensaje.textContent =
+        "✨ Has llegado al límite de 20 preguntas de esta conversación.";
 
 
-    // =================================
-    // QUITAR ASTERISCOS DE RESPUESTAS IA
-    // =================================
-
-    if (
-        tipo === "ia"
-    ) {
-
-        texto =
-            String(texto)
-                .replace(/\*/g, "");
-
-    }
-
-
-    // =================================
-    // MENSAJE IA
-    // =================================
-
-    if (
-        tipo === "ia"
-    ) {
-
-        mensaje.innerHTML = `
-
-            <strong>
-                🤖 ComicVerse AI
-            </strong>
-
-            <p>
-                ${escaparHTML(texto)}
-            </p>
-
-        `;
-
-    }
-
-
-    // =================================
-    // MENSAJE USUARIO
-    // =================================
-
-    else {
-
-        mensaje.innerHTML = `
-
-            <strong>
-                👤 Tú
-            </strong>
-
-            <p>
-                ${escaparHTML(texto)}
-            </p>
-
-        `;
-
-    }
-
-
-    // =================================
-    // AÑADIR AL CHAT
-    // =================================
-
-    chatMensajes.appendChild(
+    geminiMensajes.appendChild(
         mensaje
     );
 
 
-    // =================================
-    // DESPLAZAR CHAT
-    // =================================
-
-    desplazarChat();
+    desplazarGeminiAlFinal();
 
 }
 
 
-// =====================================
-// DESPLAZAR CHAT
-// =====================================
-
-function desplazarChat() {
-
-    chatMensajes.scrollTop =
-        chatMensajes.scrollHeight;
-
-}
-
-
-// =====================================
+// =========================================================
 // ESCAPAR HTML
-// =====================================
+// =========================================================
 
-function escaparHTML(
-    texto
+function escaparHTMLGemini(
+    texto = ""
 ) {
 
+    const div =
+        document.createElement(
+            "div"
+        );
 
-    const elemento =
-        document.createElement("div");
-
-
-    elemento.textContent =
+    div.textContent =
         String(texto);
 
-
-    return elemento.innerHTML;
-
+    return div.innerHTML;
 }
 
 
-// =====================================
-// BOTÓN ENVIAR
-// =====================================
+// =========================================================
+// SCROLL
+// =========================================================
 
-if (
-    btnGemini
-) {
+function desplazarGeminiAlFinal() {
 
-    btnGemini.addEventListener(
+    requestAnimationFrame(
+        () => {
 
-        "click",
-
-        enviarPreguntaGemini
-
-    );
-
-}
-
-
-// =====================================
-// ENTER PARA ENVIAR
-// =====================================
-
-if (
-    preguntaGemini
-) {
-
-    preguntaGemini.addEventListener(
-
-        "keydown",
-
-        event => {
-
-
-            if (
-
-                event.key === "Enter" &&
-
-                !event.shiftKey
-
-            ) {
-
-                event.preventDefault();
-
-
-                enviarPreguntaGemini();
-
-            }
+            geminiMensajes.scrollTop =
+                geminiMensajes.scrollHeight;
 
         }
-
     );
 
 }
 
 
-// =====================================
-// MOSTRAR CONTADOR EN CONSOLA
-// =====================================
+// =========================================================
+// ESPERAR
+// =========================================================
 
-console.log(
+function esperar(
+    milisegundos
+) {
 
-    `🤖 ComicVerse AI listo. ` +
-    `Máximo ${MAX_PREGUNTAS} preguntas ` +
-    `por conversación.`
+    return new Promise(
+        resolver => {
 
-);
+            setTimeout(
+                resolver,
+                milisegundos
+            );
+
+        }
+    );
+
+}
