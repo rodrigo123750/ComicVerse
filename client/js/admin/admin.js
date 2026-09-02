@@ -51,12 +51,10 @@ import {
 //
 // =====================================================
 
-const CLOUDINARY_CLOUD_NAME =
-    "TU_CLOUD_NAME";
+const CLOUDINARY_CLOUD_NAME = "gx4ncdip";
+const CLOUDINARY_UPLOAD_PRESET = "comicverse";
 
 
-const CLOUDINARY_UPLOAD_PRESET =
-    "TU_UPLOAD_PRESET";
 
 
 // =====================================================
